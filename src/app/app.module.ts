@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material/material.module';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SidenavComponent } from './shared/components/sidenav/sidenav.component';
+import { HighlightDirective } from './shared/directives/highlight.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidenavComponent
+    SidenavComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
