@@ -48,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HeaderComponent } from '../components/header/header.component';
 
 const modules = [
   A11yModule,
@@ -98,7 +99,9 @@ const modules = [
 ]
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    HeaderComponent
+  ],
   imports: [
     CommonModule,
     RouterModule
@@ -107,7 +110,6 @@ const modules = [
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

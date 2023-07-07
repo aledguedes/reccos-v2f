@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 
@@ -6,6 +7,7 @@ import { DataRxjsService } from 'src/app/services/data-rxjs.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent implements OnInit {
 
   crtlOpenAndCloseMenu: boolean = false;
@@ -22,5 +24,4 @@ export class HeaderComponent implements OnInit {
     this.crtlOpenAndCloseMenu = !this.crtlOpenAndCloseMenu;
     this.rxjs.openAndCloseMenu(this.crtlOpenAndCloseMenu);
   }
-
 }
