@@ -1,6 +1,8 @@
 import { RouterModule } from '@angular/router';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { A11yModule } from '@angular/cdk/a11y';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -107,7 +109,7 @@ const modules = [
   exports: [
     FormsModule,
     ReactiveFormsModule,
-    HeaderComponent,
+    BrowserAnimationsModule,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

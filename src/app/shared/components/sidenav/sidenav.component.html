@@ -1,0 +1,30 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer mode="over" class="mat-drawer-width" [opened]="sidenavOpen">
+    <ul [appHighlight]="80" id="accordion" class="accordion p-0">
+      <li *ngFor="let menu of menuReccos; let i = index" [class.active]="menu.open">
+        <div class="menu d-flex justify-content-between px-4" (click)="toggle(i)">
+          <span class="d-flex">
+            <mat-icon class="me-2" [class]="menu.icon"> {{ menu.icon }} </mat-icon>
+            {{ menu.name }}
+          </span>
+          <mat-icon>expand_more</mat-icon>
+        </div>
+        <div class="submenu" #submenu [style.height.px]="menu.open ? submenu.scrollHeight : 0">
+          <div class="line-border" *ngFor="let submenu of menu.sub">
+            <a [href]="submenu.link">
+              <span class="d-flex align-items-center ms-3">
+                <mat-icon class="me-2" [class]="submenu.icon">
+                  {{ submenu.icon }}
+                </mat-icon>
+                {{ submenu.name }}
+              </span>
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </mat-drawer>
+  <mat-drawer-content class="mat-drawer-content-heigth">
+    <!-- <router-outlet></router-outlet> -->
+  </mat-drawer-content>
+</mat-drawer-container>
