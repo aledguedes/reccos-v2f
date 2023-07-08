@@ -18,21 +18,21 @@ export const menus = [
     },
     {
         'id': 2,
-        'name': 'Material Widget',
-        'icon': 'widgets',
+        'name': 'Usuários',
+        'icon': 'group',
         'link': false,
         'open': false,
         'sub': [
             {
-                'name': 'Buttons',
-                'link': 'material-widgets/buttons',
-                'icon': 'indeterminate_check_box',
+                'name': 'Listar',
+                'link': '/users',
+                'icon': 'group',
                 'chip': false,
                 'open': false,
             },
             {
-                'name': 'List',
-                'link': 'material-widgets/list',
+                'name': 'Create',
+                'link': 'users/create',
                 'icon': 'list',
                 'chip': false,
                 'open': false,
@@ -286,7 +286,7 @@ export const menus = [
             //     'link': 'charts/nvd3-charts',
             // }
         ]
-    }, 
+    },
     // {
     //     'name': 'maps',
     //     'icon': 'map',

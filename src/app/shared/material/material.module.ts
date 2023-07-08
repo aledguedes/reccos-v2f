@@ -47,6 +47,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormUsersComponent } from '../forms/form-users/form-users.component';
 
 const modules = [
   A11yModule,
@@ -93,11 +94,14 @@ const modules = [
   OverlayModule,
   PortalModule,
   ScrollingModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+
+  // COMPONENTES
 ]
 
 @NgModule({
   declarations: [
+    FormUsersComponent
   ],
   imports: [
     CommonModule,
@@ -106,6 +110,7 @@ const modules = [
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    FormUsersComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
