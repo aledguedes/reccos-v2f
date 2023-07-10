@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'users',
     loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule)
+  },
+  {
+    path:'federation',
+    loadChildren: () => import('./pages/federation/federation.module').then(m => m.FederationModule)
   }
 ];
 

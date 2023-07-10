@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { menus } from 'src/app/utils/dashboad-menu';
-import { menuData } from 'src/app/utils/menu';
 
 @Component({
   selector: 'app-sidenav',

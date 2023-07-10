@@ -9,7 +9,7 @@ export const menus = [
         'sub': [
             {
                 'name': 'Dashboard',
-                'link': '/auth/dashboard',
+                'link': '/',
                 'icon': 'dashboard',
                 'chip': false,
                 'open': true,

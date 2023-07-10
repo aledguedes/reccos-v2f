@@ -1,16 +1,18 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button (click)="toggleSidenav()" class="example-icon" aria-label="Example icon-button with menu icon">
+    <button mat-icon-button (click)="toggleSidenav()" class="example-icon"
+        aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
     </button>
     <span>reccos</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <button *ngFor="let menu of menus" (click)="routerHeader()" mat-icon-button class="example-icon" matTooltip="{{ menu.tooltip }}"
+        [attr.aria-label]="menu.aria">
+        <mat-icon> {{menu.icon}} </mat-icon>
+    </button>
+    <!-- <button mat-icon-button class="example-icon" aria-label="Novo Usuário">
         <mat-icon>person_add_alt</mat-icon>
     </button>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>account_circle</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <button mat-icon-button class="example-icon" aria-label="">
         <mat-icon>logout</mat-icon>
-    </button>
+    </button> -->
 </mat-toolbar>
