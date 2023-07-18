@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private rxjs: DataRxjsService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +31,18 @@ export class HeaderComponent implements OnInit {
   toggleSidenav() {
     this.crtlOpenAndCloseMenu = !this.crtlOpenAndCloseMenu;
     this.rxjs.openAndCloseMenu(this.crtlOpenAndCloseMenu);
+  }
+
+  createFederation() {
+    const dialogRef = this.dialog.open(FederationCreateComponent, {
+      disableClose: false,
+      width: '800px',
+      data: {
+        animal: 'panda',
+      },
+    }).afterClosed().subscribe((data: any) => {
+
+    });
   }
 
   routerHeader() {

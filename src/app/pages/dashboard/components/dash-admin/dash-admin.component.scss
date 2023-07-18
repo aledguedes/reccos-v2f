@@ -1,0 +1,63 @@
+a {
+    text-decoration: none   ;
+}
+
+mat-card {
+    height: 150px;
+    padding: .5rem 1.5rem;
+    border-radius: .5rem;
+    transition: .3s;
+}
+
+.card-1 {
+    background-color: #004ca91e;
+    // opacity: .2;
+}
+
+.card-2 {
+    background-color: #FBEBE4;
+}
+
+.card-3 {
+    background-color: #f5f2fd;
+}
+
+mat-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
+}
+
+.start-testing-container {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.start-testing-container a {
+    color: #fff;
+}
+
+.task-card {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+}
+
+.d-grid {
+    display: grid;
+}
+
+.task-container-2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.task-container-2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.d-grid {
+    display: grid;
+}
+
+.homework {
+    background-color: #FBEBE4;
+}

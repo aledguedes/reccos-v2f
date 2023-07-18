@@ -48,6 +48,9 @@ import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormUsersComponent } from '../forms/form-users/form-users.component';
+import { MenuDirective } from '../directives/menu.directive';
+import { FormFederationComponent } from '../forms/form-federation/form-federation.component';
+import { UploadComponent } from '../forms/upload/upload.component';
 
 const modules = [
   A11yModule,
@@ -95,22 +98,32 @@ const modules = [
   PortalModule,
   ScrollingModule,
   MatFormFieldModule,
-
+  HttpClientModule,
   // COMPONENTES
 ]
 
 @NgModule({
   declarations: [
-    FormUsersComponent
+    MenuDirective,
+    FormUsersComponent,
+    FormFederationComponent,
+    UploadComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ...modules
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    MenuDirective,
+    UploadComponent,
     FormUsersComponent,
+    FormFederationComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

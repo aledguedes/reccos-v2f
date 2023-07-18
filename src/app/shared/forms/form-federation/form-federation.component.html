@@ -1,0 +1,22 @@
+<form [formGroup]="reccosFormFederation">
+    <div class="row mt-3 w-100">
+        <div class="col-12 col-md-6">
+            <mat-form-field class="example-full-width w-100 form" appearance="outline">
+                <mat-label>Nome da Federação</mat-label>
+                <input matInput formControlName="name" placeholder="Ex.: Assossiação de Amigos da BemAgro">
+                <mat-error *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Este
+                    campo é obrigatório!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <mat-form-field class="example-full-width w-100" appearance="outline" (change)="statusForm()">
+                <mat-label>Sigla/Abreviação</mat-label>
+                <input matInput formControlName="surname" placeholder="Ex.: Liga BemAgro">
+                <mat-error
+                    *ngIf="(r['surname']?.touched || r['surname']?.dirty) && r['surname']?.errors?.['required']">Este
+                    campo é obrigatório!</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+</form>

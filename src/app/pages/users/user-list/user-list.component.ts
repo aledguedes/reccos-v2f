@@ -3,10 +3,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { User } from 'src/app/models/UserModel';
 import { usuarios } from 'src/app/mocks/UsersMock';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -23,7 +22,9 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'status', 'roles', 'action'];
   dataSource: MatTableDataSource<User>;
 
-  constructor() { 
+  constructor(
+    private router: Router
+  ) { 
     this.dataSource = new MatTableDataSource(this.users);
   }
 
@@ -31,6 +32,10 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
     console.log('usuários:', usuarios);
+  }
+
+  routernavigate() {
+    this.router.navigate(['create-user']);
   }
 
 

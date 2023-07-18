@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     HeaderComponent,
     SidenavComponent,
-    HighlightDirective,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
