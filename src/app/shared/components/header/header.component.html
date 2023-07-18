@@ -1,16 +1,41 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button (click)="toggleSidenav()" class="example-icon" aria-label="Example icon-button with menu icon">
+    <button mat-icon-button (click)="toggleSidenav()" class="example-icon"
+        aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
     </button>
     <span>reccos</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <button mat-icon-button class="example-icon" [routerLink]="['/']" matTooltip="Dashboard"
+        aria-label="Nova federação">
+        <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" [routerLink]="['federation/create']" matTooltip="Adicionar federação"
+        aria-label="Nova federação">
+        <mat-icon>emoji_events</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" [routerLink]="['user/create']" matTooltip="Adicionar usuário"
+        aria-label="Novo Usuário">
         <mat-icon>person_add_alt</mat-icon>
     </button>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>account_circle</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <button mat-icon-button class="example-icon" routerLink="/" matTooltip="Sair" aria-label="">
         <mat-icon>logout</mat-icon>
     </button>
+    <button class="user-reccos-avatar" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu user">
+    </button>
 </mat-toolbar>
+
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Sair</span>
+    </button>
+    <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+    </button>
+</mat-menu>
