@@ -10,22 +10,14 @@ import { menus } from 'src/app/utils/dashboad-menu';
 
 export class SidenavComponent implements OnInit {
 
-  menuReccos = menus;
-
-  sidenavOpen: boolean = false;
   showFiller: boolean = false;
 
   nextElementSibling: any;
   config: Config = {};
 
-  constructor(
-    private rxjs: DataRxjsService,
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.rxjs.toggleSidenav$.subscribe(evt => {
-      this.sidenavOpen = evt;
-    });
   }
 
   mergeConfig(options: Config) {
@@ -36,15 +28,15 @@ export class SidenavComponent implements OnInit {
     return { ...config, ...options };
   }
 
-  toggle(index: number) {
-    if (!this.config.multi) {
-      this.menuReccos
-        .filter((menu: any, i: any) => i !== index && menu.open)
-        .forEach((menu: any) => (menu.open = !menu.open));
-    }
+  // toggle(index: number) {
+  //   if (!this.config.multi) {
+  //     this.menuReccos
+  //       .filter((menu: any, i: any) => i !== index && menu.open)
+  //       .forEach((menu: any) => (menu.open = !menu.open));
+  //   }
 
-    this.menuReccos[index].open = !this.menuReccos[index].open;
-  }
+  //   this.menuReccos[index].open = !this.menuReccos[index].open;
+  // }
 
 }
 

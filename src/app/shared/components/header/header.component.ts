@@ -16,6 +16,7 @@ import { headerMenu } from 'src/app/utils/header-menu';
 export class HeaderComponent implements OnInit {
 
   crtlOpenAndCloseMenu: boolean = false;
+  hidden: boolean = false;
   menus: HeaderMenu[] = headerMenu;
 
   constructor(
