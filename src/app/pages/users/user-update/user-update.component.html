@@ -1,5 +1,39 @@
-<p>user-update works!</p>
 <div class="container">
-    <h4 class="text-reccos-2 my-3">Atualizar usuário</h4>
-    <app-form-users></app-form-users>
+    <div class="row">
+        <h4 class="text-reccos-2 my-3">Atualizar usuário</h4>
+        <div class="reccos-box-card border">
+            <div class="reccos-box-card-left d-md-block d-none text-white">
+                <h4 class="mt-5 text-center text-bold">Usuários</h4>
+                <div class="container p-4">
+                    <div class="row">
+                        <div class="col">
+                            <p class="m-0 text-reccos-5">
+                                We're open for any suggestion or just to have a chat
+                            </p>
+                            <p class="my-3 mb-0">
+                                <mat-icon>location</mat-icon>
+                                <small>
+                                    Address: 198 West<br> 21th Street, Suite 721<br> New York NY 10016
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reccos-box-card-rigth p-5">
+                <app-form-users></app-form-users>
+
+                <div class="col-12 mt-4 text-md-end text-center">
+                    <button mat-stroked-button color="accent" class="example-icon me-3" [routerLink]="['/']"
+                        matTooltip="Criar usuário" aria-label="Novo usuário">
+                        Voltar <mat-icon>keyboard_backspace</mat-icon>
+                    </button>
+                    <button mat-raised-button color="primary" class="example-icon ms-3" [routerLink]="['/']"
+                        matTooltip="Criar usuário" aria-label="Novo usuário">
+                        Salvar <mat-icon>send</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
