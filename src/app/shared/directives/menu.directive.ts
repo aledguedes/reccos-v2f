@@ -6,24 +6,32 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 export class MenuDirective {
 
   constructor(
-    private el: ElementRef
+    private elementRef: ElementRef
   ) { }
 
   @HostListener('click', ['$event'])
   onClick(event: Event): void {
-    const subMenu = this.el.nativeElement.nextElementSibling;
-    const isSubMenuVisible = subMenu.style.display !== 'none';
+    event.preventDefault();
 
-    const subMenus = document.querySelectorAll("#leftside-navigation ul ul");
-    subMenus.forEach(menu => {
-      (menu as HTMLElement).style.display = 'none';
-    });
+    const allDropdown = this.elementRef.nativeElement.querySelectorAll('.side-dropdown');
+    const currentDropdown = this.elementRef.nativeElement.querySelector('.side-dropdown');
 
-    if (!isSubMenuVisible) {
-      subMenu.style.display = 'block';
+    if (!currentDropdown || !currentDropdown.parentElement) return;
+
+    const a = currentDropdown.parentElement.querySelector('a:first-child');
+
+    if (!a) return;
+
+    if (!a.classList.contains('active')) {
+      allDropdown.forEach((item: HTMLElement) => {
+        const aLink = item.parentElement?.querySelector('a:first-child');
+        if (aLink) aLink.classList.remove('active');
+        item.classList.remove('show');
+      });
     }
 
-    event.stopPropagation();
+    a.classList.toggle('active');
+    currentDropdown.classList.toggle('show');
   }
 
 }

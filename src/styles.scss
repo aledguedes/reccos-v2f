@@ -1,5 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 // @import url('assets/_bootstrap.scss');
+@import 'assets/styles/variables';
+
+html {
+	overflow-x: hidden;
+}
+
+body {
+	background: var(--grey);
+	overflow-x: hidden;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #dbdada; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c6c6c6; 
+}
+
 
 .text-reccos-1 {
   color: #fa841a;
@@ -17,7 +56,7 @@
 }
 
 .text-reccos-4 {
-  color: #004da9;
+  color: $dark-blue;
   font-weight: 500;
 }
 

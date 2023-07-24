@@ -10,44 +10,35 @@ import { menus } from 'src/app/utils/dashboad-menu';
 
 export class SidenavComponent implements OnInit {
 
-  menuReccos = menus;
-
-  sidenavOpen: boolean = false;
   showFiller: boolean = false;
 
-  nextElementSibling: any;
-  config: Config = {};
-
-  constructor(
-    private rxjs: DataRxjsService,
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.rxjs.toggleSidenav$.subscribe(evt => {
-      this.sidenavOpen = evt;
+    const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
+    const sidebar = document.getElementById('sidebar');
+
+    allDropdown.forEach(item => {
+      const a = item.parentElement?.querySelector('a:first-child');
+      if (!a) return; // Se a for null, encerra a iteração
+
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (!a.classList.contains('active')) {
+          allDropdown.forEach(i => {
+            const aLink = i.parentElement?.querySelector('a:first-child');
+            if (!aLink) return; // Se aLink for null, encerra a iteração
+
+            aLink.classList.remove('active');
+            i.classList.remove('show');
+          });
+        }
+
+        a.classList.toggle('active');
+        item.classList.toggle('show');
+      });
     });
   }
 
-  mergeConfig(options: Config) {
-    const config = {
-      multi: true
-    };
-
-    return { ...config, ...options };
-  }
-
-  toggle(index: number) {
-    if (!this.config.multi) {
-      this.menuReccos
-        .filter((menu: any, i: any) => i !== index && menu.open)
-        .forEach((menu: any) => (menu.open = !menu.open));
-    }
-
-    this.menuReccos[index].open = !this.menuReccos[index].open;
-  }
-
 }
-
-interface Config {
-  multi?: boolean;
-};

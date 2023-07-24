@@ -1,5 +1,5 @@
 a {
-    text-decoration: none   ;
+    text-decoration: none;
 }
 
 mat-card {
@@ -26,38 +26,29 @@ mat-card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
 }
 
-.start-testing-container {
-    align-items: center;
-    justify-content: space-between;
+// tables
+table {
+    padding: 10px;
+    width: 100%;
 }
 
-.start-testing-container a {
-    color: #fff;
+th,
+td {
+    text-align: left;
+    padding: 8px;
 }
 
-.task-card {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--gap);
+tr {
+    text-align: center;
 }
 
-.d-grid {
-    display: grid;
+.title {
+    padding: 15px 10px;
+    border-bottom: 2px solid #999;
 }
 
-.task-container-2 {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.task-container-2 {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.d-grid {
-    display: grid;
-}
-
-.homework {
-    background-color: #FBEBE4;
+.card-progress small {
+    color: #777;
+    font-size: .8rem;
+    font-weight: 600;
 }
