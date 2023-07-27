@@ -20,6 +20,7 @@ export class FormFederationComponent implements OnInit {
     this.reccosFormFederation = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
+      email:['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
@@ -30,6 +31,7 @@ export class FormFederationComponent implements OnInit {
   statusForm() {
     if (this.reccosFormFederation.status == 'VALID') {
       this.rxjs.nextStepperFederation(true);
+      this.rxjs.createFederation({ ...this.reccosFormFederation.value, status: true, img_logo: 'perfil_a.jpg' });
     }
   }
 

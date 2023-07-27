@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Federation } from '../models/FederationModel';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,9 @@ export class DataRxjsService {
   private stepFormUser = new Subject<boolean>();
   stepFormUser$ = this.stepFormUser.asObservable();
 
+  private federations = new Subject<Federation>();
+  federations$ = this.federations.asObservable();
+
   openAndCloseMenu(evt: boolean) {
     this.toggleSidenav.next(evt);
   }
@@ -27,5 +31,9 @@ export class DataRxjsService {
   nextStepperUser(evt: boolean) {
     this.stepFormUser.next(evt);
     this.stepFormUser.complete();
+  }
+
+  createFederation(data: Federation) {
+    this.federations.next(data);
   }
 }
