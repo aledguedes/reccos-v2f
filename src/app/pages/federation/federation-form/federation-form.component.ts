@@ -18,19 +18,19 @@ export class FederationFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.rxjs.stepFormFederation$.subscribe(data => {
-      if (data) {
-        this.formFederation = data;
-        this.nextStep();
-      }
-    });
+    // this.rxjs.stepFormFederation$.subscribe(data => {
+    //   if (data) {
+    //     this.formFederation = data;
+    //     this.nextStep();
+    //   }
+    // });
     
-    this.rxjs.stepFormUser$.subscribe(data => {
-      if (data) {
-        this.formUser = data;
-        this.nextStep();
-      }
-    });
+    // this.rxjs.stepFormUser$.subscribe(data => {
+    //   if (data) {
+    //     this.formUser = data;
+    //     this.nextStep();
+    //   }
+    // });
   }
 
   nextStep() {

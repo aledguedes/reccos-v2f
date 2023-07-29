@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Federation } from '../models/FederationModel';
+import { User } from '../models/UserModel';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,9 @@ export class DataRxjsService {
   private federations = new Subject<Federation>();
   federations$ = this.federations.asObservable();
 
+  private users = new Subject<User>();
+  users$ = this.users.asObservable();
+
   openAndCloseMenu(evt: boolean) {
     this.toggleSidenav.next(evt);
   }
@@ -35,5 +39,9 @@ export class DataRxjsService {
 
   createFederation(data: Federation) {
     this.federations.next(data);
+  }
+
+  createUser(data: User) {
+    this.users.next(data);
   }
 }
