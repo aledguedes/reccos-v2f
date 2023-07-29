@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class UserListComponent implements OnInit {
 
-  users!: User[];
+  users: User[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -26,11 +26,11 @@ export class UserListComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService
-  ) { 
+  ) {
     this.dataSource = new MatTableDataSource(this.users);
   }
 
-  
+
   ngOnInit(): void {
     this.listAll();
   }
@@ -43,6 +43,7 @@ export class UserListComponent implements OnInit {
     this.userService.listAll().subscribe({
       next: (data: User[]) => {
         console.log('USUÁRIOS SUCESS', data);
+        this.users = data;
         this.dataSource = new MatTableDataSource(data);
       },
       error: (err) => {
@@ -60,4 +61,16 @@ export class UserListComponent implements OnInit {
     }
   }
 
+  removerUser(id_user: number) {
+    this.userService.removeUser(id_user).subscribe({
+      next: (data) => {
+        console.log('USUARIO REMOVIDO', data);
+        this.listAll();
+      },
+      error: (err) => {
+        console.log('ERRO AO REMOVER USUÁRIO', err);
+      }
+    });
+  }
 }
+

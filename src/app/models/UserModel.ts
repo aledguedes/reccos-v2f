@@ -8,4 +8,5 @@ export interface User {
     birth_date?: Date;
     federation?: Number;
     password?: String;
+    password_confirmation?: String
 }

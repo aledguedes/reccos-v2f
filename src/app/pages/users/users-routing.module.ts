@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', component: UserListComponent },
       { path: 'create', component: UserCreateComponent },
-      { path: 'update/:id', component: UserUpdateComponent }
+      { path: 'update/:id_user', component: UserUpdateComponent }
     ]
   }
 ];

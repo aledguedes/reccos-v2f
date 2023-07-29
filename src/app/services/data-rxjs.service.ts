@@ -41,7 +41,7 @@ export class DataRxjsService {
     this.federations.next(data);
   }
 
-  createUser(data: User) {
+  updateUser(data: User) {
     this.users.next(data);
   }
 }
