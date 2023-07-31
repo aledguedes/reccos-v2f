@@ -1,12 +1,11 @@
-<p class="mb-5 text-reccos-3">
+<p class="mb-3 text-reccos-3">
     * Campos obrigatórios
 </p>
 
 <form [formGroup]="reccosFormUser">
     <div class="row my-3">
-
         <div class="col-12 col-md-8">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field  class="example-full-width w-100">
                 <mat-label>Nome do representante</mat-label>
                 <input matInput formControlName="name" placeholder="Ex.: Fulado de Tal">
                 <mat-error *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Campo
@@ -15,7 +14,7 @@
         </div>
 
         <div class="col-12 col-md-4">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width w-100" appearance="fill">
                 <mat-label>Username</mat-label>
                 <input type="text" matInput formControlName="surname" placeholder="Ex.: Beltrano">
                 <mat-error
@@ -25,7 +24,7 @@
         </div>
 
         <div class="col-12 col-md-4">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width w-100" appearance="fill">
                 <mat-label>Data de nascimento</mat-label>
                 <input matInput formControlName="birth_date" [matDatepicker]="picker">
                 <mat-hint>MM/DD/YYYY</mat-hint>
@@ -38,7 +37,7 @@
         </div>
 
         <div class="col-12 col-md-8">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width w-100" appearance="fill">
                 <mat-label>Email</mat-label>
                 <input type="email" matInput formControlName="email" placeholder="Ex.: fulano@detal.com">
                 <mat-error *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['required']">Campo
@@ -49,7 +48,7 @@
         </div>
 
         <div class="col-12 col-md-auto">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width w-100" appearance="fill">
                 <mat-label>Telefone</mat-label>
                 <input type="text" matInput formControlName="phone" placeholder="Ex.: (00) 12345-6789">
                 <mat-error *ngIf="(r['phome']?.touched || r['phome']?.dirty) && r['phome']?.errors?.['required']">Campo
@@ -58,7 +57,7 @@
         </div>
 
         <div class="col-12 col-md-auto">
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
                 <mat-label>Nível de Permissão</mat-label>
                 <mat-select formControlName="role" class="text-uppercase">
                     <mat-option class="text-uppercase" *ngFor="let role of roles"
@@ -68,17 +67,17 @@
         </div>
 
         <div class="col-12 col-md-auto" *ngIf="!validationForm">
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="fill" class="w-100">
                 <mat-label>Status</mat-label>
                 <mat-select formControlName="status" class="text-uppercase">
-                    <mat-option class="text-uppercase" *ngFor="let stts of statusUser"
-                        [value]="stts.value">{{ stts.name }}</mat-option>
+                    <mat-option class="text-uppercase" *ngFor="let stts of statusUser" [value]="stts.value">{{ stts.name
+                        }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
 
         <div class="col-12 col-md-6" *ngIf="validationForm">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width w-100" appearance="fill">
 
                 <mat-label>Senha</mat-label>
                 <input matInput [type]="pass ? 'password' : 'text'" formControlName="password">
@@ -99,7 +98,7 @@
         </div>
 
         <div class="col-12 col-md-6" *ngIf="validationForm">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width w-100" appearance="fill">
                 <mat-label>Confirmação de senha</mat-label>
                 <input matInput [type]="repeat_pass ? 'password' : 'text'" formControlName="password_confirmation">
                 <mat-error

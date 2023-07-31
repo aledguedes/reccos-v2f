@@ -1,7 +1,7 @@
-<form [formGroup]="reccosFormFederation">
-    <div class="row mt-3 w-100">
+<div class="row mt-3 w-100">
+    <form [formGroup]="reccosFormFederation">
         <div class="col-12">
-            <mat-form-field class="example-full-width w-100 form" appearance="outline">
+            <mat-form-field class="example-full-width w-100 form" appearance="fill">
                 <mat-label>Nome da Federação</mat-label>
                 <input matInput formControlName="name" placeholder="Ex.: Assossiação de Amigos da BemAgro">
                 <mat-error *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Este
@@ -9,18 +9,8 @@
             </mat-form-field>
         </div>
 
-        <div class="col-12 col-md-6">
-            <mat-form-field class="example-full-width w-100" appearance="outline" (change)="statusForm()">
-                <mat-label>E-mail</mat-label>
-                <input matInput formControlName="email" placeholder="Ex.: email@gmail.com">
-                <mat-error
-                    *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['required']">Este
-                    campo é obrigatório!</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div class="col-12 col-md-6">
-            <mat-form-field class="example-full-width w-100" appearance="outline" (change)="statusForm()">
+        <div class="col-12">
+            <mat-form-field class="example-full-width w-100" appearance="fill">
                 <mat-label>Sigla/Abreviação</mat-label>
                 <input matInput formControlName="surname" placeholder="Ex.: Liga BemAgro">
                 <mat-error
@@ -28,5 +18,30 @@
                     campo é obrigatório!</mat-error>
             </mat-form-field>
         </div>
+    </form>
+
+    <div class="col-12">
+        <form [formGroup]="reccosFormFederationUser">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Usuários</mat-label>
+                <mat-select formControlName="user" class="text-uppercase">
+                    <mat-option class="text-uppercase" *ngFor="let user of users"
+                        [value]="user.id">{{user.surname}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
     </div>
-</form>
+</div>
+
+<div class="container">
+    <div class="col-12 mt-4 text-md-end text-center">
+        <button mat-stroked-button color="accent" class="example-icon me-3" [routerLink]="['/user']" matTooltip="Voltar"
+            aria-label="voltar usuários">
+            Voltar <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" class="example-icon ms-3" (click)="createFederation()"
+            [disabled]="reccosFormFederation.invalid" matTooltip="Criar usuário" aria-label="Novo usuário">
+            Salvar <mat-icon>send</mat-icon>
+        </button>
+    </div>
+</div>

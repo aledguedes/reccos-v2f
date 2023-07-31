@@ -1,6 +1,7 @@
 export interface User {
     id?: Number;
     name?: String;
+    surname?: String;
     email?: String;
     img_perfil?: String;
     status?: Boolean;

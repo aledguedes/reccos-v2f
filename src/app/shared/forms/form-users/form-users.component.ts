@@ -39,6 +39,7 @@ export class FormUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.initFormGroupUser();
+    console.log('validationForm', this.validationForm)
 
     this.rxjs.users$.subscribe((data: User) => {
       if (data) {

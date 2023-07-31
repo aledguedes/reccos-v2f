@@ -20,14 +20,14 @@ export class FederationCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createFederations(form: Federation) {
-    this.fedService.createFederation(form).subscribe({
-      next: (data) => {
-        console.log('Criado com sucesso');
-      },
-      error: (err) => {
-        console.log('Erro ao criar a federação')
-      }
-    });
-  }
+  // createFederations(form: Federation) {
+  //   this.fedService.createFederation(form).subscribe({
+  //     next: (data) => {
+  //       console.log('Criado com sucesso');
+  //     },
+  //     error: (err) => {
+  //       console.log('Erro ao criar a federação')
+  //     }
+  //   });
+  // }
 }
