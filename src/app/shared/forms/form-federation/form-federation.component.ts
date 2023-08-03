@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/UserModel';
 import { FederationService } from 'src/app/services/federation/federation.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -22,7 +23,8 @@ export class FormFederationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private federationService: FederationService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class FormFederationComponent implements OnInit {
     this.userService.listAll().subscribe({
       next: (data: User[]) => {
         this.users = data.filter((user: User) => user.role != "manager");
-        console.log('USUÁRIOS SUCESS', this.users);
+        console.log('USUÁRIOS LISTA', this.users);
       },
       error: (err) => {
         console.log('USUÁRIOS ERROR', err);
@@ -62,16 +64,16 @@ export class FormFederationComponent implements OnInit {
   createFederation() {
     let user_id = +this.reccosFormFederationUser.value.user;
     this.reccosFormFederation.patchValue({
-      img_logo: 'federation/logo_01.jpg'
+      img_logo: 'federations/logo_01.png'
     });
-    console.log('FEDERATION CREATE', this.reccosFormFederation.value, user_id);
 
-    let obj = this.reccosFormFederationUser.value;
+    let obj = this.reccosFormFederation.value;
+    console.log('FEDERATION CREATE', obj);
     // return;
-    this.federationService.createFederation(obj, user_id).subscribe({
+    this.federationService.createFederation(user_id, obj).subscribe({
       next: (data) => {
         console.log(`Federação ${this.reccosFormFederation.value.surname}, criada com sucesso`);
-        alert(`Federação ${this.reccosFormFederation.value.surname}, criada com sucesso`);
+        this.router.navigate(['/'])
       },
       error: (err) => {
         console.log('Erro ao criar a federação');
