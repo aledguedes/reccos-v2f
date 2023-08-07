@@ -7,6 +7,7 @@ import { User } from 'src/app/models/UserModel';
 import { usuarios } from 'src/app/mocks/UsersMock';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-list',
@@ -20,8 +21,10 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[] = ['id', 'name', 'email', 'status', 'roles', 'action'];
+  displayedColumns: string[] = ['id', 'profile', 'name', 'email', 'status', 'roles', 'action'];
   dataSource: MatTableDataSource<User>;
+
+  storageUrl: string =  environment.storage_url;
 
   constructor(
     private router: Router,

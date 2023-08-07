@@ -20,6 +20,15 @@
                 <td mat-cell *matCellDef="let row"> {{row.id}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="profile">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
+                <td mat-cell *matCellDef="let row">
+                    <div class="d-flex justify-content-center profile-photo"
+                        [style.background-image]="row?.img_logo != null ? 'url(./assets/images/avatar-2.jpg)' : 'url(./assets/images/avatar-2.jpg)' ">
+                    </div>
+                </td>
+            </ng-container>
+
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
                 <td mat-cell *matCellDef="let row"> {{row.name}} </td>
@@ -47,7 +56,8 @@
                         aria-label="Atualizar Usuário">
                         <mat-icon>edit</mat-icon>
                     </a>
-                    <a mat-icon-button matTooltip="Link" color="warn" (click)="removerUser(element.id)" aria-label="Remover Usuário">
+                    <a mat-icon-button matTooltip="Link" color="warn" (click)="removerUser(element.id)"
+                        aria-label="Remover Usuário">
                         <mat-icon>delete</mat-icon>
                     </a>
                 </td>

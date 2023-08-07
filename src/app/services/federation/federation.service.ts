@@ -22,4 +22,8 @@ export class FederationService {
   createFederation(user_id: number, federation: Federation) {
     return this.http.post<Federation>(`${this.url}/${this.flag}/${user_id}`, federation);
   }
+
+  removeFederation(id_user: number) {
+    return this.http.delete<Federation>(`${this.url}/${this.flag}/${id_user}`);
+  }
 }

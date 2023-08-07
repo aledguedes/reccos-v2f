@@ -4,7 +4,7 @@ export interface User {
     surname?: String;
     email?: String;
     img_perfil?: String;
-    status?: Boolean;
+    status?: String;
     role?: String;
     birth_date?: Date;
     federation?: Number;
