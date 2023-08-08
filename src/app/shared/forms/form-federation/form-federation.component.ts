@@ -73,7 +73,7 @@ export class FormFederationComponent implements OnInit {
     this.federationService.createFederation(user_id, obj).subscribe({
       next: (data) => {
         console.log(`Federação ${this.reccosFormFederation.value.surname}, criada com sucesso`);
-        this.router.navigate(['/'])
+        this.router.navigate(['/federation'])
       },
       error: (err) => {
         console.log('Erro ao criar a federação');
