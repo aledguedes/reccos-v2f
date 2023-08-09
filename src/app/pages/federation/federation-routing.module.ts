@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '', component: FederationInitComponent, children: [
       { path: '', component: FederationListComponent },
       { path: 'create', component: FederationCreateComponent },
-      { path: 'update/:id', component: FederationUpdateComponent }
+      { path: 'update/:federation_id', component: FederationUpdateComponent }
     ]
   }
 ];

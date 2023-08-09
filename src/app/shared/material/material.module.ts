@@ -50,7 +50,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormUsersComponent } from '../forms/form-users/form-users.component';
 import { MenuDirective } from '../directives/menu.directive';
 import { FormFederationComponent } from '../forms/form-federation/form-federation.component';
-import { UploadComponent } from '../forms/upload/upload.component';
+import { FormUploadComponent } from '../forms/form-upload/form-upload.component';
 
 const modules = [
   A11yModule,
@@ -108,7 +108,7 @@ const modules = [
     MenuDirective,
     FormUsersComponent,
     FormFederationComponent,
-    UploadComponent
+    FormUploadComponent,
   ],
   imports: [
     CommonModule,
@@ -122,9 +122,9 @@ const modules = [
     FormsModule,
     ReactiveFormsModule,
     MenuDirective,
-    UploadComponent,
     FormUsersComponent,
     FormFederationComponent,
+    FormUploadComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

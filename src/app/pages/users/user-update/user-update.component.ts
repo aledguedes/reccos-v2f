@@ -14,6 +14,7 @@ export class UserUpdateComponent implements OnInit {
   user_data!: User;
 
   enableUpdateUser: boolean = false;
+  activetedUpdateImage: boolean = false;
 
   id_user: string = '';
 
@@ -31,11 +32,11 @@ export class UserUpdateComponent implements OnInit {
   userById() {
     this.userService.userById(+this.id_user).subscribe({
       next: (data) => {
-        console.log('SUCESSO USUARIO ID', data);
+        console.log('USER UPDATE ID', data);
         this.rxjs.updateUser(data);
       },
       error: (err) => {
-        console.log('ERRO USUARIO ID', err);
+        console.log('ERRO USER UPDATE ID', err);
       }
     });
   }
