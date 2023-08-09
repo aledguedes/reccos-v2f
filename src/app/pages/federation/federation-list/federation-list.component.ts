@@ -34,12 +34,12 @@ export class FederationListComponent implements OnInit {
   listAll() {
     this.federationService.listAll().subscribe({
       next: (data: Federation[]) => {
-        console.log('USUÁRIOS SUCESS', data);
+        console.log('FEDERAÇÕES LIST SUCESS', data);
         this.federation = data;
         this.dataSource = new MatTableDataSource(data);
       },
       error: (err) => {
-        console.log('USUÁRIOS ERROR', err);
+        console.log('FEDERAÇÕES ERROR', err);
       }
     });
   }

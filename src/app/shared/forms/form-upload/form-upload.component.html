@@ -1,0 +1,25 @@
+<form id="file-upload-form" class="uploader">
+    <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+
+    <label for="file-upload" id="file-drag">
+        <div id="start">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            <mat-icon color="primary">cloud_download</mat-icon>
+            <p class="file-name">{{ file_name }}</p>
+        </div>
+        <div id="response" *ngIf="hideAndShowProgressBar">
+            <!-- <progress class="progress" id="file-progress" value="50">
+                <span>0</span>%
+            </progress> -->
+            <section class="example-section">
+                <mat-progress-bar class="example-margin"
+                    [color]="color"
+                    [mode]="mode"
+                    [value]="value"
+                    [bufferValue]="bufferValue"
+                >
+                </mat-progress-bar>
+            </section>
+        </div>
+    </label>
+</form>

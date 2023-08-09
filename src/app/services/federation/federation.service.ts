@@ -19,6 +19,10 @@ export class FederationService {
     return this.http.get<Federation[]>(`${this.url}/${this.flag}`);
   }
 
+  federationById(federation_id: number) {
+    return this.http.get<Federation[]>(`${this.url}/${this.flag}/${federation_id}`);
+  }
+
   createFederation(user_id: number, federation: Federation) {
     return this.http.post<Federation>(`${this.url}/${this.flag}/${user_id}`, federation);
   }
