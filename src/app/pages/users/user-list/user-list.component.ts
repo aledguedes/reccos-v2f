@@ -6,6 +6,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { User } from 'src/app/models/UserModel';
 import { usuarios } from 'src/app/mocks/UsersMock';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-list',
@@ -14,30 +16,44 @@ import { Router } from '@angular/router';
 })
 export class UserListComponent implements OnInit {
 
-  users: User[] = usuarios;
+  users: User[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[] = ['id', 'name', 'email', 'status', 'roles', 'action'];
+  displayedColumns: string[] = ['id', 'profile', 'name', 'email', 'status', 'roles', 'action'];
   dataSource: MatTableDataSource<User>;
 
+  storageUrl: string =  environment.storage_url;
+
   constructor(
-    private router: Router
-  ) { 
+    private router: Router,
+    private userService: UserService
+  ) {
     this.dataSource = new MatTableDataSource(this.users);
   }
 
-  
+
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
-    console.log('usuários:', usuarios);
+    this.listAll();
   }
 
   routernavigate() {
     this.router.navigate(['create-user']);
   }
 
+  listAll() {
+    this.userService.listAll().subscribe({
+      next: (data: User[]) => {
+        console.log('USUÁRIOS SUCESS', data);
+        this.users = data;
+        this.dataSource = new MatTableDataSource(data);
+      },
+      error: (err) => {
+        console.log('USUÁRIOS ERROR', err);
+      }
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -48,4 +64,16 @@ export class UserListComponent implements OnInit {
     }
   }
 
+  removerUser(id_user: number) {
+    this.userService.removeUser(id_user).subscribe({
+      next: (data) => {
+        console.log('USUARIO REMOVIDO', data);
+        this.listAll();
+      },
+      error: (err) => {
+        console.log('ERRO AO REMOVER USUÁRIO', err);
+      }
+    });
+  }
 }
+

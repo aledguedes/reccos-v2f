@@ -1,8 +1,13 @@
 export interface User {
     id?: Number;
     name?: String;
+    surname?: String;
     email?: String;
-    img_foto?: String;
+    img_perfil?: String;
     status?: String;
-    roles?: String;
+    role?: String;
+    birth_date?: Date;
+    federation?: Number;
+    password?: String;
+    password_confirmation?: String
 }

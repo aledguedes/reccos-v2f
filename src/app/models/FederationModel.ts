@@ -1,7 +1,10 @@
+import { User } from "./UserModel";
+
 export interface Federation {
     id?: number,
     name?: String,
     surname?: String;
-    status?: boolean;
+    status?: String;
     img_logo?: String;
+    owner: User;
 }

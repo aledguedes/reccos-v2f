@@ -8,8 +8,8 @@ const routes: Routes = [
   {
     path: '', component: DashboardComponent, children:
       [
-        // { path: '', component: DashAdminComponent },
-        { path: '', component: DashUserComponent }
+        { path: '', component: DashAdminComponent },
+        // { path: '', component: DashUserComponent }
       ]
   }
 ];

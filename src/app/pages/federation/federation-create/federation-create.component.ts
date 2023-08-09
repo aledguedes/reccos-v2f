@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Federation } from 'src/app/models/FederationModel';
-import { DataRxjsService } from 'src/app/services/data-rxjs.service';
+import { User } from 'src/app/models/UserModel';
 import { FederationService } from 'src/app/services/federation/federation.service';
 
 @Component({
@@ -10,28 +10,24 @@ import { FederationService } from 'src/app/services/federation/federation.servic
 })
 export class FederationCreateComponent implements OnInit {
 
+  userData!: User;
+  federationData!: Federation;
+
   constructor(
     private fedService: FederationService,
-    private rxjs: DataRxjsService
   ) { }
 
   ngOnInit(): void {
-    this.rxjs.federations$.subscribe(data => {
-      if (data) {
-        console.log('federation:', data);
-        this.createFederations(data);
-      }
-    });
   }
 
-  createFederations(form: Federation) {
-    this.fedService.createFederation(form).subscribe({
-      next: (data) => {
-        console.log('Criado com sucesso');
-      },
-      error: (err) => {
-        console.log('Erro ao criar a federação')
-      }
-    });
-  }
+  // createFederations(form: Federation) {
+  //   this.fedService.createFederation(form).subscribe({
+  //     next: (data) => {
+  //       console.log('Criado com sucesso');
+  //     },
+  //     error: (err) => {
+  //       console.log('Erro ao criar a federação')
+  //     }
+  //   });
+  // }
 }

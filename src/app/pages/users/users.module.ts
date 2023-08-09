@@ -7,6 +7,7 @@ import { UserCreateComponent } from './user-create/user-create.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { UserInitComponent } from './user-init/user-init.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { UserInitComponent } from './user-init/user-init.component';
     UserListComponent,
     UserCreateComponent,
     UserUpdateComponent,
-    UserInitComponent
+    UserInitComponent,
+    UserDetailComponent
   ],
   imports: [
     CommonModule,
