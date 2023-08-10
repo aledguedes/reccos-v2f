@@ -1,0 +1,72 @@
+<mat-toolbar color="primary" class="mat-elevation-z4 sticky-top">
+    <button mat-icon-button (click)="toggleSidenav()" class="example-icon"
+        aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Dashboard</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon" [routerLink]="['/']" matTooltip="Dashboard"
+        aria-label="Nova federação">
+        <mat-icon>home</mat-icon>
+    </button>
+    <!-- <button mat-icon-button class="example-icon" [routerLink]="['federation/create']" matTooltip="Adicionar federação"
+        aria-label="Nova federação">
+        <mat-icon>emoji_events</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" [routerLink]="['user/create']" matTooltip="Adicionar usuário"
+        aria-label="Novo Usuário">
+        <mat-icon>person_add_alt</mat-icon>
+    </button> -->
+    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menuNotifications" matTooltip="Notificações"
+        aria-label="Notificações">
+        <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+    </button>
+    <span class="divider"></span>
+    <div class="profile" [matMenuTriggerFor]="menu">
+        <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            alt="">
+    </div>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu" style="font-size: 12px;">
+
+    <div class="profile__top d-flex align-items-center p-3">
+        <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            alt="">
+        <div class="name ms-2 text-end align-middle">
+            <h6 class="m-0">Alexandre Guedes</h6>
+            <p class="m-0 text-reccos-5" style="font-size: 12px;">Manager Account</p>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>
+        <mat-icon>account_circle</mat-icon>
+        <span>Profile</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Sair</span>
+    </button>
+</mat-menu>
+
+<mat-menu #menuNotifications="matMenu" style="font-size: 12px;">
+
+    <div class="profile__top d-flex align-items-center p-3">
+        <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            alt="">
+        <div class="name ms-2 text-end align-middle">
+            <h6 class="m-0">Alexandre Guedes</h6>
+            <p class="m-0 text-reccos-5" style="font-size: 12px;">Manager Account</p>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="profile__top d-flex align-items-center p-3">
+        <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            alt="">
+        <div class="name ms-2 text-end align-middle">
+            <h6 class="m-0">Alexandre Guedes</h6>
+            <p class="m-0 text-reccos-5" style="font-size: 12px;">Manager Account</p>
+        </div>
+    </div>
+</mat-menu>

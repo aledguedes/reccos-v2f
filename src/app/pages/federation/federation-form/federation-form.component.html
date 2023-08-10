@@ -1,0 +1,24 @@
+<div class="mt-5 w-75 mx-auto reccos-input mat-elevation-z5">
+    <mat-stepper linear orientation="vertical" #stepper class="p-4">
+        <mat-step  [completed]="formFederation">
+            <ng-template matStepLabel>Cadastro federação</ng-template>
+            <ng-template matStepContent>
+                <app-form-federation></app-form-federation>
+                <!-- <button mat-button matStepperNext>Next</button> -->
+            </ng-template>
+        </mat-step>
+        <mat-step [completed]="formUser">
+            <ng-template matStepLabel>Vincular representante</ng-template>
+            <ng-template matStepContent>
+                <app-form-users></app-form-users>
+                <!-- <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button> -->
+            </ng-template>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Upload de Imagem</ng-template>
+
+            <!-- <button mat-button matStepperPrevious>Back</button> -->
+        </mat-step>
+    </mat-stepper>
+</div>

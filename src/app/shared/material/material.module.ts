@@ -1,6 +1,7 @@
 import { RouterModule } from '@angular/router';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { A11yModule } from '@angular/cdk/a11y';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -46,6 +47,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormUsersComponent } from '../forms/form-users/form-users.component';
+import { MenuDirective } from '../directives/menu.directive';
+import { FormFederationComponent } from '../forms/form-federation/form-federation.component';
+import { FormUploadComponent } from '../forms/form-upload/form-upload.component';
 
 const modules = [
   A11yModule,
@@ -92,18 +97,34 @@ const modules = [
   OverlayModule,
   PortalModule,
   ScrollingModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  HttpClientModule,
+  
+  // COMPONENTES
 ]
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    MenuDirective,
+    FormUsersComponent,
+    FormFederationComponent,
+    FormUploadComponent,
+  ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ...modules
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    MenuDirective,
+    FormUsersComponent,
+    FormFederationComponent,
+    FormUploadComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

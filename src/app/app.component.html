@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<mat-drawer-container class="example-container">
+    <mat-drawer #drawer mode="side" class="mat-drawer-width" [opened]="sidenavOpen">
+        <app-sidenav></app-sidenav>
+    </mat-drawer>
+    <mat-drawer-content class="mat-drawer-content-heigth">
+        <app-header></app-header>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

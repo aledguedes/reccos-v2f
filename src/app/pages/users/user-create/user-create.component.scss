@@ -1,0 +1,32 @@
+@import '../../../../assets/styles/variables';
+
+
+.reccos-box-card {
+    width: 90%;
+    height: 500px;
+    display: flex;
+    padding: 0;
+    margin: 1rem auto;
+
+    .reccos-box-card-left {
+        width: 30%;
+        background: $blue;
+        background: $blue;
+    }
+
+    .reccos-box-card-rigth {
+        width: 70%;
+        background-color: $light;
+    }
+}
+
+@media screen and  (max-width: 576px) {
+
+    .reccos-box-card {
+        width: 95%;
+        height: auto;
+        .reccos-box-card-rigth {
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="row justify-content-between align-items-center">
+        <div class="col-md-8">
+            <mat-form-field appearance="fill" class="w-100 mt-4">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+            </mat-form-field>
+        </div>
+        <div class="col-md-auto">
+            <button class="text-uppercase" mat-raised-button color="primary" routerLink="create">
+                <mat-icon>add</mat-icon> Adicionar usuário
+            </button>
+        </div>
+    </div>
+    <div class="mat-elevation-z8" *ngIf="users.length > 0; else noUsers">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="profile">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
+                <td mat-cell *matCellDef="let row">
+                    <div class="d-flex justify-content-center profile-photo"
+                        [style.background-image]="row?.img_logo != null ? 'url(./assets/images/avatar-2.jpg)' : 'url(./assets/images/avatar-2.jpg)' ">
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Apelido </th>
+                <td mat-cell *matCellDef="let row"> {{row.surname}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="roles">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+                <td mat-cell *matCellDef="let row"> {{row.role}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Ações </th>
+                <td mat-cell *matCellDef="let element">
+                    <a mat-icon-button matTooltip="Link" color="primary" [routerLink]="['update/', element.id]"
+                        aria-label="Atualizar Usuário">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                    <a mat-icon-button matTooltip="Link" color="warn" (click)="removerUser(element.id)"
+                        aria-label="Remover Usuário">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+    <ng-template #noUsers>
+        <div class="alert alert-warning" role="alert">
+            <p class="m-0">O sistema ainda não possui usuários cadastrados!!</p>
+        </div>
+    </ng-template>
+</div>
