@@ -35,7 +35,7 @@ export class DashAdminComponent implements OnInit {
   }
 
   listAll() {
-    this.federationService.listAll().subscribe({
+    this.federationService.listAllFederation().subscribe({
       next: (data) => {
         this.dataSource = new MatTableDataSource(data);
         console.log('FEDRATIONS LISTA:', data);

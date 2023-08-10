@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { DataRxjsService } from 'src/app/services/data-rxjs.service';
+import { FederationService } from 'src/app/services/federation/federation.service';
 
 @Component({
   selector: 'app-federation-update',
@@ -8,24 +11,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FederationUpdateComponent implements OnInit {
 
-  reccosFormFederation!: FormGroup;
-  reccosFormUser!: FormGroup;
+  enableUpdateUser: boolean = true;
+
+  id_federation: string = '';
 
   constructor(
-    private fb: FormBuilder
+    private rxjs: DataRxjsService,
+    private actvRouter: ActivatedRoute,
+    private federationService: FederationService,
   ) { }
 
 
   ngOnInit(): void {
-    this.reccosFormFederation = this.fb.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-    });
-    this.reccosFormUser = this.fb.group({
-      email: ['', Validators.required],
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      age: ['', Validators.required],
+    this.id_federation = this.actvRouter.snapshot.params['id_federation'];
+    this.federationId(+this.id_federation);
+  }
+
+  federationId(id_federation: number) {
+    this.federationService.federationById(+id_federation).subscribe({
+      next: (data) => {
+        this.rxjs.updateFederation(data);
+        console.log('FEDERATION BY ID:', data);
+      },
+      error: (err) => {
+        console.log('FEDERATION BY ID ERRO:', err);
+      }
     });
   }
 

@@ -15,7 +15,7 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-  listAll() {
+  listAllUser() {
     return this.http.get<User[]>(`${this.url}/${this.flag}`);
   }
 

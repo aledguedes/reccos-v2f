@@ -27,6 +27,15 @@
                                     campo é obrigatório!</mat-error>
                             </mat-form-field>
                         </div>
+                        <div class="col-12" *ngIf="validationForm">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Status</mat-label>
+                                <mat-select formControlName="status" class="text-uppercase">
+                                    <mat-option class="text-uppercase" *ngFor="let status of listStatus"
+                                        [value]="status.value">{{ status.name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                     </form>
                     <div class="col-12">
                         <form [formGroup]="reccosFormFederationUser">
@@ -47,12 +56,16 @@
 
 <div class="container">
     <div class="col-12 mt-4 text-md-end text-center">
-        <button mat-stroked-button color="accent" class="example-icon me-3" [routerLink]="['/user']" matTooltip="Voltar"
+        <button mat-stroked-button color="accent" class="example-icon me-3" [routerLink]="['/federation']" matTooltip="Voltar"
             aria-label="voltar usuários">
             Voltar <mat-icon>keyboard_backspace</mat-icon>
         </button>
-        <button mat-raised-button color="primary" class="example-icon ms-3" (click)="createFederation()"
-            [disabled]="reccosFormFederation.invalid" matTooltip="Criar usuário" aria-label="Novo usuário">
+        <button
+            mat-raised-button color="primary"
+            class="example-icon ms-3"
+            (click)="validationForm ? federationUpdate() : createFederation()"
+            [disabled]="reccosFormFederation.invalid"
+            matTooltip="Criar usuário" aria-label="Novo usuário">
             Salvar <mat-icon>send</mat-icon>
         </button>
     </div>

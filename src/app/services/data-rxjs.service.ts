@@ -37,11 +37,11 @@ export class DataRxjsService {
     this.stepFormUser.complete();
   }
 
-  createFederation(data: Federation) {
-    this.federations.next(data);
-  }
-
   updateUser(data: User) {
     this.users.next(data);
+  }
+
+  updateFederation(data: Federation) {
+    this.federations.next(data);
   }
 }
