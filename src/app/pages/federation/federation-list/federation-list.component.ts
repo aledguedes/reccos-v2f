@@ -17,7 +17,7 @@ export class FederationListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[] = ['id', 'profile', 'name', 'status', 'responsable', 'action'];
+  displayedColumns: string[] = ['id', 'profile', 'name', 'surname', 'status', 'responsable', 'action'];
   dataSource: MatTableDataSource<Federation>;
 
   constructor(
@@ -32,7 +32,7 @@ export class FederationListComponent implements OnInit {
   }
 
   listAll() {
-    this.federationService.listAll().subscribe({
+    this.federationService.listAllFederation().subscribe({
       next: (data: Federation[]) => {
         console.log('FEDERAÇÕES LIST SUCESS', data);
         this.federation = data;
@@ -44,8 +44,8 @@ export class FederationListComponent implements OnInit {
     });
   }
 
-  removerUser(id_user: number) {
-    this.federationService.removeFederation(id_user).subscribe({
+  removeFederation(id_federation: number) {
+    this.federationService.removeFederation(id_federation).subscribe({
       next: (data) => {
         console.log('USUARIO REMOVIDO', data);
         this.listAll();

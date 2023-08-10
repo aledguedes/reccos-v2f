@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns: string[] = ['id', 'profile', 'name', 'email', 'status', 'roles', 'action'];
+  displayedColumns: string[] = ['id', 'profile', 'name', 'surname', 'email', 'status', 'roles', 'action'];
   dataSource: MatTableDataSource<User>;
 
   storageUrl: string =  environment.storage_url;
@@ -43,7 +43,7 @@ export class UserListComponent implements OnInit {
   }
 
   listAll() {
-    this.userService.listAll().subscribe({
+    this.userService.listAllUser().subscribe({
       next: (data: User[]) => {
         console.log('USUÁRIOS SUCESS', data);
         this.users = data;

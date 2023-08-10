@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Federation } from 'src/app/models/FederationModel';
 import { User } from 'src/app/models/UserModel';
+import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { FederationService } from 'src/app/services/federation/federation.service';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -12,24 +14,37 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class FormFederationComponent implements OnInit {
 
-  // @Input() public validationForm: Boolean = true;
+  @Input() public idFederation: String = '';
+  @Input() public validationForm: Boolean = false;
+
   updateFederation: Boolean = false;
 
   reccosFormFederation!: FormGroup;
   reccosFormFederationUser!: FormGroup;
 
   users: User[] = [];
+  listStatus: any = mockStatus;
+
+  id_federation: number = 0;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
-    private federationService: FederationService,
+    private rxjs: DataRxjsService,
     private userService: UserService,
-    private router: Router
+    private federationService: FederationService,
   ) { }
 
   ngOnInit(): void {
     this.fomsInit();
     this.listUser();
+
+    /* RXJS */
+    this.rxjs.federations$.subscribe(data => {
+      if (data && this.validationForm) {
+        this.updateDataFederation(data);
+      }
+    });
   }
 
   get r() {
@@ -50,10 +65,10 @@ export class FormFederationComponent implements OnInit {
   }
 
   listUser() {
-    this.userService.listAll().subscribe({
+    this.userService.listAllUser().subscribe({
       next: (data: User[]) => {
         this.users = data.filter((user: User) => user.role != "manager");
-        console.log('USUÁRIOS LISTA', this.users);
+        // console.log('USUÁRIOS LISTA', this.users);
       },
       error: (err) => {
         console.log('USUÁRIOS ERROR', err);
@@ -81,4 +96,38 @@ export class FormFederationComponent implements OnInit {
     });
   }
 
+  federationUpdate() {
+    let obj = this.reccosFormFederation.value;
+
+    console.log('UPDATE FEDERATION OBJ:', obj);
+    // return;
+    this.federationService.updateFederation(+this.idFederation, obj).subscribe({
+      next: (data) => {
+        console.log(`Federação ${this.reccosFormFederation.value.surname}, atualizada com sucesso`);
+        this.router.navigate(['/federation'])
+      },
+      error: (err) => {
+        console.log('Erro ao atualizar federação');
+      }
+    });
+  }
+
+  updateDataFederation(dataFederation: Federation) {
+    this.reccosFormFederation.patchValue({
+      name: dataFederation.name,
+      surname: dataFederation.surname,
+      status: dataFederation.status,
+      img_logo: dataFederation.img_logo
+    });
+
+    this.reccosFormFederationUser.patchValue({
+      user: dataFederation.owner.id,
+    });
+  }
+
 }
+
+const mockStatus = [
+  { id: 1, value: 'true', name: 'Ativo' },
+  { id: 2, value: 'false', name: 'inativo' }
+]

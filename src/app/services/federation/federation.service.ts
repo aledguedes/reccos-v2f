@@ -15,16 +15,20 @@ export class FederationService {
     private http: HttpClient
   ) { }
 
-  listAll() {
+  listAllFederation() {
     return this.http.get<Federation[]>(`${this.url}/${this.flag}`);
   }
 
   federationById(federation_id: number) {
-    return this.http.get<Federation[]>(`${this.url}/${this.flag}/${federation_id}`);
+    return this.http.get<Federation>(`${this.url}/${this.flag}/${federation_id}`);
   }
 
   createFederation(user_id: number, federation: Federation) {
     return this.http.post<Federation>(`${this.url}/${this.flag}/${user_id}`, federation);
+  }
+
+  updateFederation(id_user: number, user: Federation) {
+    return this.http.put<Federation>(`${this.url}/${this.flag}/${id_user}`, user);
   }
 
   removeFederation(id_user: number) {
