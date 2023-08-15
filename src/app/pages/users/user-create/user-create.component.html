@@ -1,24 +1,26 @@
 <div class="container">
-    <div class="row">
-        <h4 class="text-reccos-2 my-3">Cadastrar usuário</h4>
-        <div class="reccos-box-card border mat-elevation-z4">
-            <div class="reccos-box-card-left d-md-block d-none text-white">
-                <h4 class="mt-5 text-center text-bold">Cadastro de usuários</h4>
-            </div>
-            <div class="reccos-box-card-rigth p-5">
-                <app-form-users></app-form-users>
-
-                <div class="col-12 mt-4 text-md-end text-center">
-                    <button mat-stroked-button color="accent" class="example-icon me-3" [routerLink]="['/']"
-                        matTooltip="Criar usuário" aria-label="Novo usuário">
-                        Voltar <mat-icon>keyboard_backspace</mat-icon>
-                    </button>
-                    <button mat-raised-button color="primary" class="example-icon ms-3" [routerLink]="['/']"
-                        matTooltip="Criar usuário" aria-label="Novo usuário">
-                        Salvar <mat-icon>send</mat-icon>
-                    </button>
-                </div>
-            </div>
+  <div class="row">
+    <h4 class="text-reccos-2 my-3">Cadastrar usuário</h4>
+    <div class="reccos-box-card border mat-elevation-z4">
+      <div class="reccos-box-card-left d-md-block d-none text-white">
+        <h4 class="mt-5 text-center text-bold">Cadastro de usuários</h4>
+      </div>
+      <div class="reccos-box-card-rigth p-5">
+        <div class="box-heigth">
+          <app-form-users></app-form-users>
         </div>
+
+        <div class="col-12 mt-4 text-md-end text-center">
+          <button mat-stroked-button color="accent" class="example-icon me-3" [routerLink]="['/']"
+            matTooltip="Criar usuário" aria-label="Novo usuário">
+            Voltar <mat-icon>keyboard_backspace</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" class="example-icon ms-3" [routerLink]="['/']"
+            matTooltip="Criar usuário" aria-label="Novo usuário">
+            Salvar <mat-icon>send</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

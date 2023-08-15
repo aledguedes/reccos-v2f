@@ -8,6 +8,10 @@
     padding: 0;
     margin: 1rem auto;
 
+    .box-heigth {
+      min-height: 90%;
+    }
+
     .reccos-box-card-left {
         width: 40%;
         background: $blue;
