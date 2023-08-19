@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path:'federation',
     loadChildren: () => import('./pages/federation/federation.module').then(m => m.FederationModule)
+  },
+  {
+    path: 'league',
+    loadChildren: () => import('./pages/league/league.module').then(m => m.LeagueModule)
   }
 ];
 
