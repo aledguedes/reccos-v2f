@@ -1,3 +1,4 @@
+import { League } from "./LeagueModel";
 import { User } from "./UserModel";
 
 export interface Federation {
@@ -7,4 +8,5 @@ export interface Federation {
     status?: String;
     img_logo?: String;
     owner: User;
+    leagues: League[]
 }
