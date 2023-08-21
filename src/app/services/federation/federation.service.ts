@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Federation } from 'src/app/models/FederationModel';
+import { League } from 'src/app/models/LeagueModel';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
