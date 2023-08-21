@@ -23,8 +23,8 @@ export class LeagueService {
     return this.http.get<League>(`${this.url}/${this.flag}/${federation_id}`);
   }
 
-  createLeague(user_id: number, federation: League) {
-    return this.http.post<League>(`${this.url}/${this.flag}/${user_id}`, federation);
+  createLeague(federation: League) {
+    return this.http.post<League>(`${this.url}/${this.flag}`, federation);
   }
 
   updateLeague(id_user: number, user: League) {

@@ -1,0 +1,95 @@
+<mat-stepper orientation="vertical" class="px-4 py-3">
+    <mat-step [completed]="leagueForm.valid">
+        <ng-template matStepLabel>Dados da Liga</ng-template>
+        <ng-template matStepContent>
+            <div class="row g-2">
+                <form class="px-4 py-3" [formGroup]="leagueForm">
+                    <!-- <div formGroupName="info_league"> -->
+                    <mat-form-field class="example-full-width w-100" appearance="outline">
+                        <mat-label>Nome da liga</mat-label>
+                        <input formControlName="name" matInput placeholder="Ex.: Liga Master A" />
+                    </mat-form-field>
+                    <div class="input-data row">
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Início</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="dt_start" />
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Fim</mat-label>
+                                <input matInput #dateStart [matDatepicker]="picker_one" formControlName="dt_end" />
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matSuffix [for]="picker_one"></mat-datepicker-toggle>
+                                <mat-datepicker #picker_one></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-4">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Sistema de disputa</mat-label>
+                                <mat-select formControlName="league_system">
+                                    <mat-option value="mata-mata">
+                                        Mata-mata
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-4">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Modalidade</mat-label>
+                                <mat-select formControlName="league_mode">
+                                    <mat-option value="futsal"> Futsal </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-4">
+                            <mat-form-field class="example-full-width w-100" appearance="outline">
+                                <mat-label>Quantidade de grupos</mat-label>
+                                <input type="number" formControlName="qt_group" matInput placeholder="Ex.: 4" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button mat-button matStepperNext [disabled]="leagueForm.invalid" (click)="createLeague()">Next</button>
+        </ng-template>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Redes Sociais</ng-template>
+        <ng-template matStepContent>
+            <p>Redes sociais</p>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+        </ng-template>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Upload</ng-template>
+        <ng-template matStepContent>
+            <div class="my-3">
+                <app-form-upload></app-form-upload>
+            </div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+        </ng-template>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Concluir Cadastro</ng-template>
+        <div class="col-12 col-xxl-7 col-xl-7 col-lg-6 col-md-12 col-sm-12 mt-3">
+            <div class="container">
+                TIMES
+                <ng-template #noTeams>
+                    <div class="alert alert-success mt-5" role="alert" style="font-size: 13px;">
+                        Não existem times cadastrados na federação! Clique em <a
+                            [routerLink]="['/teams/cadastrar']">cadastrar</a>
+                        para adicionar!
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <button mat-button matStepperPrevious>Back</button>
+    </mat-step>
+</mat-stepper>

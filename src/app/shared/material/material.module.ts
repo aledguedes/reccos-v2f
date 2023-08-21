@@ -51,6 +51,7 @@ import { FormUsersComponent } from '../forms/form-users/form-users.component';
 import { MenuDirective } from '../directives/menu.directive';
 import { FormFederationComponent } from '../forms/form-federation/form-federation.component';
 import { FormUploadComponent } from '../forms/form-upload/form-upload.component';
+import { FormLeagueComponent } from '../forms/form-league/form-league.component';
 
 const modules = [
   A11yModule,
@@ -109,6 +110,7 @@ const modules = [
     FormUsersComponent,
     FormFederationComponent,
     FormUploadComponent,
+    FormLeagueComponent,
   ],
   imports: [
     CommonModule,
@@ -125,6 +127,7 @@ const modules = [
     FormUsersComponent,
     FormFederationComponent,
     FormUploadComponent,
+    FormLeagueComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
