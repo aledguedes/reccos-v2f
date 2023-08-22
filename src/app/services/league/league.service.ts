@@ -19,12 +19,12 @@ export class LeagueService {
     return this.http.get<League[]>(`${this.url}/${this.flag}`);
   }
 
-  federationById(federation_id: number) {
-    return this.http.get<League>(`${this.url}/${this.flag}/${federation_id}`);
+  leagueById(league_id: number) {
+    return this.http.get<League>(`${this.url}/${this.flag}/${league_id}`);
   }
 
-  createLeague(federation: League) {
-    return this.http.post<League>(`${this.url}/${this.flag}`, federation);
+  createLeague(league: League) {
+    return this.http.post<League>(`${this.url}/${this.flag}`, league);
   }
 
   updateLeague(id_user: number, user: League) {

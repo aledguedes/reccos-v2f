@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { League } from 'src/app/models/LeagueModel';
 import { LeagueService } from 'src/app/services/league/league.service';
+import { leagueMode, leagueSystem, leaguesStatus } from 'src/app/utils/system-league';
 
 @Component({
   selector: 'app-form-league',
@@ -10,8 +12,15 @@ import { LeagueService } from 'src/app/services/league/league.service';
 })
 export class FormLeagueComponent implements OnInit {
 
+  @Input() id_league: string = '';
+  @Input() validationForm: boolean = false;
+
   leagueForm!: FormGroup;
   id_federation: string = '1';
+
+  league_mode = leagueMode;
+  league_system = leagueSystem;
+  league_status = leaguesStatus;
 
   constructor(
     private fb: FormBuilder,
@@ -20,7 +29,11 @@ export class FormLeagueComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('enable update league', this.validationForm);
     this.initForms();
+    if (this.validationForm) {
+      this.leagueById(+this.id_league);
+    }
   }
 
   initForms() {
@@ -30,10 +43,34 @@ export class FormLeagueComponent implements OnInit {
       dt_end: ['', Validators.required],
       league_system: ['', Validators.required],
       league_mode: ['', Validators.required],
-      qt_group: ['1', Validators.required]
+      qt_group: ['1', Validators.required],
+      status: !this.validationForm ? ['Ativo'] : ['']
     });
 
     // this.leagueForm.controls['qt_group'].disable();
+  }
+
+  updateInfosLeagueId(league: League) {
+    this.leagueForm.patchValue({
+      name: league.name,
+      status: league.status,
+      dt_end: league.dt_end,
+      dt_start: league.dt_start,
+      league_mode: league.league_mode,
+      league_system: league.league_system
+    });
+  }
+
+  leagueById(id_league: number) {
+    this.leagueService.leagueById(id_league).subscribe({
+      next: (data) => {
+        console.log('LEAGUE BY ID SUCESS', data);
+        this.updateInfosLeagueId(data);
+      },
+      error: (err) => {
+        console.log('LEAGUE BY ID ERROR', err);
+      }
+    });
   }
 
   createLeague() {
@@ -56,9 +93,8 @@ export class FormLeagueComponent implements OnInit {
   }
 
   formatDate(date: Date) {
-    console.log('date', date)
     var formattedTimestamp = date.toISOString().slice(0, 16);
-    console.log(formattedTimestamp); // Output: 2023-08-21T03:00
+    console.log(formattedTimestamp);
   }
 
   updateInfos() {

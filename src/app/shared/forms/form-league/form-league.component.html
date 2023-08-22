@@ -10,7 +10,7 @@
                         <input formControlName="name" matInput placeholder="Ex.: Liga Master A" />
                     </mat-form-field>
                     <div class="input-data row">
-                        <div class="col-12 col-xl-6 col-lg-6 col-md-6">
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Início</mat-label>
                                 <input matInput [matDatepicker]="picker" formControlName="dt_start" />
@@ -19,7 +19,7 @@
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
                         </div>
-                        <div class="col-12 col-xl-6 col-lg-6 col-md-6">
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Fim</mat-label>
                                 <input matInput #dateStart [matDatepicker]="picker_one" formControlName="dt_end" />
@@ -32,8 +32,8 @@
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Sistema de disputa</mat-label>
                                 <mat-select formControlName="league_system">
-                                    <mat-option value="mata-mata">
-                                        Mata-mata
+                                    <mat-option *ngFor="let mode of league_mode" [value]="mode.name">
+                                        {{ mode.name }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -42,38 +42,48 @@
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Modalidade</mat-label>
                                 <mat-select formControlName="league_mode">
-                                    <mat-option value="futsal"> Futsal </mat-option>
+                                    <mat-option *ngFor="let system of league_system" [value]="system.name"> {{ system.name }} </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <div class="col-12 col-xl-4 col-lg-4 col-md-4">
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-4" *ngIf="!validationForm">
                             <mat-form-field class="example-full-width w-100" appearance="outline">
                                 <mat-label>Quantidade de grupos</mat-label>
                                 <input type="number" formControlName="qt_group" matInput placeholder="Ex.: 4" />
                             </mat-form-field>
                         </div>
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-4" *ngIf="validationForm">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Status</mat-label>
+                                <mat-select formControlName="status">
+                                    <mat-option class="text-uppercase" *ngFor="let status of league_status" [value]="status.name"> {{ status.name }} </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                     </div>
                 </form>
             </div>
-            <button mat-button matStepperNext [disabled]="leagueForm.invalid" (click)="createLeague()">Next</button>
+            <button mat-button matStepperNext [disabled]="leagueForm.invalid">Next</button>
         </ng-template>
     </mat-step>
-    <mat-step>
+    <!-- <mat-step>
         <ng-template matStepLabel>Redes Sociais</ng-template>
         <ng-template matStepContent>
             <p>Redes sociais</p>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
         </ng-template>
-    </mat-step>
+    </mat-step> -->
     <mat-step>
         <ng-template matStepLabel>Upload</ng-template>
         <ng-template matStepContent>
-            <div class="my-3">
+            <div class="my-5 d-flex flex-column">
                 <app-form-upload></app-form-upload>
+                <div class="mt-3">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
             </div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
         </ng-template>
     </mat-step>
     <mat-step>
