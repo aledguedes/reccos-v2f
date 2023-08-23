@@ -1,1 +1,24 @@
-<p>team-list works!</p>
+<div class="container">
+  <div class="row justify-content-end my-3">
+    <div class="col-md-auto">
+      <button class="text-uppercase" mat-raised-button color="primary" routerLink="create">
+        <mat-icon>add</mat-icon> Adicionar Time
+      </button>
+    </div>
+  </div>
+  <div class="row justify-content-center my-2" *ngIf="teams.length > 0; else noTeams">
+    <div *ngFor="let t of teams" class="box d-flex flex-column justify-content-center align-items-center">
+      <a class="text-center d-flex flex-column align-items-center">
+        <img class="scudo" [src]="t.picture_profile" alt="" />
+        <!-- <img class="scudo" [src]="url_scudo+t.initials+'.png'" alt="" /> -->
+        {{ t.surname }}
+        <!-- https://www.freelogoservices.com/pt/step2 -->
+      </a>
+    </div>
+  </div>
+  <ng-template #noTeams>
+    <div class="alert alert-warning mt-5" role="alert">
+      Não existem times cadastrados! Clique em <a routerLink="create">cadastrar</a> para adicionar!
+    </div>
+  </ng-template>
+</div>

@@ -25,7 +25,7 @@ export const dashAdminMenu = [
         'name': 'Times',
         'icon': 'sports_soccer',
         'text': 'Cadastro e edição de times',
-        'router': '/'
+        'router': '/team'
     },
     {
         'id': 5,

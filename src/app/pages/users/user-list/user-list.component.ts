@@ -24,8 +24,6 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'profile', 'name', 'surname', 'email', 'status', 'roles', 'action'];
   dataSource: MatTableDataSource<User>;
 
-  storageUrl: string =  environment.storage_url;
-
   constructor(
     private router: Router,
     private userService: UserService
