@@ -19,12 +19,12 @@ export class TeamService {
     return this.http.get<Team[]>(`${this.url}/${this.flag}`);
   }
 
-  leagueById(league_id: number) {
-    return this.http.get<Team>(`${this.url}/${this.flag}/${league_id}`);
+  teamById(team_id: number) {
+    return this.http.get<Team>(`${this.url}/${this.flag}/${team_id}`);
   }
 
-  createTeam(league: Team) {
-    return this.http.post<Team>(`${this.url}/${this.flag}`, league);
+  createTeam(team: Team) {
+    return this.http.post<Team>(`${this.url}/${this.flag}`, team);
   }
 
   updateTeam(id_user: number, user: Team) {

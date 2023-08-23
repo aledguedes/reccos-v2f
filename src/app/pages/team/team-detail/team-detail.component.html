@@ -1,1 +1,77 @@
-<p>team-detail works!</p>
+<div class="container-fluid">
+
+  <div class="interno mb-5">
+    <div class="inter">
+      <!-- <img class="img-time" [src]="equipe.img_scudo" alt="" /> -->
+      <img class="img-time" [src]="baseUrl + team.picture_profile" alt="" />
+      <p class="title-time"> {{ team.name }} </p>
+    </div>
+  </div>
+
+  <div class="container wrapper">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-xs-12 ficha-tecnica py-2">
+        <div class="margin-space m-border-bottom">
+          <h1 class="line-title">Ficha Técnica</h1>
+
+          <div class="my-2">
+            <strong>Presidente</strong><br />
+            <small>PRESIDENTE</small><br />
+          </div>
+
+          <div class="my-2">
+            <strong>Endereço</strong><br />
+            <small>Rua: Lorem ipsum, dolor sit, 279 - Kualampu<br />
+              Telefone: +55 (16 12345-6789)
+            </small>
+          </div>
+
+          <div class="my-2 d-flex align items-center justify-content-between">
+            <div class="left">
+              <strong>Fundação</strong><br />
+              <small>{{ team.birth_date | date: 'dd/MM/yyyy' }}<br /> </small>
+            </div>
+            <div class="rigth">
+              <button mat-icon-button color="primary">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="margin-space m-border-bottom">
+          <h1 class="line-title">Estádio</h1>
+          <div class="d-flex justify-content-center">
+            <!-- <img [src]="team.stadium.picture_profile" alt="" width="80%" /> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8 col-xs-12 m-border-left ficha-tecnica">
+        <div class="margin-space-2">
+          <div class="d-flex justify-content-between">
+            <h1 class="line-title">Elenco</h1>
+            <button mat-raised-button routerLink="/players/cadastrar" color="primary">Cadastrar atleta</button>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-4 col-md-6 col-xs-6 flex-gap">
+              <mat-card class="mt-2 d-flex p-2">
+                <!-- <img src="assets/images/player.jpg" alt="" width="35%" />
+                <div class="d-flex flex-column align-items-start justify-content-end mx-2 w-100">
+                  <small style="color: #000;"> {{ d.player.surname }} </small>
+                  <div class="div d-flex justify-content-between  w-100">
+                    <small>{{ retornPosition(d.player.position) }}</small>
+                    <a routerLink="/players/{{d.player.id}}"><small> <mat-icon>info</mat-icon> </small></a>
+                  </div>
+                </div> -->
+              </mat-card>
+              <!-- <ng-template #noTeams class="d-flex justify-content-center align-items-center">
+                <div class="alert alert-dark" role="alert">
+                  Não existem atletas cadastrados! Clique em cadastro para inserir novos!
+                </div>
+              </ng-template> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

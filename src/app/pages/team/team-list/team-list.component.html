@@ -9,7 +9,6 @@
   <div class="row my-2" *ngIf="teams.length > 0; else noTeams">
     <div *ngFor="let t of teams" class="col-md-2">
       <a class="text-center d-flex flex-column align-items-center" [routerLink]="['detail/', t.id]">
-        <!-- <img class="scudo" [src]="t.picture_profile" alt="" /> -->
         <div class="d-flex justify-content-center profile-photo col-lg-3"
           [style.background-image]="t?.picture_profile != null ? 'url(' + baseUrl  + '/' + t?.picture_profile +')' : 'url(' + baseUrl  + '/teams/default.png)' ">
         </div>
