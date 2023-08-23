@@ -1,10 +1,9 @@
-<mat-stepper orientation="vertical" class="px-4 py-3">
-    <mat-step [completed]="leagueForm.valid">
+<mat-stepper orientation="vertical" class="px-4 py-3" #stepper>
+    <mat-step [completed]="leagueForm.valid" (change)="nextStep()">
         <ng-template matStepLabel>Dados da Liga</ng-template>
         <ng-template matStepContent>
             <div class="row g-2">
                 <form class="px-4 py-3" [formGroup]="leagueForm">
-                    <!-- <div formGroupName="info_league"> -->
                     <mat-form-field class="example-full-width w-100" appearance="outline">
                         <mat-label>Nome da liga</mat-label>
                         <input formControlName="name" matInput placeholder="Ex.: Liga Master A" />

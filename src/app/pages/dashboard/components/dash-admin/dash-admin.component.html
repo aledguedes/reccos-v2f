@@ -8,13 +8,12 @@
         <div class="col-md-4 mb-3" *ngFor="let menu of dashMenu">
             <a mat-stroked-button class="text-reccos-3 p-4 reccos-settings-button w-100"
                 [color]="menu.id % 2 != 0 ? 'primary' : 'warn'" [routerLink]="menu.router">
-                <div class="d-flex  justify-content-center align-items-center"
-                [ngClass]="{ 'flex-md-row-reverse': menu.id % 2 == 0 }">
-                    <mat-icon class="d-flex justify-content-center align-items-center"
-                        style="font-size: 60px; width: 80px; height: 80px;"> {{ menu.icon }} </mat-icon>
+                <div class="d-flex  justify-content-center align-items-end"
+                    [ngClass]="{ 'flex-md-row-reverse': menu.id % 2 == 0 }">
+                    <img  class="d-flex justify-content-center profile-photo" [src]="menu.icon" alt="">
                     <h2 class="m-0 text-center"> {{ menu.name }} </h2>
                 </div>
-                <div class="row">
+                <div class="row mt-2">
                     <small>{{ menu.text }}</small>
                 </div>
             </a>

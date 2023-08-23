@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { League } from 'src/app/models/LeagueModel';
+import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { LeagueService } from 'src/app/services/league/league.service';
 import { leagueMode, leagueSystem, leaguesStatus } from 'src/app/utils/system-league';
 
@@ -15,6 +17,8 @@ export class FormLeagueComponent implements OnInit {
   @Input() id_league: string = '';
   @Input() validationForm: boolean = false;
 
+  @ViewChild('stepper') stepper!: MatStepper;
+
   leagueForm!: FormGroup;
   id_federation: string = '1';
 
@@ -23,14 +27,23 @@ export class FormLeagueComponent implements OnInit {
   league_status = leaguesStatus;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
+    private rxjs: DataRxjsService,
     private leagueService: LeagueService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
-    console.log('enable update league', this.validationForm);
     this.initForms();
+
+    this.rxjs.uploadFileName$.subscribe(fileName => {
+      if (fileName) {
+        this.leagueForm.patchValue({
+          img_logo: 'league/'+fileName
+        });
+      }
+    });
+
     if (this.validationForm) {
       this.leagueById(+this.id_league);
     }
@@ -44,6 +57,7 @@ export class FormLeagueComponent implements OnInit {
       league_system: ['', Validators.required],
       league_mode: ['', Validators.required],
       qt_group: ['1', Validators.required],
+      img_logo: [''],
       status: !this.validationForm ? ['Ativo'] : ['']
     });
 
@@ -80,7 +94,9 @@ export class FormLeagueComponent implements OnInit {
       status: 'Ativo',
       idd_fed: +this.id_federation,
       img_logo: 'leagues/img_01.jpg'
-    }    // return;
+    }
+    console.log('create league form', form);
+    // return;
     this.leagueService.createLeague(form).subscribe({
       next: (data) => {
         console.log('CREATE LEAGUE SUCESS', data);
@@ -90,6 +106,13 @@ export class FormLeagueComponent implements OnInit {
         console.log('CREATE LEAGUE ERROR', err);
       }
     });
+  }
+
+  nextStep() {
+    console.log('next step')
+    setTimeout(() => {
+      this.stepper.next();
+    }, 0);
   }
 
   formatDate(date: Date) {
