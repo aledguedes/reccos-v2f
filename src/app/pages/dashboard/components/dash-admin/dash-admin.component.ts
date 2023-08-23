@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 export class DashAdminComponent implements OnInit {
 
   dashMenu = dashAdminMenu;
+  base_url = environment.storage_url;
 
   constructor() { }
 

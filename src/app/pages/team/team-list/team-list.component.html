@@ -6,13 +6,14 @@
       </button>
     </div>
   </div>
-  <div class="row justify-content-center my-2" *ngIf="teams.length > 0; else noTeams">
-    <div *ngFor="let t of teams" class="box d-flex flex-column justify-content-center align-items-center">
-      <a class="text-center d-flex flex-column align-items-center">
-        <img class="scudo" [src]="t.picture_profile" alt="" />
-        <!-- <img class="scudo" [src]="url_scudo+t.initials+'.png'" alt="" /> -->
-        {{ t.surname }}
-        <!-- https://www.freelogoservices.com/pt/step2 -->
+  <div class="row my-2" *ngIf="teams.length > 0; else noTeams">
+    <div *ngFor="let t of teams" class="col-md-2">
+      <a class="text-center d-flex flex-column align-items-center" [routerLink]="['detail/', t.id]">
+        <!-- <img class="scudo" [src]="t.picture_profile" alt="" /> -->
+        <div class="d-flex justify-content-center profile-photo col-lg-3"
+          [style.background-image]="t?.picture_profile != null ? 'url(' + baseUrl  + '/' + t?.picture_profile +')' : 'url(' + baseUrl  + '/teams/default.png)' ">
+        </div>
+        <p class="text-reccos-1 mt-2">{{ t.surname }}</p>
       </a>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/TeamModel';
 import { TeamService } from 'src/app/services/team/team.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-team-list',
@@ -8,6 +9,8 @@ import { TeamService } from 'src/app/services/team/team.service';
   styleUrls: ['./team-list.component.scss']
 })
 export class TeamListComponent implements OnInit {
+
+  baseUrl = environment.storage_url;
 
   teams: Team[] = [];
 
