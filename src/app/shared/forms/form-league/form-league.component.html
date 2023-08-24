@@ -29,19 +29,19 @@
                         </div>
                         <div class="col-12 col-xl-4 col-lg-4 col-md-4">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Sistema de disputa</mat-label>
-                                <mat-select formControlName="league_system">
-                                    <mat-option *ngFor="let mode of league_mode" [value]="mode.name">
-                                        {{ mode.name }}
-                                    </mat-option>
+                                <mat-label>Modalidade</mat-label>
+                                <mat-select formControlName="league_mode">
+                                    <mat-option *ngFor="let mode of league_mode" [value]="mode.name"> {{ mode.name }} </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-12 col-xl-4 col-lg-4 col-md-4">
                             <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Modalidade</mat-label>
-                                <mat-select formControlName="league_mode">
-                                    <mat-option *ngFor="let system of league_system" [value]="system.name"> {{ system.name }} </mat-option>
+                                <mat-label>Sistema de disputa</mat-label>
+                                <mat-select formControlName="league_system">
+                                    <mat-option *ngFor="let system of league_system" [value]="system.name">
+                                        {{ system.name }}
+                                    </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -62,7 +62,7 @@
                     </div>
                 </form>
             </div>
-            <button mat-button matStepperNext [disabled]="leagueForm.invalid">Next</button>
+            <button mat-button matStepperNext (click)="createLeague()" [disabled]="leagueForm.invalid">Next</button>
         </ng-template>
     </mat-step>
     <!-- <mat-step>

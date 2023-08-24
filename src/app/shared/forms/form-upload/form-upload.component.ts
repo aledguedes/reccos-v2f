@@ -10,7 +10,8 @@ import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 })
 export class FormUploadComponent {
 
-  file_name: string = 'file_name'
+  file_name: string = 'file_name';
+  
   hideAndShowProgressBar: boolean = false;
 
   color: ThemePalette = 'primary';

@@ -1,7 +1,7 @@
 <div class="interno mb-5">
   <div class="inter">
     <!-- <img class="img-time" [src]="equipe.img_scudo" alt="" /> -->
-    <img class="img-time" [src]="baseUrl + team.picture_profile" alt="" />
+    <img class="img-time" [src]="baseUrl + team!.picture_profile" alt="" />
     <p class="title-time"> {{ team.name }} </p>
   </div>
 </div>
@@ -13,8 +13,19 @@
         <h1 class="line-title">Ficha Técnica</h1>
 
         <div class="my-2">
-          <strong>Presidente</strong><br />
-          <small>PRESIDENTE</small><br />
+          <strong>Nome</strong><br />
+          <small> {{ team.name }} </small><br />
+        </div>
+
+        <div class="row my-2">
+          <div class="col-md-6">
+            <strong>Apelido</strong><br />
+            <small> {{ team.acronym }} </small><br />
+          </div>
+          <div class="col-md-6">
+            <strong>Iniciais</strong><br />
+            <small> {{ team.acronym }} </small><br />
+          </div>
         </div>
 
         <div class="my-2">
@@ -39,7 +50,7 @@
       <div class="margin-space m-border-bottom">
         <h1 class="line-title">Estádio</h1>
         <div class="d-flex justify-content-center">
-          <!-- <img [src]="team.stadium.picture_profile" alt="" width="80%" /> -->
+          <img [src]="urlPhoto" alt="" width="80%" />
         </div>
       </div>
     </div>

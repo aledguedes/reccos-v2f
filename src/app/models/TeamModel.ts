@@ -1,4 +1,5 @@
 import { Federation } from "./FederationModel";
+import { Stadium } from "./Stadium";
 
 export interface Team {
   id?: Number;
@@ -9,7 +10,8 @@ export interface Team {
   createdAt?: Date;
   updatedAt?: Date;
   birth_date?: Date;
-  picture_profile?: String;
+  stadium: Stadium;
   federation: Federation[];
+  picture_profile?: String;
   registered_federation?: Number;
 }

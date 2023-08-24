@@ -59,14 +59,17 @@ h4 {
   font-size: 18px;
 }
 
-
 .example-card {
   max-width: 400px;
+  border-left: 3px solid #0A6821;
 }
 
 .example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
+}
+
+.mat-mdc-card-avatar {
+  border-radius: 0;
 }
 
 section {
@@ -98,4 +101,10 @@ section {
 .example-button-container {
   display: flex;
   justify-content: center;
+}
+
+.infos-league {
+  span {
+      font-size: 14px;
+  }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TeamService } from './../../../services/team/team.service';
 import { Component, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/TeamModel';
+import { Stadium } from 'src/app/models/Stadium';
 
 @Component({
   selector: 'app-team-detail',
@@ -13,8 +14,9 @@ export class TeamDetailComponent implements OnInit {
 
   baseUrl = environment.storage_url;
 
-  id_team: String = '';
   team!: Team;
+  id_team: String = '';
+  urlPhoto: String = ''
 
   constructor(
     private teamService: TeamService,
@@ -30,6 +32,7 @@ export class TeamDetailComponent implements OnInit {
     this.teamService.teamById(id_team).subscribe({
       next: (data) => {
         this.team = data;
+        this.urlPhoto = this.baseUrl + data.stadium.picture_profile;
         console.log('TEAM BY ID DETAIL:', data);
       },
       error: (err) => {

@@ -21,6 +21,7 @@ export class FormLeagueComponent implements OnInit {
 
   leagueForm!: FormGroup;
   id_federation: string = '1';
+  file_upload_name: string = 'league/default.png';
 
   league_mode = leagueMode;
   league_system = leagueSystem;
@@ -38,9 +39,7 @@ export class FormLeagueComponent implements OnInit {
 
     this.rxjs.uploadFileName$.subscribe(fileName => {
       if (fileName) {
-        this.leagueForm.patchValue({
-          img_logo: 'league/'+fileName
-        });
+        this.file_upload_name = 'league/' + fileName;
       }
     });
 
@@ -57,7 +56,6 @@ export class FormLeagueComponent implements OnInit {
       league_system: ['', Validators.required],
       league_mode: ['', Validators.required],
       qt_group: ['1', Validators.required],
-      img_logo: [''],
       status: !this.validationForm ? ['Ativo'] : ['']
     });
 
@@ -93,7 +91,7 @@ export class FormLeagueComponent implements OnInit {
       ...this.leagueForm.value,
       status: 'Ativo',
       idd_fed: +this.id_federation,
-      img_logo: 'leagues/img_01.jpg'
+      img_logo: this.file_upload_name
     }
     console.log('create league form', form);
     // return;
