@@ -34,4 +34,12 @@ export class LeagueService {
   removeLeague(id_user: number) {
     return this.http.delete<League>(`${this.url}/${this.flag}/${id_user}`);
   }
+
+  allStates() {
+    return this.http.get<any[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome`);
+  }
+
+  allCityss(uf: number) {
+    return this.http.get<any[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios?orderBy=nome`);
+  }
 }

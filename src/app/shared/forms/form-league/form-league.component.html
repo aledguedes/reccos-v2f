@@ -9,6 +9,35 @@
                         <input formControlName="name" matInput placeholder="Ex.: Liga Master A" />
                     </mat-form-field>
                     <div class="input-data row">
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Estado</mat-label>
+                                <mat-select formControlName="state" #state (selectionChange)="allCitysByState(state.value)">
+                                    <mat-option *ngFor="let state of listStates; let idx = index" [value]="state.id"> {{ state.nome }} </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-6">
+                            <!-- <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Cidade</mat-label>
+                                <mat-select formControlName="city">
+                                    <mat-option *ngFor="let city of listCitys" [value]="city"> {{ city }} </mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                            <mat-form-field class="example-full-width w-100" appearance="outline">
+                                <mat-label>State</mat-label>
+                                <input matInput
+                                       aria-label="State"
+                                       [matAutocomplete]="auto"
+                                       formControlName="city">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                  <mat-option *ngFor="let state of filteredStates | async" [value]="state.nome">
+                                    <!-- <img alt="" class="example-option-img" [src]="state" height="25"> -->
+                                    <span>{{state.nome}}</span>
+                                  </mat-option>
+                                </mat-autocomplete>
+                              </mat-form-field>
+                        </div>
                         <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Início</mat-label>

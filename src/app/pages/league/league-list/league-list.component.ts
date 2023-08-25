@@ -13,7 +13,7 @@ export class LeagueListComponent implements OnInit {
 
   leagues: League[] = [];
 
-  baseUrl = environment.storage_url;
+  baseUrl = environment.storage_url+'/';
 
   constructor(
     private leagueService: LeagueService,
