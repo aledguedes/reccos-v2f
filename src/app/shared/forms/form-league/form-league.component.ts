@@ -30,8 +30,8 @@ export class FormLeagueComponent implements OnInit {
   league_mode = leagueMode;
   league_system = leagueSystem;
   league_status = leaguesStatus;
-  listStates: States[] = [];
   listCitys: any = [];
+  listStates: States[] = [];
 
   constructor(
     private router: Router,
@@ -41,7 +41,6 @@ export class FormLeagueComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('ESTADOS:', this.listStates);
     this.initForms();
     this.allStates();
     this.rxjs.uploadFileName$.subscribe(fileName => {
@@ -77,6 +76,15 @@ export class FormLeagueComponent implements OnInit {
     );
   }
 
+  filterState(value: String) {
+    let location = value.split('/');
+    let idx = this.listStates.findIndex((estados: States) => estados.sigla == location[1]);
+    this.leagueForm.patchValue({
+      state: this.listStates[idx].id,
+      city: location[0]
+    });
+  }
+
   updateInfosLeagueId(league: League) {
     this.leagueForm.patchValue({
       name: league.name,
@@ -86,12 +94,13 @@ export class FormLeagueComponent implements OnInit {
       league_mode: league.league_mode,
       league_system: league.league_system
     });
+    this.filterState(league.location);
   }
 
   leagueById(id_league: number) {
     this.leagueService.leagueById(id_league).subscribe({
       next: (data) => {
-        console.log('LEAGUE BY ID SUCESS', data);
+        // console.log('LEAGUE BY ID SUCESS', data);
         this.updateInfosLeagueId(data);
       },
       error: (err) => {
@@ -101,20 +110,21 @@ export class FormLeagueComponent implements OnInit {
   }
 
   createLeague() {
-    this.updateInfos();
+    let location = this.leagueForm.value.city + '/' + this.leagueForm.value.state;
+
     let form: any = {
       name: this.leagueForm.value.name,
-      location: this.leagueForm.value.location,
       dt_start: this.formatDate(this.leagueForm.value.dt_start),
       dt_end: this.formatDate(this.leagueForm.value.dt_end),
       league_system: this.leagueForm.value.league_system,
       league_mode: this.leagueForm.value.league_mode,
-      qt_group: this.leagueForm.value.qt_group,
+      qt_group: +this.leagueForm.value.qt_group,
       status: this.leagueForm.value.status,
+      img_logo: this.file_upload_name,
       idd_fed: +this.id_federation,
-      img_logo: this.file_upload_name
+      location: location
     }
-    console.log('create league form', form);
+    console.log('create league form', form, this.leagueForm.value.qt_group);
     // return;
     this.leagueService.createLeague(form).subscribe({
       next: (data) => {
@@ -137,13 +147,7 @@ export class FormLeagueComponent implements OnInit {
   formatDate(date: Date) {
     var formattedTimestamp = date.toISOString().slice(0, 16);
     console.log(formattedTimestamp);
-  }
-
-  updateInfos() {
-    // this.leagueForm.patchValue({
-    //   dt_start: '2024-01-21T03:00',
-    //   dt_end: '2024-08-21T03:00'
-    // });
+    return formattedTimestamp;
   }
 
   stateSelected(uf: string) {
@@ -175,11 +179,27 @@ export class FormLeagueComponent implements OnInit {
         // console.log('TODAS CIDADES SUCESS', data);
         this.listCitys = data;
         this.leagueForm.controls['city'].enable();
+        if (this.validationForm) {
+          this.leagueForm.patchValue({
+            city: ''
+          });
+        }
       },
       error: (err) => {
         console.log('TODAS CIDADES ERROR', err);
       }
     });
+  }
+
+  enableDisableQtGroup(evt: any) {
+    if (evt === 'Pontos Corridos') {
+      this.leagueForm.patchValue({
+        qt_group: 1
+      });
+      this.leagueForm.controls['qt_group'].disable();
+      // return;
+    }
+    this.leagueForm.controls['qt_group'].enable();
   }
 }
 

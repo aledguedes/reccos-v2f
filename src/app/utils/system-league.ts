@@ -2,7 +2,7 @@ export const leagueSystem = [
     { name: 'Pontos Corridos' },
     { name: 'Mata-Mata' },
     { name: 'Grupos' },
-    { name: ' Grupos > Mata-Mata' },
+    { name: 'Grupos > Mata-Mata' },
     { name: 'Copa' },
 ];
 
@@ -15,8 +15,8 @@ export const leagueMode = [
 ];
 
 export const leaguesStatus = [
-    { name: 'Ativo' },
-    { name: 'Inativo' },
-    { name: 'Suspenso' },
-    { name: 'Aguardando Validações' },
+    { id: 1, name: 'Ativo' },
+    { id: 2, name: 'Inativo' },
+    { id: 3, name: 'Suspenso' },
+    { id: 4, name: 'Aguardando Validações' },
 ]

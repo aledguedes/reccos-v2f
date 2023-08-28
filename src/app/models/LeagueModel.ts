@@ -11,4 +11,5 @@ export interface League {
   dt_end: Date;
   createdAt: Date;
   updatedAt: Date;
+  cod_status?: String;
 }

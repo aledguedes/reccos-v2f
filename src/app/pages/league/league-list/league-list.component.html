@@ -59,7 +59,7 @@
   </div>
   <div class="row" *ngIf="leagues.length > 0; else noLeagues">
     <div class="col-md-3" *ngFor="let league of leagues">
-      <mat-card class="example-card mat-elevation-z4 px-3 mb-3">
+      <mat-card class="example-card mat-elevation-z4 px-3 mb-3" [ngClass]="['status-' + league.cod_status]">
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"
             [style.background-image]=" 'url(' + baseUrl  + '/' + league?.img_logo +')'"></div>

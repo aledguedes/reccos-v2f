@@ -8,9 +8,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LeagueUpdateComponent implements OnInit {
 
-  enableUpdateLeague: boolean = true;
-
   id_league: string = '';
+
+  enableUpdateLeague: boolean = true;
 
   constructor(
     private actvRouter: ActivatedRoute
@@ -18,7 +18,6 @@ export class LeagueUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.id_league = this.actvRouter.snapshot.params['id_league'];
-    console.log('update league_id:', this.id_league);
   }
 
 }

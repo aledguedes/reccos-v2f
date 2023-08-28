@@ -13,7 +13,7 @@ export class LeagueListComponent implements OnInit {
 
   leagues: League[] = [];
 
-  baseUrl = environment.storage_url+'/';
+  baseUrl = environment.storage_url + '/';
 
   constructor(
     private leagueService: LeagueService,
@@ -27,13 +27,30 @@ export class LeagueListComponent implements OnInit {
   listFederationById() {
     this.federationService.federationById(1).subscribe({
       next: (data) => {
+        data.leagues.forEach((l: League) => {
+          l["cod_status"] = this.plotStatus(l.status.toLowerCase());
+        })
         this.leagues = data.leagues;
+
         console.log('FEDERAÇÃO POR ID:', this.leagues);
       },
       error: (err) => {
         console.log('FEDERAÇÃO POR ID ERROR:', err);
       }
     });
+  }
+
+  plotStatus(value: string) {
+    switch (value) {
+      case 'ativo':
+        return '1';
+      case 'inativo':
+        return '2';
+      case 'suspenso':
+        return '3';
+      default:
+        return '4';
+    }
   }
 
 }
