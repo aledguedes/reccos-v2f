@@ -1,14 +1,18 @@
-.responsive-box {
-    width: 75%;
-}
-
 @media screen and (max-width: 992px) {
+    .padding-box {
+        padding: 2rem;
+    }
+
     .responsive-box {
         width: 100%;
     }
 }
 
 @media screen and (max-width: 768px) {
+    .padding-box {
+        padding: 2rem;
+    }
+
     .responsive-box {
         width: 100%;
     }
@@ -16,6 +20,14 @@
 
 @media screen and (max-width: 576px) {
     .responsive-box {
+        width: 100%;
+    }
+
+    .padding-box {
+        padding: 0rem;
+    }
+
+    .width-responsive {
         width: 100%;
     }
 }

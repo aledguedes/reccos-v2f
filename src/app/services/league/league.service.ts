@@ -27,12 +27,12 @@ export class LeagueService {
     return this.http.post<League>(`${this.url}/${this.flag}`, league);
   }
 
-  updateLeague(id_user: number, user: League) {
-    return this.http.put<League>(`${this.url}/${this.flag}/${id_user}`, user);
+  updateLeague(id_league: number, user: League) {
+    return this.http.put<League>(`${this.url}/${this.flag}/${id_league}`, user);
   }
 
-  removeLeague(id_user: number) {
-    return this.http.delete<League>(`${this.url}/${this.flag}/${id_user}`);
+  removeLeague(id_league: number) {
+    return this.http.delete<League>(`${this.url}/${this.flag}/${id_league}`);
   }
 
   allStates() {

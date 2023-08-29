@@ -52,7 +52,7 @@
 <div class="container">
   <div class="row justify-content-end my-3">
     <div class="col-md-auto">
-      <button class="text-uppercase" mat-raised-button color="primary" routerLink="create">
+      <button class="text-uppercase width-responsive" mat-raised-button color="primary" routerLink="create">
         <mat-icon>add</mat-icon> Adicionar Liga
       </button>
     </div>
@@ -65,9 +65,9 @@
             [style.background-image]=" 'url(' + baseUrl  + '/' + league?.img_logo +')'"></div>
           <mat-card-title>{{ league.name }}</mat-card-title>
           <mat-card-subtitle style="font-size: 12px;">
-              <p class="text-reccos-1 m-0" style="font-size: 10px;">
-                {{ league.location }}
-              </p>
+            <p class="text-reccos-1 m-0" style="font-size: 10px;">
+              {{ league.location }}
+            </p>
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
@@ -118,9 +118,15 @@
         </mat-card-content>
         <mat-card-actions align="end">
           <div class="d-flex justify-content-end align-items-end mt-3">
-            <button type="button" [routerLink]="['update', league.id]" mat-button color="primary"
-              class="btn-sm w-50 me-1">EDITAR</button>
-            <button type="button" mat-button color="accent" class="btn-sm w-50">CONFIGURAR</button>
+            <button mat-icon-button color="warn">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+            <button mat-icon-button [routerLink]="['update', league.id]" color="primary">
+              <mat-icon>mode_edit</mat-icon>
+            </button>
+            <button mat-icon-button color="accent">
+              <mat-icon>settings</mat-icon>
+            </button>
           </div>
         </mat-card-actions>
       </mat-card>

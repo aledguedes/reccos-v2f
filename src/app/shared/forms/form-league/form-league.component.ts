@@ -25,11 +25,15 @@ export class FormLeagueComponent implements OnInit {
 
   leagueForm!: FormGroup;
   id_federation: string = '1';
+  stateAbbreviation: String = '';
   file_upload_name: string = 'league/default.png';
 
   league_mode = leagueMode;
   league_system = leagueSystem;
   league_status = leaguesStatus;
+
+  changePhoto: boolean = true;
+
   listCitys: any = [];
   listStates: States[] = [];
 
@@ -51,6 +55,7 @@ export class FormLeagueComponent implements OnInit {
 
     if (this.validationForm) {
       this.leagueById(+this.id_league);
+      this.changePhoto = false;
     }
   }
 
@@ -110,7 +115,7 @@ export class FormLeagueComponent implements OnInit {
   }
 
   createLeague() {
-    let location = this.leagueForm.value.city + '/' + this.leagueForm.value.state;
+    let location = this.leagueForm.value.city + '/' + this.stateAbbreviation;
 
     let form: any = {
       name: this.leagueForm.value.name,
@@ -138,7 +143,6 @@ export class FormLeagueComponent implements OnInit {
   }
 
   nextStep() {
-    console.log('next step')
     setTimeout(() => {
       this.stepper.next();
     }, 0);
@@ -146,7 +150,6 @@ export class FormLeagueComponent implements OnInit {
 
   formatDate(date: Date) {
     var formattedTimestamp = date.toISOString().slice(0, 16);
-    console.log(formattedTimestamp);
     return formattedTimestamp;
   }
 
@@ -177,7 +180,11 @@ export class FormLeagueComponent implements OnInit {
     this.leagueService.allCityss(uf).subscribe({
       next: (data) => {
         // console.log('TODAS CIDADES SUCESS', data);
+
         this.listCitys = data;
+
+        let idx = this.listStates.findIndex((item: States) => item.id == uf);
+        this.stateAbbreviation = this.listStates[idx].sigla;
         this.leagueForm.controls['city'].enable();
         if (this.validationForm) {
           this.leagueForm.patchValue({

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode, MatProgressBarModule } from '@angular/material/progress-bar';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-form-upload',
@@ -18,6 +19,8 @@ export class FormUploadComponent {
   mode: ProgressBarMode = 'determinate';
   value = 40;
   bufferValue = 0;
+
+  baseUrl = environment.storage_url;
 
   constructor(
     private rxjs: DataRxjsService

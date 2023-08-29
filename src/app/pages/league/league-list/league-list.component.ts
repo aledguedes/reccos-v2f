@@ -13,6 +13,8 @@ export class LeagueListComponent implements OnInit {
 
   leagues: League[] = [];
 
+  id_federation: number = 1;
+
   baseUrl = environment.storage_url + '/';
 
   constructor(
@@ -25,17 +27,27 @@ export class LeagueListComponent implements OnInit {
   }
 
   listFederationById() {
-    this.federationService.federationById(1).subscribe({
+    this.federationService.federationById(this.id_federation).subscribe({
       next: (data) => {
         data.leagues.forEach((l: League) => {
           l["cod_status"] = this.plotStatus(l.status.toLowerCase());
         })
         this.leagues = data.leagues;
-
-        console.log('FEDERAÇÃO POR ID:', this.leagues);
+        // console.log('FEDERAÇÃO POR ID:', this.leagues);
       },
       error: (err) => {
         console.log('FEDERAÇÃO POR ID ERROR:', err);
+      }
+    });
+  }
+
+  removeLeague(id_league: any) {
+    this.leagueService.removeLeague(id_league).subscribe({
+      next: (data) => {
+        this.listFederationById();
+      },
+      error: (err) => {
+        console.log('REMOVE LEAGUE ERROR:', err);
       }
     });
   }
