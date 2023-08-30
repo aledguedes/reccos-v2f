@@ -3,5 +3,46 @@
 @import 'assets/styles/scrools';
 @import 'assets/styles/reset';
 @import 'assets/styles/forms';
-@import 'assets/styles/responsive';
 @import 'assets/styles/snackbar';
+
+@media screen and (max-width: 992px) {
+    .padding-box {
+        padding: 2rem;
+    }
+
+    .responsive-box {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .padding-box {
+        padding: 2rem;
+    }
+
+    .responsive-box {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .responsive-box {
+        width: 100%;
+    }
+
+    .padding-box {
+        padding: 0rem;
+    }
+
+    .padding-form {
+        padding: .5rem;
+    }
+    
+    .mat-vertical-content-container {
+        margin-left: 0px;
+    }
+
+    .width-responsive {
+        width: 100%;
+    }
+}

@@ -1,3 +1,37 @@
 .padding-box {
     padding: 2rem;
 }
+
+.padding-form {
+    padding: 1.5rem 2rem;
+}
+
+@media screen and (max-width: 992px) {
+    .padding-box {
+        padding: 2rem;
+    }
+
+    .responsive-box {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .padding-box {
+        padding: 2rem;
+    }
+
+    .responsive-box {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .padding-box {
+        padding: 0rem;
+    }
+
+    .padding-form {
+        padding: .5rem;
+    }
+}

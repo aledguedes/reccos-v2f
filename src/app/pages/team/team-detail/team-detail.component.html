@@ -41,8 +41,8 @@
             <small>{{ team.birth_date | date: 'dd/MM/yyyy' }}<br /> </small>
           </div>
           <div class="rigth">
-            <button mat-icon-button color="primary">
-              <mat-icon>edit</mat-icon>
+            <button mat-icon-button [routerLink]="['/team/update', team.id]" color="primary">
+              <mat-icon>mode_edit</mat-icon>
             </button>
           </div>
         </div>

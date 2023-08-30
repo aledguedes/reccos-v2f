@@ -20,7 +20,7 @@
             <div class="col-12 col-xl-4 col-lg-4 col-md-6">
               <mat-form-field class="example-full-width w-100" appearance="outline">
                 <mat-label>Iniciais</mat-label>
-                <input formControlName="initials" matInput placeholder="Ex.: SCTA" />
+                <input formControlName="acronym" matInput placeholder="Ex.: SCTA" />
               </mat-form-field>
             </div>
             <div class="col-12 col-xl-4 col-lg-4 col-md-6 mb-2">
@@ -31,6 +31,15 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
+            </div>
+            <div class="col-12 col-xl-4 col-lg-4 col-md-12" *ngIf="validationForm">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option class="text-uppercase" *ngFor="let status of league_status"
+                            [value]="status.name"> {{ status.name }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
           </div>
         </form>
@@ -43,52 +52,28 @@
     <ng-template matStepContent>
       <form [formGroup]="formCommission">
         <div class="row my-3">
-          <div class="col-md-8">
+          <div class="col-md-6">
             <mat-form-field class="example-full-width w-100" appearance="outline">
               <mat-label>Técnico</mat-label>
-              <input formControlName="coach" matInput placeholder="Ex.: Telê Santana" />
+              <input formControlName="coach" matInput placeholder="Ex.: Fulano de Dal" />
             </mat-form-field>
           </div>
-          <div class="col-md-4">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
-              <mat-label>Apelido</mat-label>
-              <input formControlName="surname_coach" matInput placeholder="Ex.: Telê Santana" />
-            </mat-form-field>
-          </div>
-          <div class="col-md-8">
+          <div class="col-md-6">
             <mat-form-field class="example-full-width w-100" appearance="outline">
               <mat-label>Assistente Técnico</mat-label>
-              <input formControlName="assistant" matInput placeholder="Ex.: Telê" />
+              <input formControlName="assistant" matInput placeholder="Ex.: Fulano de Dal" />
             </mat-form-field>
           </div>
-          <div class="col-md-4">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
-              <mat-label>Apelido Assistente Técnico</mat-label>
-              <input formControlName="surname_assistant" matInput placeholder="Ex.: Telê Santana" />
-            </mat-form-field>
-          </div>
-          <div class="col-md-8">
+          <div class="col-md-6">
             <mat-form-field class="example-full-width w-100" appearance="outline">
               <mat-label>Preparador de Goleiro</mat-label>
-              <input formControlName="goalkeeper" matInput placeholder="Ex.: Sport Club Team A" />
+              <input formControlName="goalkeeper" matInput placeholder="Ex.: Fulano de tal" />
             </mat-form-field>
           </div>
-          <div class="col-md-4">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
-              <mat-label>Apelido Preparador de Goleiro</mat-label>
-              <input formControlName="surname_goalkeeper" matInput placeholder="Ex.: Sport Club Team A" />
-            </mat-form-field>
-          </div>
-          <div class="col-md-8">
+          <div class="col-md-6">
             <mat-form-field class="example-full-width w-100" appearance="outline">
               <mat-label>Médico</mat-label>
-              <input formControlName="doctor" matInput placeholder="Ex.: Sport Club Team A" />
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
-              <mat-label>Apelido Médico</mat-label>
-              <input formControlName="surname_doctor" matInput placeholder="Ex.: Sport Club Team A" />
+              <input formControlName="doctor" matInput placeholder="Ex.: Fulano de tal" />
             </mat-form-field>
           </div>
         </div>
