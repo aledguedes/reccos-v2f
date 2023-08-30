@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
@@ -8,13 +8,14 @@ import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { LeagueService } from 'src/app/services/league/league.service';
 import { cidadesEstadosBrasil } from 'src/app/utils/cidadesEstados';
 import { leagueMode, leagueSystem, leaguesStatus } from 'src/app/utils/system-league';
+import { SnackbarService } from '../../service/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-form-league',
   templateUrl: './form-league.component.html',
   styleUrls: ['./form-league.component.scss']
 })
-export class FormLeagueComponent implements OnInit {
+export class FormLeagueComponent implements OnInit, AfterViewInit {
 
   @Input() id_league: string = '';
   @Input() validationForm: boolean = false;
@@ -26,7 +27,7 @@ export class FormLeagueComponent implements OnInit {
   leagueForm!: FormGroup;
   id_federation: string = '1';
   stateAbbreviation: String = '';
-  file_upload_name: string = 'league/default.png';
+  file_upload_name: String = 'league/default.png';
 
   league_mode = leagueMode;
   league_system = leagueSystem;
@@ -35,12 +36,16 @@ export class FormLeagueComponent implements OnInit {
   changePhoto: boolean = true;
 
   listCitys: any = [];
+  teams: any = [];
   listStates: States[] = [];
+
+  label_button: string = '';
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private rxjs: DataRxjsService,
+    private snack: SnackbarService,
     private leagueService: LeagueService,
   ) { }
 
@@ -57,6 +62,10 @@ export class FormLeagueComponent implements OnInit {
       this.leagueById(+this.id_league);
       this.changePhoto = false;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.label_button = this.validationForm ?  'Cancelar' : 'Voltar';
   }
 
   initForms() {
@@ -107,11 +116,16 @@ export class FormLeagueComponent implements OnInit {
       next: (data) => {
         // console.log('LEAGUE BY ID SUCESS', data);
         this.updateInfosLeagueId(data);
+        this.file_upload_name = data.img_logo;
       },
       error: (err) => {
         console.log('LEAGUE BY ID ERROR', err);
       }
     });
+  }
+
+  updateLeague() {
+    console.log('this.file_upload_name', this.file_upload_name);
   }
 
   createLeague() {
@@ -135,9 +149,11 @@ export class FormLeagueComponent implements OnInit {
       next: (data) => {
         console.log('CREATE LEAGUE SUCESS', data);
         this.router.navigate(['/league']);
+        this.snack.snack(`Liga ${form.name} criada com sucesso!`, 'snack-success');
       },
       error: (err) => {
         console.log('CREATE LEAGUE ERROR', err);
+        this.snack.snack(`Erro ao tentar criar a liga!`, 'snack-error');
       }
     });
   }
