@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4 mb-3" *ngFor="let menu of dashMenu">
+        <div class="col-md-6 col-lg-4 mb-3" *ngFor="let menu of dashMenu">
             <a mat-stroked-button class="text-reccos-3 p-4 reccos-settings-button w-100"
                 [color]="menu.id % 2 != 0 ? 'primary' : 'warn'" [routerLink]="menu.router">
                 <div class="d-flex  justify-content-center align-items-end"
