@@ -8,6 +8,7 @@ import { usuarios } from 'src/app/mocks/UsersMock';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { environment } from 'src/environments/environment';
+import { SnackbarService } from 'src/app/shared/service/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-user-list',
@@ -26,7 +27,7 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
   ) {
     this.dataSource = new MatTableDataSource(this.users);
   }
