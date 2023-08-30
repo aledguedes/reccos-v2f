@@ -43,28 +43,52 @@
     <ng-template matStepContent>
       <form [formGroup]="formCommission">
         <div class="row my-3">
-          <div class="col-md-6">
+          <div class="col-md-8">
             <mat-form-field class="example-full-width w-100" appearance="outline">
               <mat-label>Técnico</mat-label>
-              <input formControlName="coach" matInput placeholder="Ex.: Sport Club Team A" />
+              <input formControlName="coach" matInput placeholder="Ex.: Telê Santana" />
             </mat-form-field>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <mat-form-field class="example-full-width w-100" appearance="outline">
-              <mat-label> Assistente Técnico</mat-label>
-              <input formControlName="assistants" matInput placeholder="Ex.: Sport Club Team A" />
+              <mat-label>Apelido</mat-label>
+              <input formControlName="surname_coach" matInput placeholder="Ex.: Telê Santana" />
             </mat-form-field>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-8">
+            <mat-form-field class="example-full-width w-100" appearance="outline">
+              <mat-label>Assistente Técnico</mat-label>
+              <input formControlName="assistant" matInput placeholder="Ex.: Telê" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width w-100" appearance="outline">
+              <mat-label>Apelido Assistente Técnico</mat-label>
+              <input formControlName="surname_assistant" matInput placeholder="Ex.: Telê Santana" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-8">
             <mat-form-field class="example-full-width w-100" appearance="outline">
               <mat-label>Preparador de Goleiro</mat-label>
               <input formControlName="goalkeeper" matInput placeholder="Ex.: Sport Club Team A" />
             </mat-form-field>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width w-100" appearance="outline">
+              <mat-label>Apelido Preparador de Goleiro</mat-label>
+              <input formControlName="surname_goalkeeper" matInput placeholder="Ex.: Sport Club Team A" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-8">
             <mat-form-field class="example-full-width w-100" appearance="outline">
               <mat-label>Médico</mat-label>
               <input formControlName="doctor" matInput placeholder="Ex.: Sport Club Team A" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width w-100" appearance="outline">
+              <mat-label>Apelido Médico</mat-label>
+              <input formControlName="surname_doctor" matInput placeholder="Ex.: Sport Club Team A" />
             </mat-form-field>
           </div>
         </div>
@@ -93,14 +117,14 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Concluir</ng-template>
-    
+
     <div class="d-flex justify-content-end mt-3">
       <button mat-raised-button color="primary" [disabled]="formTeam.invalid" (click)="createTeam()"
-          *ngIf="!validationForm">Concluir</button>
+        *ngIf="!validationForm">Concluir</button>
       <button mat-raised-button color="primary" [disabled]="formTeam.invalid" (click)="updateTeam()"
-          *ngIf="validationForm">Atualizar</button>
-  </div>
+        *ngIf="validationForm">Atualizar</button>
+    </div>
   </mat-step>
-  
+
   <button class="me-2" mat-stroked-button color="warn" [routerLink]="['/team']"> {{ label_button }} </button>
 </mat-stepper>

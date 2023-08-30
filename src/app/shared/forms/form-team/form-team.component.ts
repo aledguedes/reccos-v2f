@@ -43,9 +43,13 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
 
     this.formCommission = this.fb.group({
       coach: ['', Validators.required],
-      assistants: ['', Validators.required],
+      assistant: ['', Validators.required],
       doctor: ['', Validators.required],
       goalkeeper: ['', Validators.required],
+      surname_coach: ['', Validators.required],
+      surname_assistant: ['', Validators.required],
+      surname_doctor: ['', Validators.required],
+      surname_goalkeeper: ['', Validators.required],
     });
   }
 
