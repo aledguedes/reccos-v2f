@@ -34,7 +34,7 @@ export class LeagueListComponent implements OnInit {
       next: (data) => {
         data.leagues.forEach((l: League) => {
           l["cod_status"] = this.plotStatus(l.status.toLowerCase());
-        })
+        });
         this.leagues = data.leagues;
         // console.log('FEDERAÇÃO POR ID:', this.leagues);
       },

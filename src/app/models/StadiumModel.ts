@@ -5,5 +5,6 @@ export interface Stadium {
     surname?: String;
     createdAt?: Date;
     updatedAt?: Date;
+    cod_status?: String;
     picture_profile?: String;
 }

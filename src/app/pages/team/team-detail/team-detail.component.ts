@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { TeamService } from './../../../services/team/team.service';
 import { Component, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/TeamModel';
-import { Stadium } from 'src/app/models/Stadium';
 
 @Component({
   selector: 'app-team-detail',

@@ -1,5 +1,5 @@
 import { Federation } from "./FederationModel";
-import { Stadium } from "./Stadium";
+import { Stadium } from "./StadiumModel";
 
 export interface Team {
   id?: Number;
