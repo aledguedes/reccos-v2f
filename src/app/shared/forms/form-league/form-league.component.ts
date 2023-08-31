@@ -25,6 +25,8 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   filteredStates!: Observable<any[]>;
 
   leagueForm!: FormGroup;
+  dt_end_DB: string = '';
+  dt_start_DB: string = '';
   id_federation: string = '1';
   stateAbbreviation: String = '';
   file_upload_name: String = 'league/default.png';
@@ -38,8 +40,6 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   listCitys: any = [];
   teams: any = [];
   listStates: States[] = [];
-
-  label_button: string = '';
 
   constructor(
     private router: Router,
@@ -65,7 +65,6 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.label_button = this.validationForm ?  'Cancelar' : 'Voltar';
   }
 
   initForms() {
@@ -80,9 +79,11 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
       qt_group: ['1', Validators.required],
       status: !this.validationForm ? ['Ativo'] : ['']
     });
-    this.leagueForm.controls['city'].disable();
-    this.leagueForm.controls['qt_group'].disable();
 
+    if (!this.validationForm) {
+      this.leagueForm.controls['city'].disable();
+      this.leagueForm.controls['qt_group'].disable();
+    }
 
     this.filteredStates = this.leagueForm.controls['city'].valueChanges.pipe(
       startWith(''),
@@ -114,9 +115,11 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   leagueById(id_league: number) {
     this.leagueService.leagueById(id_league).subscribe({
       next: (data) => {
+        this.dt_end_DB = String(data.dt_end);
+        this.file_upload_name = data.img_logo;
+        this.dt_start_DB = String(data.dt_start);
         // console.log('LEAGUE BY ID SUCESS', data);
         this.updateInfosLeagueId(data);
-        this.file_upload_name = data.img_logo;
       },
       error: (err) => {
         console.log('LEAGUE BY ID ERROR', err);
@@ -125,7 +128,60 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   }
 
   updateLeague() {
-    console.log('this.file_upload_name', this.file_upload_name);
+
+    let idState = this.leagueForm.value.state;
+    let nameCity = this.leagueForm.value.city;
+    let stateAbbreviation = this.listStates.filter((estados: States) => estados.id == idState)[0].sigla;
+
+    let obj = {
+      idd_fed: +this.id_federation,
+      img_logo: this.file_upload_name,
+      name: this.leagueForm.value.name,
+      dt_end: this.leagueForm.value.dt_end,
+      status: this.leagueForm.value.status,
+      dt_start: this.leagueForm.value.dt_start,
+      qt_group: +this.leagueForm.value.qt_group,
+      location: nameCity + '/' + stateAbbreviation,
+      league_mode: this.leagueForm.value.league_mode,
+      league_system: this.leagueForm.value.league_system,
+    }
+
+    let changeDateEnd = this.compareDates(this.dt_end_DB, obj.dt_end);
+    let changeDateStart = this.compareDates(this.dt_start_DB, obj.dt_start);
+
+    if (changeDateStart) {
+      obj.dt_start = this.formatDate(obj.dt_start);
+    }
+
+    if (changeDateEnd) {
+      obj.dt_end = this.formatDate(obj.dt_end);
+    }
+
+    this.updateToApi(obj);
+  }
+
+  compareDates(dateString1: string, dateString2: string) {
+    const date1 = new Date(dateString1);
+    const date2 = new Date(dateString2);
+
+    if (date1.getTime() === date2.getTime()) {
+      return false;
+    }
+    return true;
+  }
+
+  updateToApi(form: any) {
+    this.leagueService.updateLeague(+this.id_league, form).subscribe({
+      next: (data) => {
+        console.log('UPDATE LEAGUE SUCESS', data);
+        this.router.navigate(['/league']);
+        this.snack.snack(`Liga ${form.name} atualizada com sucesso!`, 'snack-success');
+      },
+      error: (err) => {
+        console.log('UPDATE LEAGUE ERROR', err);
+        this.snack.snack(`Erro ao tentar atualizar a liga!`, 'snack-error');
+      }
+    });
   }
 
   createLeague() {
@@ -143,8 +199,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
       idd_fed: +this.id_federation,
       location: location
     }
-    console.log('create league form', form, this.leagueForm.value.qt_group);
-    // return;
+
     this.leagueService.createLeague(form).subscribe({
       next: (data) => {
         console.log('CREATE LEAGUE SUCESS', data);

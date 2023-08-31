@@ -27,8 +27,8 @@ export class LeagueService {
     return this.http.post<League>(`${this.url}/${this.flag}`, league);
   }
 
-  updateLeague(id_league: number, user: League) {
-    return this.http.put<League>(`${this.url}/${this.flag}/${id_league}`, user);
+  updateLeague(id_league: number, league: League) {
+    return this.http.put<League>(`${this.url}/${this.flag}/${id_league}`, league);
   }
 
   removeLeague(id_league: number) {

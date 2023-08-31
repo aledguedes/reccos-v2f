@@ -143,7 +143,6 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
     if (changeDate) {
       obj.birth_date = this.formatDate(obj.birth_date);
     }
-    return;
 
     this.teamService.updateTeam(+this.id_team, obj).subscribe({
       next: (data) => {

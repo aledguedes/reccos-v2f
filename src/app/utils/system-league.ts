@@ -15,8 +15,8 @@ export const leagueMode = [
 ];
 
 export const leaguesStatus = [
-    { id: 1, name: 'Ativo' },
-    { id: 2, name: 'Inativo' },
-    { id: 3, name: 'Suspenso' },
-    { id: 4, name: 'Aguardando Validações' },
+    { id: 1, name: 'ATIVO' },
+    { id: 2, name: 'INATIVO' },
+    { id: 3, name: 'SUSPENSO' },
+    { id: 4, name: 'AGUARDANDO VALIDAÇÕES' },
 ]

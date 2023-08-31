@@ -50,8 +50,14 @@
 </div> -->
 
 <div class="container">
-  <div class="row justify-content-end my-3">
-    <div class="col-md-auto">
+  <div class="row py-3 ps-3 justify-content-end my-3">
+    <div class="col-md-6">
+      <strong class="mb-3">Legendas:</strong>
+      <div class="d-flex w-100" style="font-size: 13px;">
+        <div class="code me-3" *ngFor="let s of statusCode" [ngClass]="['code-' + s.id]">{{ s.name }}</div>
+      </div>
+    </div>
+    <div class="col-md-6 text-end">
       <button class="text-uppercase width-responsive" mat-raised-button color="primary" routerLink="create">
         <mat-icon>add</mat-icon> Adicionar Liga
       </button>
@@ -71,22 +77,6 @@
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <div class="row">
-            <div class="example-flex-container">
-              <button mat-icon-button aria-label="Facebook" color="primary">
-                <mat-icon>save</mat-icon>
-              </button>
-              <button mat-icon-button aria-label="Face" color="primary">
-                <mat-icon>face</mat-icon>
-              </button>
-              <button mat-icon-button aria-label="group" color="primary">
-                <mat-icon>group</mat-icon>
-              </button>
-              <button mat-icon-button aria-label="language" color="primary">
-                <mat-icon>language</mat-icon>
-              </button>
-            </div>
-          </div>
           <div class="row mt-3">
             <mat-list class="infos-league">
               <mat-list-item>
@@ -111,7 +101,7 @@
                 <div class="d-flex w-100 justify-content-between">
                   <span><strong>Fim:</strong></span> <span> {{ league.dt_end | date: 'dd/MM/yyyy' }} </span>
                 </div>
-              </mat-list-item>
+              </mat-list-item>  
               <mat-divider></mat-divider>
             </mat-list>
           </div>
@@ -121,11 +111,11 @@
             <button mat-icon-button color="warn">
               <mat-icon>delete_outline</mat-icon>
             </button>
-            <button mat-icon-button [routerLink]="['update', league.id]" color="primary">
-              <mat-icon>mode_edit</mat-icon>
-            </button>
             <button mat-icon-button color="accent">
               <mat-icon>settings</mat-icon>
+            </button>
+            <button mat-icon-button [routerLink]="['update', league.id]" color="primary">
+              <mat-icon>mode_edit</mat-icon>
             </button>
           </div>
         </mat-card-actions>

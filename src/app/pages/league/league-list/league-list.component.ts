@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { League } from 'src/app/models/LeagueModel';
 import { FederationService } from 'src/app/services/federation/federation.service';
 import { LeagueService } from 'src/app/services/league/league.service';
+import { leaguesStatus } from 'src/app/utils/system-league';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -14,6 +15,8 @@ export class LeagueListComponent implements OnInit {
   leagues: League[] = [];
 
   id_federation: number = 1;
+
+  statusCode: any = leaguesStatus;
 
   baseUrl = environment.storage_url + '/';
 

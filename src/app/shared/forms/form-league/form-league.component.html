@@ -74,7 +74,6 @@
                                 <input type="number" formControlName="qt_group" matInput placeholder="Ex.: 4" />
                             </mat-form-field>
                         </div>
-
                         <div class="col-12 col-xl-4 col-lg-4 col-md-12" *ngIf="validationForm">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Status</mat-label>
@@ -129,7 +128,7 @@
             </div>
         </ng-template>
         <div class="d-flex justify-content-end mt-3">
-            <button class="me-2" mat-stroked-button color="warn" [routerLink]="['/league']"> {{ label_button }} </button>
+            <button class="me-2" mat-stroked-button color="warn" [routerLink]="['/league']"> Cancelar </button>
             <button mat-raised-button color="primary" [disabled]="leagueForm.invalid" (click)="createLeague()"
                 *ngIf="!validationForm">Concluir</button>
             <button mat-raised-button color="primary" [disabled]="leagueForm.invalid" (click)="updateLeague()"
