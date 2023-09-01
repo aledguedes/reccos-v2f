@@ -1,7 +1,7 @@
 .profile-photo {
     position: relative;
-    width: 130px;
-    height: 120px;
+    width: 100px;
+    height: 80px;
     background-color: #E6E6E6;
     border-radius: 50%;
     margin: 0 10px;
@@ -12,4 +12,10 @@
 
 .reccos-bg-white {
     background-color: #FFF;
+}
+
+.infos-stadium {
+  span {
+    font-size: 12px;
+  }
 }

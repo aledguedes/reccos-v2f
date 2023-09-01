@@ -53,6 +53,7 @@ import { FormFederationComponent } from '../forms/form-federation/form-federatio
 import { FormUploadComponent } from '../forms/form-upload/form-upload.component';
 import { FormLeagueComponent } from '../forms/form-league/form-league.component';
 import { FormTeamComponent } from '../forms/form-team/form-team.component';
+import { FormStadiumComponent } from '../forms/form-stadium/form-stadium.component';
 
 const modules = [
   A11yModule,
@@ -113,6 +114,7 @@ const modules = [
     FormUploadComponent,
     FormLeagueComponent,
     FormTeamComponent,
+    FormStadiumComponent,
   ],
   imports: [
     CommonModule,
@@ -131,6 +133,7 @@ const modules = [
     FormUploadComponent,
     FormLeagueComponent,
     FormTeamComponent,
+    FormStadiumComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -81,11 +81,11 @@
   color: var(--grey);
 }
 
-::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel {
-  min-width: 550px !important;
-  max-width: 600px !important;
-  background-color: yellow !important;
-  color: blue;
-}
+// ::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel {
+//   min-width: 550px !important;
+//   max-width: 600px !important;
+//   background-color: yellow !important;
+//   color: blue;
+// }
 
 // ::ng-deep .mat-menu-panel {width: 100%!important; padding: 0 10px!important;}

@@ -66,6 +66,11 @@ $statusColors: (
 @each $name,
 $color in $statusColors {
 
+  .color-status-#{$name} {
+    color: #{$color};
+    font-weight: 600;
+  }
+
   .status-#{$name} {
     position: relative;
 

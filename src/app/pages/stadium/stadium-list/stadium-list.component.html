@@ -1,36 +1,52 @@
 <div class="container">
-    <div class="row py-3 ps-3 justify-content-end my-3">
-        <div class="col-md-6">
-          <strong class="mb-3">Legendas:</strong>
-          <div class="d-flex w-100" style="font-size: 13px;">
-            <div class="code me-3" *ngFor="let s of statusCode" [ngClass]="['code-' + s.id]">{{ s.name }}</div>
+  <div class="row py-3 ps-3 justify-content-end my-3">
+    <div class="col-md-6">
+      <strong class="mb-3">Legendas:</strong>
+      <div class="d-flex w-100" style="font-size: 13px;">
+        <div class="code me-3" *ngFor="let s of statusCode" [ngClass]="['code-' + s.id]">{{ s.name }}</div>
+      </div>
+    </div>
+    <div class="col-md-6 text-end">
+      <button class="text-uppercase width-responsive" mat-raised-button color="primary" routerLink="create">
+        <mat-icon>add</mat-icon> Adicionar Estádio
+      </button>
+    </div>
+  </div>
+  <div class="row g-3 mt-3">
+    <div class="col-md-12 col-lg-6 col-xl-4" *ngFor="let stadium of stadium, let idx = index">
+      <div class="d-flex align-items-center justify-content-between p-3 rounded-3 reccos-bg-white mat-elevation-z4"
+        [ngClass]="['status-' + stadium.cod_status]">
+        <div class="d-flex flex-column align-items-center profile-photo"
+          [style.background-image]=" 'url(' + baseUrl  + '/' + stadium?.picture_profile +')'"></div>
+        <div class="stadium-infos d-flex flex-column text-end mt-2" [ngClass]="['color-status-'+ stadium.cod_status]">
+          <small>{{ stadium.name }}</small>
+          <small>{{ stadium.surname }}</small>
+          <!-- <button mat-button [matMenuTriggerFor]="belowMenu">Times vinculados</button> -->
+          <div class="d-flex justify-content-end align-items-end mt-3">
+            <button mat-icon-button color="warn">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+            <button mat-icon-button [routerLink]="['update', stadium.id]" color="primary">
+              <mat-icon>mode_edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Times vinculados" [matMenuTriggerFor]="belowMenu">
+              <i class="fa-solid fa-shirt"></i>
+            </button>
           </div>
         </div>
-        <div class="col-md-6 text-end">
-          <button class="text-uppercase width-responsive" mat-raised-button color="primary" routerLink="create">
-            <mat-icon>add</mat-icon> Adicionar Liga
-          </button>
-        </div>
       </div>
-    <div class="row g-3 mt-3">
-        <div class="col-md-12 col-lg-6 col-xl-4" *ngFor="let stadium of stadium, let idx = index">
-            <div
-                class="d-flex align-items-center justify-content-between p-3 rounded-3 reccos-bg-white mat-elevation-z4" [ngClass]="['status-' + stadium.cod_status]">
-                <div class="d-flex flex-column align-items-center profile-photo"
-                    [style.background-image]=" 'url(' + baseUrl  + '/' + stadium?.picture_profile +')'"></div>
-                <div class="stadium-infos d-flex flex-column text-end">
-                    <small>{{ stadium.name }}</small>
-                    <small>{{ stadium.surname }}</small>
-                    <div class="d-flex justify-content-end align-items-end mt-3">
-                        <button mat-icon-button color="warn">
-                            <mat-icon>delete_outline</mat-icon>
-                        </button>
-                        <button mat-icon-button [routerLink]="['update', stadium.id]" color="primary">
-                            <mat-icon>mode_edit</mat-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+  </div>
 </div>
+
+<mat-menu #belowMenu="matMenu" yPosition="below">
+  <mat-list>
+    <div mat-subheader>Times</div>
+    <mat-list-item *ngFor="let t of teams">
+      <mat-icon matListItemIcon>Times vinculados</mat-icon>
+      <div matListItemTitle>{{ t.name }}</div>
+      <div matListItemLine>{{ t.surname }}</div>
+    </mat-list-item>
+  </mat-list>
+
+</mat-menu>
