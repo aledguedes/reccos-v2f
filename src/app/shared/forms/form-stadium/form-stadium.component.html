@@ -46,8 +46,8 @@
                         <strong>Este estádio pode ser vinculado a 1 ou mais times. Deseja fazer isso agora?</strong>
                     </div>
                     <div class="w-100 d-block mt-3 mb-3">
-                        <mat-radio-group formControlName="have" color="primary">
-                            <mat-radio-button [value]="'sim'" (change)="listTeams()">Sim</mat-radio-button>
+                        <mat-radio-group color="primary">
+                            <mat-radio-button [value]="'sim'" (change)="listTeamsByFederaion()">Sim</mat-radio-button>
                             <mat-radio-button [value]="'nao'" (change)="nextStep()">Não</mat-radio-button>
                         </mat-radio-group>
                     </div>
