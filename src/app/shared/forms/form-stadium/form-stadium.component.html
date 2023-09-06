@@ -38,31 +38,11 @@
                 </div>
                 <button mat-button matStepperNext [disabled]="reccosFormStadium.invalid">Next</button>
             </ng-template>
-        </mat-step><mat-step>
-            <ng-template matStepLabel>Vinculos</ng-template>
-            <ng-template matStepContent>
-                <div class="my-5 d-flex flex-column">
-                    <div class="text-reccos-1" style="font-size: 14px;">
-                        <strong>Este estádio pode ser vinculado a 1 ou mais times. Deseja fazer isso agora?</strong>
-                    </div>
-                    <div class="w-100 d-block mt-3 mb-3">
-                        <mat-radio-group color="primary">
-                            <mat-radio-button [value]="'sim'" (change)="listTeamsByFederaion()">Sim</mat-radio-button>
-                            <mat-radio-button [value]="'nao'" (change)="nextStep()">Não</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="list-teams" *ngIf="listTemas">
-                        <div class="alert alert-warning mt-4" role="alert" style="font-size: 13px;">
-                            <p class="m-0">Aqui virão os times cadastrados na federação</p>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>Upload</ng-template>
             <ng-template matStepContent>
-                <div class="my-5 d-flex flex-column">
+                <div class="d-flex flex-column">
                     <div>
                         <section class="example-section" *ngIf="validationForm">
                             <mat-checkbox class="example-margin" [(ngModel)]="changePhoto" color="primary">Deseja
@@ -81,7 +61,6 @@
         <mat-step>
             <ng-template matStepLabel>Concluir Cadastro</ng-template>
             <div class="d-flex justify-content-end mt-3">
-                <button class="me-2" mat-stroked-button color="warn" [routerLink]="['/league']"> Cancelar </button>
                 <button mat-raised-button color="primary" [disabled]="reccosFormStadium.invalid"
                     (click)="createStadium()" *ngIf="!validationForm">Concluir</button>
                 <button mat-raised-button color="primary" [disabled]="reccosFormStadium.invalid"

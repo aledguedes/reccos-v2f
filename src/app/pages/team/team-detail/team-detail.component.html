@@ -1,7 +1,6 @@
-<div class="interno mb-5">
+<div class="interno mb-3">
   <div class="inter">
-    <!-- <img class="img-time" [src]="equipe.img_scudo" alt="" /> -->
-    <img class="img-time" [src]="baseUrl + team!.picture_profile" alt="" />
+    <img class="img-time" [src]="baseUrl + team.picture_profile" alt="" />
     <p class="title-time"> {{ team.name }} </p>
   </div>
 </div>
@@ -49,34 +48,41 @@
       </div>
       <div class="margin-space m-border-bottom">
         <h1 class="line-title">Estádio</h1>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center" *ngIf="haveStadium; else noStadium">
           <img [src]="urlPhoto" alt="" width="80%" />
         </div>
+        <ng-template #noStadium>
+          <div class="alert alert-warning mt-4 w-100" role="alert">
+            <p class="m-0">O time ainda não possui estádio e/ou arena vinculado!!</p>
+          </div>
+        </ng-template>
       </div>
     </div>
     <div class="col-lg-8 col-md-8 col-xs-12 m-border-left ficha-tecnica">
       <div class="margin-space-2">
         <div class="d-flex justify-content-between">
           <h1 class="line-title">Elenco</h1>
-          <button mat-raised-button routerLink="/players/cadastrar" color="primary">Cadastrar atleta</button>
         </div>
         <div class="row d-flex justify-content-center">
           <div class="col-lg-4 col-md-6 col-xs-6 flex-gap">
-            <mat-card class="mt-2 d-flex p-2">
-              <!-- <img src="assets/images/player.jpg" alt="" width="35%" />
+            <!-- <mat-card class="mt-2 d-flex p-2">
+              <img src="assets/images/player.jpg" alt="" width="35%" />
                 <div class="d-flex flex-column align-items-start justify-content-end mx-2 w-100">
                   <small style="color: #000;"> {{ d.player.surname }} </small>
                   <div class="div d-flex justify-content-between  w-100">
                     <small>{{ retornPosition(d.player.position) }}</small>
                     <a routerLink="/players/{{d.player.id}}"><small> <mat-icon>info</mat-icon> </small></a>
                   </div>
-                </div> -->
-            </mat-card>
+                </div>
+            </mat-card> -->
             <!-- <ng-template #noTeams class="d-flex justify-content-center align-items-center">
                 <div class="alert alert-dark" role="alert">
                   Não existem atletas cadastrados! Clique em cadastro para inserir novos!
                 </div>
               </ng-template> -->
+          </div>
+          <div class="alert alert-warning mt-4" role="alert">
+            <p class="m-0">O time ainda não possui atletas cadastradas e/ou vinculados!!</p>
           </div>
         </div>
       </div>

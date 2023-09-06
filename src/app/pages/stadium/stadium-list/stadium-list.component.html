@@ -21,7 +21,6 @@
         <div class="stadium-infos d-flex flex-column text-end mt-2" [ngClass]="['color-status-'+ stadium.cod_status]">
           <small>{{ stadium.name }}</small>
           <small>{{ stadium.surname }}</small>
-          <!-- <button mat-button [matMenuTriggerFor]="belowMenu">Times vinculados</button> -->
           <div class="d-flex justify-content-end align-items-end mt-3">
             <button mat-icon-button color="warn">
               <mat-icon>delete_outline</mat-icon>
@@ -29,7 +28,7 @@
             <button mat-icon-button [routerLink]="['update', stadium.id]" color="primary">
               <mat-icon>mode_edit</mat-icon>
             </button>
-            <button mat-icon-button matTooltip="Times vinculados" [matMenuTriggerFor]="belowMenu">
+            <button mat-icon-button matTooltip="Times vinculados" [matMenuTriggerFor]="belowMenu" [disabled]="stadium.cod_status != '1'">
               <i class="fa-solid fa-shirt"></i>
             </button>
           </div>

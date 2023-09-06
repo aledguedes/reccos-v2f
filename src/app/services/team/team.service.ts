@@ -23,10 +23,6 @@ export class TeamService {
     return this.http.get<Team>(`${this.url}/${this.flag}/${team_id}`);
   }
 
-  teamByFederation(federation_id: number) {
-    return this.http.get<Team>(`${this.url}/${this.flag}/find/by-federation/${federation_id}`);
-  }
-
   createTeam(team: Team) {
     return this.http.post<Team>(`${this.url}/${this.flag}`, team);
   }
@@ -37,5 +33,9 @@ export class TeamService {
 
   removeTeam(id_user: number) {
     return this.http.delete<Team>(`${this.url}/${this.flag}/${id_user}`);
+  }
+
+  teamByFederation(federation_id: number) {
+    return this.http.get<Team[]>(`${this.url}/${this.flag}/find/by-federation/${federation_id}`);
   }
 }

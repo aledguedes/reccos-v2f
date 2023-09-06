@@ -1,10 +1,9 @@
 <div class="container mb-2">
-    <div class="row">
-        <div class="col my-3">
-            <h1 class="text-reccos-1"><strong>Atualizar Estádio/Arena</strong></h1>
-        </div>
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <h1 class="text-reccos-1"><strong>Cadastrar Estádio/Arena</strong></h1>
+        <button mat-stroked-button class="w-25" color="warn" [routerLink]="['/team']"> Voltar </button>
     </div>
     <div class="responsive-box m-auto">
-        <app-form-stadium></app-form-stadium>
+        <app-form-stadium [validationForm]="enableUpdateLeague" [id_stadium]="id_stadium"></app-form-stadium>
     </div>
 </div>

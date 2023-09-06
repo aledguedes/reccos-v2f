@@ -34,4 +34,8 @@ export class StadiumService {
   removeStadium(id_stadium: number) {
     return this.http.delete<Stadium>(`${this.url}/${this.flag}/${id_stadium}`);
   }
+
+  stadiumByFederation(federation_id: number) {
+    return this.http.get<Stadium[]>(`${this.url}/${this.flag}/find/by-federation/${federation_id}`);
+  }
 }
