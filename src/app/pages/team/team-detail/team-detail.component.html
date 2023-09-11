@@ -1,7 +1,7 @@
 <div class="interno mb-3">
   <div class="inter">
-    <img class="img-time" [src]="baseUrl + team.picture_profile" alt="" />
-    <p class="title-time"> {{ team.name }} </p>
+    <img class="img-time" [src]="baseUrl + team?.picture_profile" alt="" />
+    <p class="title-time"> {{ team?.name }} </p>
   </div>
 </div>
 
@@ -13,34 +13,27 @@
 
         <div class="my-2">
           <strong>Nome</strong><br />
-          <small> {{ team.name }} </small><br />
+          <small> {{ team?.name }} </small><br />
         </div>
 
         <div class="row my-2">
           <div class="col-md-6">
             <strong>Apelido</strong><br />
-            <small> {{ team.acronym }} </small><br />
+            <small> {{ team?.acronym }} </small><br />
           </div>
           <div class="col-md-6">
             <strong>Iniciais</strong><br />
-            <small> {{ team.acronym }} </small><br />
+            <small> {{ team?.acronym }} </small><br />
           </div>
-        </div>
-
-        <div class="my-2">
-          <strong>Endereço</strong><br />
-          <small>Rua: Lorem ipsum, dolor sit, 279 - Kualampu<br />
-            Telefone: +55 (16 12345-6789)
-          </small>
         </div>
 
         <div class="my-2 d-flex align items-center justify-content-between">
           <div class="left">
             <strong>Fundação</strong><br />
-            <small>{{ team.birth_date | date: 'dd/MM/yyyy' }}<br /> </small>
+            <small>{{ team?.birth_date | date: 'dd/MM/yyyy' }}<br /> </small>
           </div>
           <div class="rigth">
-            <button mat-icon-button [routerLink]="['/team/update', team.id]" color="primary">
+            <button mat-icon-button [routerLink]="['/team/update', team?.id]" color="primary">
               <mat-icon>mode_edit</mat-icon>
             </button>
           </div>

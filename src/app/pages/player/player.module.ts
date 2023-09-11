@@ -6,6 +6,7 @@ import { PlayerListComponent } from './player-list/player-list.component';
 import { PlayerInitComponent } from './player-init/player-init.component';
 import { PlayerUpdateComponent } from './player-update/player-update.component';
 import { PlayerCreateComponent } from './player-create/player-create.component';
+import { MaterialModule } from 'src/app/shared/material/material.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PlayerCreateComponent } from './player-create/player-create.component';
   ],
   imports: [
     CommonModule,
-    PlayerRoutingModule
+    PlayerRoutingModule,
+    MaterialModule
   ]
 })
 export class PlayerModule { }

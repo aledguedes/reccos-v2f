@@ -18,7 +18,7 @@ export class LeagueListComponent implements OnInit {
 
   statusCode: any = leaguesStatus;
 
-  baseUrl = environment.storage_url + '/';
+  baseUrl = environment.storage_url;
 
   constructor(
     private leagueService: LeagueService,

@@ -14,7 +14,7 @@ export class StadiumListComponent implements OnInit {
 
   stadium: Stadium[] = [];
 
-  baseUrl = environment.storage_url + '/';
+  baseUrl = environment.storage_url;
 
   statusCode: any = leaguesStatus;
 

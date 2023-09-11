@@ -1,0 +1,21 @@
+.responsive-box {
+    width: 60%;
+}
+
+@media screen and (max-width: 992px) {
+    .responsive-box {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .responsive-box {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .responsive-box {
+        width: 100%;
+    }
+}

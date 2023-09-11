@@ -9,9 +9,6 @@ import { TeamService } from 'src/app/services/team/team.service';
 import { Team } from 'src/app/models/TeamModel';
 import { Stadium } from 'src/app/models/StadiumModel';
 import { StadiumService } from 'src/app/services/stadium/stadium.service';
-import { MatDialog } from '@angular/material/dialog';
-import { StadiumCreateComponent } from 'src/app/pages/stadium/stadium-create/stadium-create.component';
-import { FormStadiumComponent } from '../form-stadium/form-stadium.component';
 
 @Component({
   selector: 'app-form-team',
@@ -66,7 +63,6 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private dialog: MatDialog,
     private rxjs: DataRxjsService,
     private snack: SnackbarService,
     private teamService: TeamService,
@@ -84,6 +80,7 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
     this.rxjs.uploadFileName$.subscribe(fileName => {
       if (fileName) {
         this.file_upload_name = 'team/' + fileName;
+        this.nextStep();
       }
     });
 
@@ -91,6 +88,14 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
       this.teamById(+this.id_team);
       this.changePhoto = false;
     }
+
+    // this.formStadium.statusChanges.subscribe(newStaus => {
+    //   console.log(newStaus);
+    // });
+
+    // this.formStadium.controls['id_stadium'].valueChanges.subscribe((data: string) => {
+    //   console.log('formStadium: ', data);
+    // });
   }
 
   initForm() {
@@ -110,7 +115,7 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
     });
 
     this.formStadium = this.fb.group({
-      id_stadium: [0, Validators.required]
+      id_stadium: ['', Validators.required]
     });
   }
 
@@ -144,13 +149,18 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   }
 
   updateInfosLeagueId(team: Team) {
+    console.log('BY FEDERATION:', team);
     this.formTeam.patchValue({
       name: team.name,
       surname: team.surname,
       acronym: team.acronym,
-      status: team.status,
+      status: team.status.toUpperCase(),
       birth_date: team.birth_date
     });
+    if (team.stadium == null) {
+      this.linkStadium = true;
+      this.updateValidatorsForms(true);
+    }
   }
 
   nextStep() {
@@ -169,19 +179,24 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
     return true;
   }
 
-  createTeam() {
+  createObjToAPI() {
     let obj = {
       ...this.formTeam.value,
-      ...this.formStadium.value,
-      // commission: this.formCommission.value,
+      stadium_id: +this.formStadium.value.id_stadium,
       picture_profile: this.file_upload_name,
       registered_federation: +this.id_federation
     }
-    obj.birth_date = this.formatDate(obj.birth_date);
-
+    if (this.validationForm) {
+      let changeDate = this.compareDates(this.dateSaveBD, obj.birth_date);
+      if (changeDate) {
+        obj.birth_date = this.formatDate(obj.birth_date);
+      }
+    }
     console.log('OBJ CREATE TEAM:', obj);
-    // return;
+    this.validationForm ? this.updateTeam(obj) : this.createTeam(obj);
+  }
 
+  createTeam(obj: Team) {
     this.teamService.createTeam(obj).subscribe({
       next: (data) => {
         this.snack.snack(`Time ${obj.surname} criado com sucesso!`, 'snack-success');
@@ -194,18 +209,7 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
     });
   }
 
-  updateTeam() {
-    let obj = {
-      ...this.formTeam.value,
-      // commission: this.formCommission.value,
-      picture_profile: this.file_upload_name,
-      registered_federation: +this.id_federation
-    }
-    let changeDate = this.compareDates(this.dateSaveBD, obj.birth_date);
-    if (changeDate) {
-      obj.birth_date = this.formatDate(obj.birth_date);
-    }
-
+  updateTeam(obj: Team) {
     this.teamService.updateTeam(+this.id_team, obj).subscribe({
       next: (data) => {
         this.snack.snack(`Time ${obj.surname} atualizada com sucesso!`, 'snack-success');
@@ -216,6 +220,22 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
         this.snack.snack(`Erro ao tentar atualizar o time!`, 'snack-error');
       }
     });
+  }
+
+  noLinkStadium(evt: any) {
+    this.linkStadium = evt.checked;
+    this.updateValidatorsForms(evt.checked);
+  }
+
+  updateValidatorsForms(value: boolean) {
+    if (value) {
+      this.formStadium.patchValue({ id_stadium: '0' });
+      this.formStadium.controls['id_stadium'].setValidators([Validators.nullValidator]);
+    } else {
+      this.formStadium.reset();
+      this.formStadium.controls['id_stadium'].setValidators([Validators.required]);
+    }
+    this.formStadium.controls['id_stadium'].updateValueAndValidity();
   }
 
   formatDate(date: Date) {

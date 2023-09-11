@@ -6,7 +6,6 @@ import { Observable, map, startWith } from 'rxjs';
 import { League } from 'src/app/models/LeagueModel';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { LeagueService } from 'src/app/services/league/league.service';
-import { cidadesEstadosBrasil } from 'src/app/utils/cidadesEstados';
 import { leagueMode, leagueSystem, leaguesStatus } from 'src/app/utils/system-league';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
 

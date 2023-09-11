@@ -23,7 +23,7 @@ export class FormStadiumComponent implements OnInit {
 
   @ViewChild('stepper') stepper!: MatStepper;
 
-  baseUrl = environment.storage_url + '/';
+  baseUrl = environment.storage_url;
 
   reccosFormStadium!: FormGroup;
   stadium_status = leaguesStatus;
@@ -49,6 +49,7 @@ export class FormStadiumComponent implements OnInit {
     this.rxjs.uploadFileName$.subscribe(fileName => {
       if (fileName) {
         this.file_upload_name = 'team/' + fileName;
+        this.nextStep();
       }
     });
 
