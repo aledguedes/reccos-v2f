@@ -48,4 +48,11 @@ export const dashAdminMenu = [
         'text': 'Cadastro e edição de arbitros',
         'router': '/refree'
     },
+    {
+        'id': 8,
+        'name': 'Contratos',
+        'icon': './assets/icons/contract.svg',
+        'text': 'Cadastro e edição de atletas e clubes',
+        'router': '/contract'
+    },
 ];
