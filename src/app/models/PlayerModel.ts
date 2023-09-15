@@ -1,16 +1,16 @@
 export interface Player {
     id: Number;
-    rg: String;
-    cpf: String;
-    name: String;
-    email: String;
-    status: String;
-    surname: String;
+    rg: string;
+    cpf: string;
+    name: string;
+    email: string;
+    status: string;
+    surname: string;
     createdAt: Date;
     updatedAt: Date;
     birth_date: Date;
-    position: String;
+    position: string;
     suspended: Boolean;
-    cod_status: String;
-    picture_profile: String;
+    cod_status: string;
+    picture_profile: string;
 }

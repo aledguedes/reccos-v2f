@@ -3,9 +3,11 @@ import { Team } from "./TeamModel";
 
 export interface Contract {
   id: Number;
-  team: Team;
-  player: Player;
-  status: String;
+  teams?: Team;
+  players?: Player;
+  status: string;
+  dt_end: Date;
+  dt_start: Date;
   createdAt: Date;
   updatedAt: Date;
 }

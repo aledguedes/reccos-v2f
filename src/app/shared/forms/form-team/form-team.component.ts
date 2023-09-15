@@ -53,7 +53,7 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   dateSaveBD: string = '';
   id_federation: string = '1';
   label_button: string = 'Voltar';
-  file_upload_name: String = 'team/default.png';
+  file_upload_name: string = 'team/default.png';
 
   stadium_by_federaion: Stadium[] = [];
 
@@ -169,9 +169,9 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
     }, 0);
   }
 
-  compareDates(dateString1: string, dateString2: string) {
-    const date1 = new Date(dateString1);
-    const date2 = new Date(dateString2);
+  compareDates(datestring1: string, datestring2: string) {
+    const date1 = new Date(datestring1);
+    const date2 = new Date(datestring2);
 
     if (date1.getTime() === date2.getTime()) {
       return false;

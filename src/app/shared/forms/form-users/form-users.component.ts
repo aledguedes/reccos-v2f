@@ -7,7 +7,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { rolesEnuns } from 'src/app/utils/roles';
 
 interface Roles {
-  id?: number;
+  id: Number;
   name: string;
 }
 
@@ -19,7 +19,7 @@ interface Roles {
 export class FormUsersComponent implements OnInit {
 
   @Input() public validationForm: Boolean = true;
-  @Input() public id_user: String = '0';
+  @Input() public id_user: string = '0';
   reccosFormUser!: FormGroup;
 
   pass: boolean = true;

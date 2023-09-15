@@ -23,7 +23,7 @@ export class DataRxjsService {
   private users = new Subject<User>();
   users$ = this.users.asObservable();
 
-  private uploadFileName = new Subject<String>();
+  private uploadFileName = new Subject<string>();
   uploadFileName$ = this.uploadFileName.asObservable();
 
   openAndCloseMenu(evt: boolean) {
@@ -48,7 +48,7 @@ export class DataRxjsService {
     this.federations.next(data);
   }
 
-  fileNameUpload(fileName: String) {
+  fileNameUpload(fileName: string) {
     this.uploadFileName.next(fileName);
     this.uploadFileName.complete();
   }

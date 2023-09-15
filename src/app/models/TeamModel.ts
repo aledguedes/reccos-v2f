@@ -3,15 +3,15 @@ import { Stadium } from "./StadiumModel";
 
 export interface Team {
   id: Number;
-  name: String;
-  status: String;
-  acronym: String;
-  surname: String;
+  name: string;
+  status: string;
+  acronym: string;
+  surname: string;
   createdAt: Date;
   updatedAt: Date;
   birth_date: Date;
   stadium: Stadium;
   federation: Federation[];
-  picture_profile: String;
-  registered_federation: Number;
+  picture_profile: string;
+  registered_federation: number;
 }

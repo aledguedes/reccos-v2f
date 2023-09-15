@@ -22,7 +22,7 @@ export class FormRefreeComponent implements OnInit {
 
   refreeForm!: FormGroup;
   dateSaveBD: string = '';
-  file_upload_name: String = 'refree/default.png';
+  file_upload_name: string = 'refree/default.png';
 
   league_status = leaguesStatus;
 
@@ -141,9 +141,9 @@ export class FormRefreeComponent implements OnInit {
     });
   }
 
-  compareDates(dateString1: string, dateString2: string) {
-    const date1 = new Date(dateString1);
-    const date2 = new Date(dateString2);
+  compareDates(datestring1: string, datestring2: string) {
+    const date1 = new Date(datestring1);
+    const date2 = new Date(datestring2);
 
     if (date1.getTime() === date2.getTime()) {
       return false;

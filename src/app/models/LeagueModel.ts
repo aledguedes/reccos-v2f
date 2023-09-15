@@ -1,15 +1,15 @@
 export interface League {
-  id?: Number;
-  name?: String;
-  status: String;
-  img_logo: String;
-  location: String;
-  league_mode: String;
-  league_system: String;
-  qt_group: Number;
+  id: Number;
+  name?: string;
+  status: string;
+  img_logo: string;
+  location: string;
+  league_mode: string;
+  league_system: string;
+  qt_group: number;
   dt_start: Date;
   dt_end: Date;
   createdAt: Date;
   updatedAt: Date;
-  cod_status?: String;
+  cod_status?: string;
 }

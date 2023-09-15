@@ -23,7 +23,7 @@ export class ContractService {
     return this.http.get<Contract>(`${this.url}/${this.flag}/${contract_id}`);
   }
 
-  createContract(contract: Contract, id_player: number, id_team: number) {
+  createContract(id_player: number, id_team: number, contract: Contract) {
     return this.http.post<Contract>(`${this.url}/${this.flag}/created/${id_player}/${id_team}`, contract);
   }
 

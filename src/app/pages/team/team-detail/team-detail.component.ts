@@ -16,8 +16,8 @@ export class TeamDetailComponent implements OnInit {
   baseUrl = environment.storage_url;
 
   team: Team;
-  id_team: String = '';
-  urlPhoto: String = '';
+  id_team: string = '';
+  urlPhoto: string = '';
   stadium: Stadium;
   haveStadium: boolean = false;
 

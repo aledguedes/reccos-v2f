@@ -20,10 +20,10 @@ export class PlayerListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllPlayers();
+    this.listAllPlayers();
   }
 
-  getAllPlayers() {
+  listAllPlayers() {
     this.playerService.listAllPlayer().subscribe({
       next: (data) => {
         data.forEach((l: Player) => {
@@ -42,7 +42,7 @@ export class PlayerListComponent implements OnInit {
     this.playerService.removePlayer(id_player).subscribe({
       next: (data) => {
         this.snack.snack(`Jogador removido com sucesso!`, 'snack-success');
-        this.getAllPlayers();
+        this.listAllPlayers();
       },
       error: (err) => {
         console.log('PLAYERS REMOVE ERR', err);

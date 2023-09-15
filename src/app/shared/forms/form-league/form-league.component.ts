@@ -27,8 +27,8 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   dt_end_DB: string = '';
   dt_start_DB: string = '';
   id_federation: string = '1';
-  stateAbbreviation: String = '';
-  file_upload_name: String = 'league/default.png';
+  stateAbbreviation: string = '';
+  file_upload_name: string = 'league/default.png';
 
   league_mode = leagueMode;
   league_system = leagueSystem;
@@ -90,7 +90,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
     );
   }
 
-  filterState(value: String) {
+  filterState(value: string) {
     let location = value.split('/');
     let idx = this.listStates.findIndex((estados: States) => estados.sigla == location[1]);
     this.leagueForm.patchValue({
@@ -159,9 +159,9 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
     this.updateToApi(obj);
   }
 
-  compareDates(dateString1: string, dateString2: string) {
-    const date1 = new Date(dateString1);
-    const date2 = new Date(dateString2);
+  compareDates(datestring1: string, datestring2: string) {
+    const date1 = new Date(datestring1);
+    const date2 = new Date(datestring2);
 
     if (date1.getTime() === date2.getTime()) {
       return false;
@@ -282,14 +282,14 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
 
 export interface States {
   id: number,
-  nome: String,
-  sigla: String,
+  nome: string,
+  sigla: string,
   regiao: Regiao
 }
 
 export interface Regiao {
-  id: Number,
-  nome: String,
+  id: number,
+  nome: string,
   sigle: string
 }
 /* https://servicodados.ibge.gov.br/api/docs/localidades?versao=1#api-Municipios-estadosUFMunicipiosGet*/ 

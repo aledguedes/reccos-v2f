@@ -18,7 +18,7 @@ import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 })
 export class FormStadiumComponent implements OnInit {
 
-  @Input() public id_stadium: String = '';
+  @Input() public id_stadium: string = '';
   @Input() public validationForm: Boolean = false;
 
   @ViewChild('stepper') stepper!: MatStepper;

@@ -1,7 +1,7 @@
 .profile-photo {
     position: relative;
-    width: 100px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     background-color: #E6E6E6;
     border-radius: 50%;
     margin: 0 10px;
@@ -18,4 +18,14 @@
   span {
     font-size: 12px;
   }
+}
+
+.grid {
+	display: grid;
+}
+
+.grid-template-columns {
+	grid-template-columns: repeat(auto-fit, 320px);
+  gap: 20px;
+  justify-content: space-around;
 }

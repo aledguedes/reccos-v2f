@@ -69,6 +69,7 @@ $color in $statusColors {
   .color-status-#{$name} {
     color: #{$color};
     font-weight: 600;
+    font-size: 11px;
   }
 
   .status-#{$name} {

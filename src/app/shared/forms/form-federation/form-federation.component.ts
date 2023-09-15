@@ -15,7 +15,7 @@ import { leaguesStatus } from 'src/app/utils/system-league';
 })
 export class FormFederationComponent implements OnInit {
 
-  @Input() public idFederation: String = '';
+  @Input() public idFederation: string = '';
   @Input() public validationForm: Boolean = false;
 
   updateFederation: Boolean = false;

@@ -1,10 +1,10 @@
 export interface Stadium {
-    id?: Number;
-    name?: String;
-    status?: String;
-    surname?: String;
+    id: Number;
+    name?: string;
+    status?: string;
+    surname?: string;
     createdAt?: Date;
     updatedAt?: Date;
-    cod_status?: String;
-    picture_profile?: String;
+    cod_status?: string;
+    picture_profile?: string;
 }

@@ -3,10 +3,10 @@ import { User } from "./UserModel";
 
 export interface Federation {
     id?: number,
-    name?: String,
-    surname?: String;
-    status?: String;
-    img_logo?: String;
+    name?: string,
+    surname?: string;
+    status?: string;
+    img_logo?: string;
     owner: User;
     leagues: League[]
 }
