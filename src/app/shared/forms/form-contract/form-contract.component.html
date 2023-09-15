@@ -1,0 +1,62 @@
+<div class="container border p-5 w-50 rounded-3 mat-elevation-z4" style="background-color: #FFF;">
+    <form [formGroup]="formContract">
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field class="example-full-width w-100" appearance="outline">
+                    <mat-label>Jogadores</mat-label>
+                    <input matInput aria-label="Jogadores" [matAutocomplete]="auto" formControlName="player">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPlayer">
+                        <mat-option *ngFor="let player of filteredNamesPlayer | async" [value]="player">
+                            <img alt="avatar_player" class="example-option-img" [src]="baseUrl + player?.picture_profile" height="25">
+                            <span>{{player.name}}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div class="col-12">
+                <mat-form-field class="example-full-width w-100" appearance="outline">
+                    <mat-label>Times</mat-label>
+                    <input matInput aria-label="Times" [matAutocomplete]="teams" formControlName="team">
+                    <mat-autocomplete #teams="matAutocomplete" [displayWith]="displayTeam">
+                        <mat-option *ngFor="let team of filteredNamesTeam | async" [value]="team">
+                            <img alt="avatar_team" class="example-option-img" [src]="baseUrl + team?.picture_profile" height="25">
+                            <span>{{team.surname}}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Início do contrato</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dt_start" />
+                    <mat-hint>DD/MM/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Fim do contrato</mat-label>
+                    <input matInput #dateStart [matDatepicker]="picker_one" formControlName="dt_end" />
+                    <mat-hint>DD/MM/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker_one"></mat-datepicker-toggle>
+                    <mat-datepicker #picker_one></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-xl-12 col-lg-12 col-md-12" *ngIf="validationForm">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option class="text-uppercase" *ngFor="let status of league_status" [value]="status.name">
+                            {{ status.name }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex justify-content-end">
+        <button mat-button color="warn" class="me-3" [routerLink]="['/contract']">Voltar</button>
+        <button mat-raised-button color="primary" [disabled]="formContract.invalid" (click)="createObjToAPI()">Concluir</button>
+    </div>
+</div>

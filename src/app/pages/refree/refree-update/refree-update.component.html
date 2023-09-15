@@ -1,0 +1,11 @@
+<div class="container mb-2">
+    <div class="row">
+        <div class="col d-flex align-items-center justify-content-between my-3">
+            <h1 class="text-reccos-1"><strong>Atualizar Árbitro</strong></h1>
+            <button class="me-2" mat-stroked-button color="warn" [routerLink]="['/team']"> Cancelar </button>
+        </div>
+    </div>
+    <div class="responsive-box m-auto">
+        <app-form-refree [validationForm]="enableUpdatePlayer" [id_refree]="id_refree"></app-form-refree>
+    </div>
+</div>

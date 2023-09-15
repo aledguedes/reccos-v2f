@@ -1,0 +1,31 @@
+.profile-photo {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background-color: #E6E6E6;
+    border-radius: 50%;
+    margin: 0 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.reccos-bg-white {
+    background-color: #FFF;
+}
+
+.infos-stadium {
+  span {
+    font-size: 12px;
+  }
+}
+
+.grid {
+	display: grid;
+}
+
+.grid-template-columns {
+	grid-template-columns: repeat(auto-fit, 320px);
+  gap: 20px;
+  justify-content: space-around;
+}

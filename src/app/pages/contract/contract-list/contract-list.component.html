@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row justify-content-between align-items-center">
+        <div class="col-md-8">
+            <mat-form-field appearance="fill" class="w-100 mt-4">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+            </mat-form-field>
+        </div>
+        <div class="col-md-auto">
+            <button class="text-uppercase width-responsive" mat-raised-button color="primary" [routerLink]="['create']">
+                <mat-icon>add</mat-icon> Adicionar Contrato
+            </button>
+        </div>
+    </div>
+    <div class="mat-elevation-z8 my-3" *ngIf="contracts.length > 0; else noContract">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="p_profile">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
+                <td mat-cell *matCellDef="let row">
+                    <div class="d-flex justify-content-center profile-photo"
+                    [style.background-image]=" 'url(' + baseUrl  + row?.players?.picture_profile +')'">
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="p_surname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Atleta </th>
+                <td mat-cell *matCellDef="let row"> {{row?.players?.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="t_profile">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
+                <td mat-cell *matCellDef="let row"> <div class="d-flex justify-content-center profile-photo"
+                    [style.background-image]=" 'url(' + baseUrl  + row?.teams?.picture_profile +')'">
+                    </div> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="t_surname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+                <td mat-cell *matCellDef="let row"> {{row?.teams?.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dt_start">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Imício </th>
+                <td mat-cell *matCellDef="let row"> {{row.dt_start | date: 'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dt_end">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fim </th>
+                <td mat-cell *matCellDef="let row"> {{row.dt_end | date: 'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fim </th>
+                <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Ações </th>
+                <td mat-cell *matCellDef="let element">
+                    <a mat-icon-button matTooltip="Link" color="primary" [routerLink]="['update/', element.id]"
+                        aria-label="Atualizar Usuário">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                    <a mat-icon-button matTooltip="Link" color="warn" (click)="removerContract(element.id)"
+                        aria-label="Remover Usuário">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="my-3">
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users">
+            </mat-paginator>
+        </div>
+    </div>
+
+    <ng-template #noContract>
+        <div class="alert alert-warning mt-4" role="alert">
+            <p class="m-0">O sistema ainda não possui contratos vinculados para listar!!</p>
+        </div>
+    </ng-template>
+</div>

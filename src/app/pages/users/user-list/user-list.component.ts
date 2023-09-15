@@ -1,13 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/app/models/UserModel';
-import { usuarios } from 'src/app/mocks/UsersMock';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-list',
@@ -24,11 +22,9 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'profile', 'name', 'surname', 'email', 'status', 'roles', 'action'];
   dataSource: MatTableDataSource<User>;
 
-  storageUrl: string =  environment.storage_url;
-
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
   ) {
     this.dataSource = new MatTableDataSource(this.users);
   }

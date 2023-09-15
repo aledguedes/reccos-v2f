@@ -1,11 +1,10 @@
 <form id="file-upload-form" class="uploader">
-    <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+    <input id="file-upload" type="file" name="fileUpload" (change)="picturesUpload($event)" accept="image/*" />
 
     <label for="file-upload" id="file-drag">
         <div id="start">
-            <i class="fa fa-download" aria-hidden="true"></i>
             <mat-icon color="primary">cloud_download</mat-icon>
-            <p class="file-name">{{ file_name }}</p>
+            <p class="file-name mt-2">{{ file_name.toUpperCase() }}</p>
         </div>
         <div id="response" *ngIf="hideAndShowProgressBar">
             <!-- <progress class="progress" id="file-progress" value="50">

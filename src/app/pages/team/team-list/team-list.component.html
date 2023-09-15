@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row justify-content-end my-3">
+    <div class="col-md-auto">
+      <button class="text-uppercase" mat-raised-button color="primary" routerLink="create">
+        <mat-icon>add</mat-icon> Adicionar Time
+      </button>
+    </div>
+  </div>
+  <div class="row my-2" *ngIf="teams.length > 0; else noTeams">
+    <div *ngFor="let t of teams" class="col-md-2">
+      <a class="text-center d-flex flex-column align-items-center" [routerLink]="['detail/', t.id]">
+        <div class="d-flex justify-content-center profile-photo col-lg-3"
+          [style.background-image]="t?.picture_profile != null ? 'url(' + baseUrl  + '/' + t?.picture_profile +')' : 'url(' + baseUrl  + '/team/default.png)' ">
+        </div>
+        <p class="text-reccos-1 mt-2">{{ t.surname }}</p>
+      </a>
+    </div>
+  </div>
+  <ng-template #noTeams>
+    <div class="alert alert-warning mt-5" role="alert">
+      <p class="m-0">O sistema ainda não possui times cadastrados!!</p>
+    </div>
+  </ng-template>
+</div>

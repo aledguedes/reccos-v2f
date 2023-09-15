@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Federation } from 'src/app/models/FederationModel';
 import { FederationService } from 'src/app/services/federation/federation.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-federation-list',
@@ -19,6 +20,8 @@ export class FederationListComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'profile', 'name', 'surname', 'status', 'responsable', 'action'];
   dataSource: MatTableDataSource<Federation>;
+
+  baseUrl = environment.storage_url;
 
   constructor(
     private federationService: FederationService

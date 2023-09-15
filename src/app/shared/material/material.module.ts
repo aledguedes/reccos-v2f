@@ -51,6 +51,12 @@ import { FormUsersComponent } from '../forms/form-users/form-users.component';
 import { MenuDirective } from '../directives/menu.directive';
 import { FormFederationComponent } from '../forms/form-federation/form-federation.component';
 import { FormUploadComponent } from '../forms/form-upload/form-upload.component';
+import { FormLeagueComponent } from '../forms/form-league/form-league.component';
+import { FormTeamComponent } from '../forms/form-team/form-team.component';
+import { FormStadiumComponent } from '../forms/form-stadium/form-stadium.component';
+import { FormPlayerComponent } from '../forms/form-player/form-player.component';
+import { FormRefreeComponent } from '../forms/form-refree/form-refree.component';
+import { FormContractComponent } from '../forms/form-contract/form-contract.component';
 
 const modules = [
   A11yModule,
@@ -109,6 +115,12 @@ const modules = [
     FormUsersComponent,
     FormFederationComponent,
     FormUploadComponent,
+    FormLeagueComponent,
+    FormTeamComponent,
+    FormStadiumComponent,
+    FormPlayerComponent,
+    FormRefreeComponent,
+    FormContractComponent,
   ],
   imports: [
     CommonModule,
@@ -125,6 +137,12 @@ const modules = [
     FormUsersComponent,
     FormFederationComponent,
     FormUploadComponent,
+    FormLeagueComponent,
+    FormTeamComponent,
+    FormStadiumComponent,
+    FormPlayerComponent,
+    FormRefreeComponent,
+    FormContractComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
