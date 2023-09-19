@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="grid grid-template-columns mt-3" *ngIf="stadium.length > 0; else noStadium">
-    <div class="item" *ngFor="let stadium of stadium, let idx = index">
+    <div *ngFor="let stadium of stadium, let idx = index">
       <div class="d-flex align-items-center justify-content-between p-3 rounded-3 reccos-bg-white mat-elevation-z4"
         [ngClass]="['status-' + stadium.cod_status]">
         <div class="d-flex flex-column align-items-center profile-photo"

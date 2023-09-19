@@ -7,6 +7,7 @@ import { LeagueInitComponent } from './league-init/league-init.component';
 import { LeagueCreateComponent } from './league-create/league-create.component';
 import { LeagueUpdateComponent } from './league-update/league-update.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
+import { LeagueDetailComponent } from './league-detail/league-detail.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
     LeagueListComponent,
     LeagueInitComponent,
     LeagueCreateComponent,
-    LeagueUpdateComponent
+    LeagueUpdateComponent,
+    LeagueDetailComponent
   ],
   imports: [
     CommonModule,

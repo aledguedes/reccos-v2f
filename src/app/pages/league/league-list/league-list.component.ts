@@ -4,6 +4,8 @@ import { FederationService } from 'src/app/services/federation/federation.servic
 import { LeagueService } from 'src/app/services/league/league.service';
 import { leaguesStatus } from 'src/app/utils/system-league';
 import { environment } from 'src/environments/environment';
+import { LeagueUpdateComponent } from '../league-update/league-update.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-league-list',
@@ -21,6 +23,7 @@ export class LeagueListComponent implements OnInit {
   baseUrl = environment.storage_url;
 
   constructor(
+    private dialog: MatDialog,
     private leagueService: LeagueService,
     private federationService: FederationService
   ) { }
@@ -66,6 +69,16 @@ export class LeagueListComponent implements OnInit {
       default:
         return '4';
     }
+  }
+
+  openUpdateLeague() {
+    const dialogRef = this.dialog.open(LeagueUpdateComponent, {
+      disableClose: false,
+      width: '800px',
+      data: {}
+    }).afterClosed().subscribe({
+
+    });
   }
 
 }

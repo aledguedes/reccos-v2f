@@ -131,35 +131,25 @@ $statusColors: (
 @each $name,
 $color in $statusColors {
 
-  .status-#{$name} {
+  .league-status-#{$name} {
     position: relative;
-
-    &:after {
-      content: "";
-      width: 5px;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: #{$color};
-    }
+    border-style: solid;
+    border-color: #{$color};
+    border-width: 2px 2px 2px 5px;
   }
 
-  .code-#{$name} {
-    position: relative;
-    padding: 0 0 0 20px;
+  .league-title-#{$name} {
     color: #{$color};
-    font-weight: 700;
-  
-    &::before {
-      content: "";
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #{$color};
-      top: 5px;
-      left: 0px;
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .form {
+    background-color: #1DB954;
+    .responsive-card {
+      width: 100%;
+      padding: 0;
     }
   }
 }

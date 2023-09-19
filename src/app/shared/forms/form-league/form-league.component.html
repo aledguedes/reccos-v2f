@@ -1,4 +1,4 @@
-<mat-stepper orientation="vertical" class="padding-box mat-elevation-z4 mb-4" #stepper>
+<mat-stepper orientation="vertical" class="padding-box mat-elevation-z4" #stepper>
     <mat-step [completed]="leagueForm.valid" (change)="nextStep()">
         <ng-template matStepLabel>Dados da Liga</ng-template>
         <ng-template matStepContent>
@@ -71,7 +71,8 @@
                         <div class="col-12 col-xl-4 col-lg-4 col-md-12" *ngIf="!validationForm">
                             <mat-form-field class="example-full-width w-100" appearance="outline">
                                 <mat-label>Quantidade de grupos</mat-label>
-                                <input type="number" formControlName="qt_group" matInput placeholder="Ex.: 4" />
+                                <input type="number" formControlName="qt_group" matInput placeholder="Ex.: 4"
+                                    (blur)="nextStep()" />
                             </mat-form-field>
                         </div>
                         <div class="col-12 col-xl-4 col-lg-4 col-md-12" *ngIf="validationForm">
@@ -79,14 +80,13 @@
                                 <mat-label>Status</mat-label>
                                 <mat-select formControlName="status">
                                     <mat-option class="text-uppercase" *ngFor="let status of league_status"
-                                        [value]="status.name"> {{ status.name }} </mat-option>
+                                        [value]="status.name" (blur)="nextStep()"> {{ status.name }} </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
                 </form>
             </div>
-            <button mat-button matStepperNext [disabled]="leagueForm.invalid">Next</button>
         </ng-template>
     </mat-step>
     <!-- <mat-step>
@@ -108,22 +108,28 @@
                     </section>
                     <app-form-upload *ngIf="changePhoto"></app-form-upload>
                 </div>
-                <div class="mt-3">
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
             </div>
         </ng-template>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Concluir Cadastro</ng-template>
         <div *ngIf="teams.length > 0; else noTeams">
-            <small class="text-center">times</small>
+            <div class="row">
+                <span class="d-flex justify-content-center">
+                    <mat-checkbox (change)="selectAll($event)" [checked]="allSelected" color="primary">SELECIONAR TODOS</mat-checkbox>
+                  </span>
+                <div *ngFor="let t of teams" class="col-md-4">
+                    <section class="example-section">
+                        <mat-checkbox class="example-margin" color="primary" (change)="addTeams($event, t.id)" [checked]="t.is_league">
+                            <img class="profile-photo" [src]="baseUrl  + t.picture_profile" alt="">{{ t.surname }}</mat-checkbox>
+                    </section>
+                </div>
+            </div>
         </div>
+        selectdTeams => {{ selectdTeams | json }}
         <ng-template #noTeams>
             <div class="alert alert-success mt-5" role="alert" style="font-size: 13px;" *ngIf="!validationForm">
-                Não existem times cadastrados na federação! Clique em <a
-                    [routerLink]="['/team/create']">cadastrar</a>
+                Não existem times cadastrados na federação! Clique em <a [routerLink]="['/team/create']">cadastrar</a>
                 para adicionar!
             </div>
         </ng-template>

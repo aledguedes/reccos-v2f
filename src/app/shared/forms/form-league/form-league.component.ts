@@ -8,6 +8,9 @@ import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { LeagueService } from 'src/app/services/league/league.service';
 import { leagueMode, leagueSystem, leaguesStatus } from 'src/app/utils/system-league';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
+import { TeamService } from 'src/app/services/team/team.service';
+import { environment } from 'src/environments/environment';
+import { Team } from 'src/app/models/TeamModel';
 
 @Component({
   selector: 'app-form-league',
@@ -23,6 +26,8 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
 
   filteredStates!: Observable<any[]>;
 
+  baseUrl = environment.storage_url;
+
   leagueForm!: FormGroup;
   dt_end_DB: string = '';
   dt_start_DB: string = '';
@@ -35,16 +40,19 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   league_status = leaguesStatus;
 
   changePhoto: boolean = true;
+  allSelected: boolean = false;
 
   listCitys: any = [];
   teams: any = [];
   listStates: States[] = [];
+  selectdTeams: any[] = [];
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private rxjs: DataRxjsService,
     private snack: SnackbarService,
+    private teamService: TeamService,
     private leagueService: LeagueService,
   ) { }
 
@@ -54,6 +62,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
     this.rxjs.uploadFileName$.subscribe(fileName => {
       if (fileName) {
         this.file_upload_name = 'league/' + fileName;
+        this.nextStep();
       }
     });
 
@@ -64,6 +73,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.teamByFederation();
   }
 
   initForms() {
@@ -213,9 +223,8 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   }
 
   nextStep() {
-    setTimeout(() => {
-      this.stepper.next();
-    }, 0);
+    console.log('STEPPER')
+    this.stepper.next();
   }
 
   formatDate(date: Date) {
@@ -268,15 +277,71 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
     });
   }
 
+  teamByFederation() {
+    this.teamService.teamByFederation(+this.id_federation).subscribe({
+      next: (data) => {
+        this.teams = data;
+        console.log('TEAM BY FEDERATION SUCESS', data);
+      },
+      error: (err) => {
+        console.log('TEAM BY FEDERATION ERROR', err);
+      }
+    });
+  }
+
   enableDisableQtGroup(evt: any) {
-    if (evt === 'Pontos Corridos') {
+    if (evt == 'Pontos Corridos') {
       this.leagueForm.patchValue({
         qt_group: 1
       });
       this.leagueForm.controls['qt_group'].disable();
-      // return;
+      if (!this.validationForm) {
+        this.nextStep();
+      }
+      return;
     }
     this.leagueForm.controls['qt_group'].enable();
+  }
+  
+
+    selectAll(evt: any) {
+
+    console.log('select all:', evt);
+    let teams = this.teams;
+
+    if (evt.checked) {
+      teams.forEach((t: any) => {
+        t["is_league"] = true;
+        this.allSelected = true;
+        this.arrTeam(t.id);
+      });
+    }  else {
+      teams.forEach((t: any) => {
+        t["is_league"] = false;
+        this.allSelected = false;
+        this.revTeam(t.id);
+      });
+    }
+  }
+
+  addTeams(evt: any, id_team: number) {
+    if (evt.checked) {
+      this.arrTeam(id_team);
+    }
+    else {
+      this.revTeam(id_team);
+      if (this.allSelected) {
+        this.allSelected = false;
+      }
+    }
+  }
+
+  arrTeam(id_team: number) {
+    this.selectdTeams.push({ id: id_team });
+  }
+
+  revTeam(id_team: number) {
+    this.selectdTeams.splice(this.selectdTeams.indexOf('id_team'), 1);
   }
 }
 
