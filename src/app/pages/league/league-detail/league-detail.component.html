@@ -1,56 +1,92 @@
-<div v class="container content">
-    <div class="row my-4">
-        <div class="col-xl-3 col-lg-4 d-md-8 d-sm-none d-md-none d-xxl-block d-xl-block card-box mat-elevation-z4" [ngClass]="['league-status-' + league?.id]">
-            <div class="member-card pt-2 pb-2">
-                <div class="thumb-lg member-thumb mx-auto"><img [src]="urlLogo" class="rounded-circle img-thumbnail"
-                        alt="profile-image"></div>
-                <div class="text-center">
-                    <h4 [ngClass]="['league-title-' + league?.id]"> {{ league?.name }} </h4>
-                    <p class="text-muted">@ale <span>| </span><span><strong> kokhym </strong></span></p>
-                </div>
-                <!-- <ul class="social-links list-inline text-center">
-                    <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
-                            href="" data-original-title="Facebook"><mat-icon>facebook</mat-icon></a></li>
-                    <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
-                            href="" data-original-title="Twitter"><mat-icon>save</mat-icon></a>
-                    </li>
-                    <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
-                            href="" data-original-title="Skype"><mat-icon>face</mat-icon></a>
-                    </li>
-                </ul> -->
-                <div class="row px-4 py-3">
-                    <mat-list class="infos-league">
-                        <mat-list-item>
-                            <div class="d-flex w-100 justify-content-between">
-                                <span> <strong>Sistema:</strong></span> <span>{{ league?.league_mode }}</span>
-                            </div>
-                        </mat-list-item>
-                        <mat-divider></mat-divider>
-                        <mat-list-item>
-                            <div class="d-flex w-100 justify-content-between">
-                                <span><strong>Modalidade:</strong></span> <span> {{ league?.league_system }} </span>
-                            </div>
-                        </mat-list-item>
-                        <mat-divider></mat-divider>
-                        <mat-list-item>
-                            <div class="d-flex w-100 justify-content-between">
-                                <span><strong>Início:</strong></span> <span> {{ league?.dt_start | date: 'dd/MM/yyyy' }}
-                                </span>
-                            </div>
-                        </mat-list-item>
-                        <mat-divider></mat-divider>
-                        <mat-list-item>
-                            <div class="d-flex w-100 justify-content-between">
-                                <span><strong>Fim:</strong></span> <span> {{ league?.dt_end | date: 'dd/MM/yyyy' }}
-                                </span>
-                            </div>
-                        </mat-list-item>
-                    </mat-list>
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-sm-3">
+            <div class="box-card-teams">
+                <mat-toolbar>
+                    <span>TIMES</span>
+                    <span class="spacer"></span>
+                    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                        <mat-icon>sort_by_alpha</mat-icon>
+                    </button>
+                </mat-toolbar>
+                <p class="reccos-ft-13 my-2 ms-2">Preciso escrever algo?</p>
+                <div class="d-flex justify-content-between align-items-center my-1 px-1"
+                    *ngFor="let time of [1,2,3,4,5,6,7], let idx = index">
+                    <p class="box-team m-0 p-2 reccos-ft-13">
+                        <img src="https://cdn-icons-png.flaticon.com/512/451/451783.png" alt="" width="20px"> Time {{
+                        '0'+ (idx + 1) }}
+                    </p>
+                    <p class="m-0 p-2">
+                        <mat-icon>add</mat-icon>
+                    </p>
                 </div>
             </div>
         </div>
-        <div class="col-xl-9 col-lg-8 col-md-4 col-sm-12 form">
-           
+        <div class="col-sm-9">
+            <div class="box-details">
+                <mat-toolbar>
+                    <span>My App</span>
+                    <span class="spacer"></span>
+                    <button mat-button class="example-icon" aria-label="Salvar informações">
+                        <mat-icon>save</mat-icon> SALVAR
+                    </button>
+                    <button mat-icon-button class="example-icon favorite-icon"
+                        aria-label="Example icon-button with heart icon">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                </mat-toolbar>
+                <div class="row column-details mt-2 reccos-ft-13">
+                    <div class="col-6">
+                        <p class="m-0">Tabela do campeonato</p>
+                        <div class="border px-1">
+                            <div class="p-2" *ngFor="let group of [1, 2], let idx = index">
+                                <p class="m-0 text-reccos-4 text-uppercase">Grupo 0{{ idx + 1}} </p>
+                                <small class="ms-3">O grupo ainda não possui times cadastrados!</small>
+                            </div>
+                            <div class="p-2 mb-1">
+                                <button mat-stroked-button color="primary" class="example-icon text-uppercase w-100"
+                                    aria-label="Salvar informações">
+                                    <mat-icon>loop</mat-icon> Sortear
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 detail-table">
+                        <mat-toolbar class="reccos-ft-13">
+                            <div>
+                                <button mat-button class="example-icon" aria-label="Rodada anterior">
+                                    <mat-icon>arrow_back_ios_new</mat-icon>
+                                </button>
+                            </div>
+                            <span>RODADA 1</span>
+                            <div>
+                                <button mat-button class="example-icon" aria-label="Próxima rodada">
+                                    <mat-icon>arrow_forward_ios</mat-icon>
+                                </button>
+                            </div>
+                        </mat-toolbar>
+
+                        <div class="mt-2 p-2 detail-table-games" *ngFor="let games of [1,2,3,4,5,6]">
+                            <div>
+                                <img src="https://cdn-icons-png.flaticon.com/512/451/451783.png" alt="" width="30px">
+                                <small class="text-reccos-2 ms-3">Mandante</small>
+                            </div>
+                            <small class="text-reccos-2" style="font-size: 30px;"> X </small>
+                            <div>
+                                <small class="text-reccos-2 me-3">Visitante</small>
+                                <img src="https://cdn-icons-png.flaticon.com/512/451/451783.png" alt="" width="30px">
+                            </div>
+                        </div>
+
+                        <!-- <div class="mt-2">
+                            <button mat-stroked-button color="primary" class="example-icon text-uppercase w-100"
+                                aria-label="Salvar informações">
+                                <mat-icon>loop</mat-icon> Sortear
+                            </button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
