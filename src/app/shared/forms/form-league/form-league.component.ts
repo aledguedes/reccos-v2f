@@ -11,6 +11,7 @@ import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { TeamService } from 'src/app/services/team/team.service';
 import { environment } from 'src/environments/environment';
 import { Team } from 'src/app/models/TeamModel';
+import { leagueMenu } from 'src/app/utils/leagueMenu';
 
 @Component({
   selector: 'app-form-league',
@@ -29,6 +30,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   baseUrl = environment.storage_url;
 
   leagueForm!: FormGroup;
+  flag_name: string = '';
   dt_end_DB: string = '';
   dt_start_DB: string = '';
   id_federation: string = '1';
@@ -36,11 +38,12 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   file_upload_name: string = 'league/default.png';
 
   league_mode = leagueMode;
-  league_system = leagueSystem;
+  league_system = leagueMenu;
   league_status = leaguesStatus;
 
   changePhoto: boolean = true;
   allSelected: boolean = false;
+  hideShowBox: boolean = true;
 
   listCitys: any = [];
   teams: any = [];
@@ -74,6 +77,12 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.teamByFederation();
+  }
+
+  showSeccondBox(flag: string) {
+    this.hideShowBox = true;
+    this.flag_name = flag;
+    this.enableDisableQtGroup(flag);
   }
 
   initForms() {
