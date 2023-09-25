@@ -52,7 +52,7 @@
                                     <mat-icon (click)="editGroup(idx)">edit</mat-icon>
                                 </p>
                                 <form [formGroup]="formEditGroup" class="d-flex align-items-center reccos-bg-white px-3 pt-2" *ngIf="editGrouEnable">
-                                    <mat-form-field class="example-full-width w-100 form reccos-input" appearance="outline">
+                                    <mat-form-field class="example-full-width reccos-input w-100 form reccos-input" appearance="outline">
                                         <mat-label>Nome completo</mat-label>
                                         <input matInput formControlName="group_name"
                                             placeholder="Ex.: Assossiação de Amigos da BemAgro">

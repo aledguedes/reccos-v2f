@@ -14,7 +14,7 @@
     <form class="padding-form" [formGroup]="leagueForm">
         <div class="row">
             <div class="col-md-4">
-                <mat-form-field class="example-full-width w-100" appearance="outline">
+                <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                     <mat-label>Nome completo</mat-label>
                     <input formControlName="name" matInput placeholder="Ex.: Liga Master A" />
                 </mat-form-field>
@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-4">
                 <div class="col-12" *ngIf="!validationForm">
-                    <mat-form-field class="example-full-width w-100" appearance="outline">
+                    <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                         <mat-label>Quantidade de grupos</mat-label>
                         <input type="number" formControlName="qt_group" matInput placeholder="Ex.: 4"
                             (blur)="nextStep()" />

@@ -5,7 +5,7 @@
 <form [formGroup]="reccosFormUser">
     <div class="row my-3">
         <div class="col-12 col-md-8">
-            <mat-form-field  class="example-full-width w-100" appearance="outline">
+            <mat-form-field  class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Nome do representante</mat-label>
                 <input matInput formControlName="name" placeholder="Ex.: Fulado de Tal">
                 <mat-error *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Campo
@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-12 col-md-4">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Username</mat-label>
                 <input type="text" matInput formControlName="surname" placeholder="Ex.: Beltrano">
                 <mat-error
@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-12 col-md-4">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Data de nascimento</mat-label>
                 <input matInput formControlName="birth_date" [matDatepicker]="picker">
                 <mat-hint>MM/DD/YYYY</mat-hint>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="col-12 col-md-8">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Email</mat-label>
                 <input type="email" matInput formControlName="email" placeholder="Ex.: fulano@detal.com">
                 <mat-error *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['required']">Campo
@@ -48,7 +48,7 @@
         </div>
 
         <div class="col-12 col-md-auto">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Telefone</mat-label>
                 <input type="text" matInput formControlName="phone" placeholder="Ex.: (00) 12345-6789">
                 <mat-error *ngIf="(r['phome']?.touched || r['phome']?.dirty) && r['phome']?.errors?.['required']">Campo
@@ -77,7 +77,7 @@
         </div>
 
         <div class="col-12 col-md-6" *ngIf="validationForm">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
 
                 <mat-label>Senha</mat-label>
                 <input matInput [type]="pass ? 'password' : 'text'" formControlName="password">
@@ -98,7 +98,7 @@
         </div>
 
         <div class="col-12 col-md-6" *ngIf="validationForm">
-            <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Confirmação de senha</mat-label>
                 <input matInput [type]="repeat_pass ? 'password' : 'text'" formControlName="password_confirmation">
                 <mat-error
