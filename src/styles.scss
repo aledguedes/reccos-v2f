@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 @import 'assets/styles/variables';
 @import 'assets/styles/reccos';
 @import 'assets/styles/scrools';
@@ -103,4 +105,12 @@ $color in $statusColors {
       left: 0px;
     }
   }
+}
+
+.reccos-bg-white {
+  background-color: #FFF;
+}
+
+.reccos-input {
+  @include mat.all-component-densities(-3);
 }

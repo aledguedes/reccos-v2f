@@ -57,6 +57,7 @@ import { FormStadiumComponent } from '../forms/form-stadium/form-stadium.compone
 import { FormPlayerComponent } from '../forms/form-player/form-player.component';
 import { FormRefreeComponent } from '../forms/form-refree/form-refree.component';
 import { FormContractComponent } from '../forms/form-contract/form-contract.component';
+import { DefaultModalComponent } from '../components/default-modal/default-modal.component';
 
 const modules = [
   A11yModule,
@@ -121,6 +122,7 @@ const modules = [
     FormPlayerComponent,
     FormRefreeComponent,
     FormContractComponent,
+    DefaultModalComponent,
   ],
   imports: [
     CommonModule,
@@ -143,6 +145,7 @@ const modules = [
     FormPlayerComponent,
     FormRefreeComponent,
     FormContractComponent,
+    DefaultModalComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

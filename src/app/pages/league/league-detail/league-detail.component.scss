@@ -1,3 +1,5 @@
+@import '../../../../assets/styles/variables';
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -42,19 +44,27 @@ mat-toolbar {
   }
 }
 
+.box-group {
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+}
+
 .box-card-teams {
   position: relative;
   background-color: #292f39;
   height: calc(100vh - 80px);
   color: #FFF;
+  overflow-y: scroll;
 
   .box-team {
     background-color: #39414d;
     width: 85%;
-  }
-
-  .bg-dark-t {
-    background-color: #39414d;
   }
 
   div mat-icon {
@@ -62,4 +72,44 @@ mat-toolbar {
     height: 18px;
     font-size: 18px;
   }
+}
+
+.toolbar-sticy {
+  position: sticky;
+  bottom: calc(100vh - 80px);
+  left: 0;
+  z-index: 1000;
+}
+
+.grid {
+  display: grid;
+  gap: 5px;
+}
+
+.grid-template-columns-4 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.box-teams-league {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.box-card-teams div mat-icon {
+  width: 42px;
+  height: 42px;
+  font-size: 42px;
+}
+
+.box-card-teams div .add-teams-league {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+.box-1 {
+  background-color: #39414d;
 }

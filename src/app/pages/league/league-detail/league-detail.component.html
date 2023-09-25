@@ -1,46 +1,67 @@
 <div class="container">
     <div class="row mt-2">
         <div class="col-sm-3">
-            <div class="box-card-teams">
-                <mat-toolbar>
+            <div class="box-card-teams p-2">
+                <mat-toolbar class="toolbar-sticy">
                     <span>TIMES</span>
                     <span class="spacer"></span>
                     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
                         <mat-icon>sort_by_alpha</mat-icon>
                     </button>
                 </mat-toolbar>
-                <p class="reccos-ft-13 my-2 ms-2">Preciso escrever algo?</p>
-                <div class="d-flex justify-content-between align-items-center my-1 px-1"
-                    *ngFor="let time of [1,2,3,4,5,6,7], let idx = index">
-                    <p class="box-team m-0 p-2 reccos-ft-13">
-                        <img src="https://cdn-icons-png.flaticon.com/512/451/451783.png" alt="" width="20px"> Time {{
-                        '0'+ (idx + 1) }}
-                    </p>
-                    <p class="m-0 p-2">
-                        <mat-icon>add</mat-icon>
-                    </p>
+                <div *ngIf="teamsLeague.length > 0; else noTeamsLeague">
+                    <p class="reccos-ft-13 text-reccos-4 text-uppercase my-2 ms-2">Vincular equipes</p>
+                    <div class="grid grid-template-columns-4 justify-content-center p-1 mt-1">
+                        <div class="p-2 box-1" *ngFor="let time of teamsLeague, let idx = index">
+                            <div class="box-teams-league" (click)="addTeamsLeague(idx)">
+                                <mat-icon> {{ time.template }} </mat-icon>
+                                <mat-icon class="add-teams-league" *ngIf="!time.show_enable"> {{ time.icon }}
+                                </mat-icon>
+                                <p class="m-0 text-center reccos-ft-13" *ngIf="time.show_enable"> {{ time.name }} </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <ng-template #noTeamsLeague>
+                    <div class="mt-3 alert alert-dark" role="alert">
+                        A simple dark alert—check it out!
+                    </div>
+                </ng-template>
             </div>
         </div>
         <div class="col-sm-9">
             <div class="box-details">
                 <mat-toolbar>
-                    <span>My App</span>
+                    <span> <img [src]="urlLogo" width="45px"> {{ league?.name }} </span>
                     <span class="spacer"></span>
                     <button mat-button class="example-icon" aria-label="Salvar informações">
                         <mat-icon>save</mat-icon> SALVAR
                     </button>
-                    <button mat-icon-button class="example-icon favorite-icon"
+                    <!-- <button mat-icon-button class="example-icon favorite-icon"
                         aria-label="Example icon-button with heart icon">
                         <mat-icon>favorite</mat-icon>
-                    </button>
+                    </button> -->
                 </mat-toolbar>
                 <div class="row column-details mt-2 reccos-ft-13">
                     <div class="col-6">
-                        <p class="m-0">Tabela do campeonato</p>
+                        <h4 class="mt-2 mb-3 text-reccos-4 text-uppercase">Tabela do campeonato</h4>
                         <div class="border px-1">
                             <div class="p-2" *ngFor="let group of [1, 2], let idx = index">
-                                <p class="m-0 text-reccos-4 text-uppercase">Grupo 0{{ idx + 1}} </p>
+                                <p class="m-0 text-reccos-4 text-uppercase box-group" *ngIf="!editGrouEnable">
+                                    <span class="me-4">Grupo 0{{ idx + 1}}</span>
+                                    <mat-icon (click)="editGroup(idx)">edit</mat-icon>
+                                </p>
+                                <form [formGroup]="formEditGroup" class="d-flex align-items-center reccos-bg-white px-3 pt-2" *ngIf="editGrouEnable">
+                                    <mat-form-field class="example-full-width w-100 form reccos-input" appearance="outline">
+                                        <mat-label>Nome completo</mat-label>
+                                        <input matInput formControlName="group_name"
+                                            placeholder="Ex.: Assossiação de Amigos da BemAgro">
+                                        <mat-error
+                                            *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                    </mat-form-field>
+                                    <mat-icon>check_circle_outline</mat-icon>
+                                </form>
                                 <small class="ms-3">O grupo ainda não possui times cadastrados!</small>
                             </div>
                             <div class="p-2 mb-1">
@@ -66,7 +87,7 @@
                             </div>
                         </mat-toolbar>
 
-                        <div class="mt-2 p-2 detail-table-games" *ngFor="let games of [1,2,3,4,5,6]">
+                        <!-- <div class="mt-2 p-2 detail-table-games" *ngFor="let games of [1,2,3,4,5,6]">
                             <div>
                                 <img src="https://cdn-icons-png.flaticon.com/512/451/451783.png" alt="" width="30px">
                                 <small class="text-reccos-2 ms-3">Mandante</small>
@@ -76,14 +97,14 @@
                                 <small class="text-reccos-2 me-3">Visitante</small>
                                 <img src="https://cdn-icons-png.flaticon.com/512/451/451783.png" alt="" width="30px">
                             </div>
-                        </div>
+                        </div> -->
 
-                        <!-- <div class="mt-2">
+                        <div class="mt-2">
                             <button mat-stroked-button color="primary" class="example-icon text-uppercase w-100"
                                 aria-label="Salvar informações">
                                 <mat-icon>loop</mat-icon> Sortear
                             </button>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
