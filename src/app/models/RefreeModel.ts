@@ -1,5 +1,5 @@
 export interface Refree {
-    id: Number;
+    id: number;
     rg: string;
     cpf: string;
     name: string;

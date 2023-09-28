@@ -7,7 +7,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { rolesEnuns } from 'src/app/utils/roles';
 
 interface Roles {
-  id: Number;
+  id: number;
   name: string;
 }
 

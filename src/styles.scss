@@ -113,4 +113,5 @@ $color in $statusColors {
 
 .reccos-input {
   @include mat.all-component-densities(-3);
+  @include mat.form-field-density(-3);
 }

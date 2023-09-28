@@ -1,19 +1,25 @@
-<div class="p-5">
+<div class="p-5 modal-teams">
     <div *ngIf="data.component == 'add_teams_league'">
         <h4 class="text-reccos-4"><strong>TIMES</strong></h4>
         <h6 class="text-reccos-4">Selecione os times que deseja adionar à liga!</h6>
         <div class="col-12">
-            <mat-checkbox (change)="selectAll($event)" color="primary">
+            <mat-checkbox [checked]="allTeams" (change)="selectAll($event)" color="primary">
                 <span class="text-reccos-1">SELECIONAR TODOS</span>
             </mat-checkbox>
         </div>
+
         <div class="grid grid-template-columns mt-3" *ngIf="data">
-            <div *ngFor="let t of data.obj, let idx = index" class="p-2 d-flex align-items-center">
-                <mat-checkbox [checked]="t.is_league" color="primary" (change)="addTeams($event, t.id, t.surname)">
-                    <span style="font-size: 12px;"><img [src]="baseUrl  + t?.picture_profile" width="20px">
-                        {{ t.surname }}
-                    </span>
-                </mat-checkbox>
+            <div
+                *ngFor="let t of data.teams, let idx = index"
+                class="check-teams"
+                [ngClass]="['selected_' + t.check]"
+                (click)="teamSelected(idx, t.check, t.id)"
+            >
+                <img [src]="baseUrl  + t?.picture_profile" class="profile-photo">
+                <span class="text-center text-break d-flex justify-content-end align-items-center mt-2" style="font-size: 12px;">
+                    <strong>{{ t.surname }}</strong>
+                    <mat-icon *ngIf="t.check == '1'">check_circle</mat-icon>
+                </span>
             </div>
         </div>
     </div>
@@ -23,5 +29,5 @@
 
 <div mat-dialog-actions align="end" class="p-3">
     <button mat-button (click)="closeModal()">Fechar</button>
-    <button mat-button color="primary" cdkFocusInitial>Ok</button>
+    <button mat-button (click)="finishSelected()"color="primary" cdkFocusInitial>Ok</button>
 </div>

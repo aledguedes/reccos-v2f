@@ -2,8 +2,9 @@ import { Federation } from "./FederationModel";
 import { Stadium } from "./StadiumModel";
 
 export interface Team {
-  id: Number;
+  id: number;
   name: string;
+  check: string;
   status: string;
   acronym: string;
   surname: string;

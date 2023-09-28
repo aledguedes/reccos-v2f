@@ -5,21 +5,54 @@ mat-dialog-container {
 }
 
 .profile-photo {
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
     background-color: #E6E6E6;
     border-radius: 50%;
     margin: 0 10px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+
+    mat-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+    }
 }
 
 .grid {
     display: grid;
-    gap: 5px;
-    width: 100%;
-    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fit, 120px);
     // grid-template-columns: 1fr 1fr 1fr;
-	grid-auto-flow: dense;
+    grid-auto-flow: dense;
+
+    .check-teams {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 110px;
+        cursor: pointer;
+    }
+}
+
+.modal-teams {
+    overflow-y: scroll;
+    height: calc(100vh - 200px);
+}
+
+$checkTeams: (
+    "1": #1DB954,
+    '0': #fa841a
+);
+
+@each $name, $color in $checkTeams {
+    .selected_#{$name} {
+        border: 3px solid #{$color};
+        border-radius: 5px;
+        color: #{$color};
+    }
 }

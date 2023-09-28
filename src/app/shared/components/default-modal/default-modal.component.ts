@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Team } from 'src/app/models/TeamModel';
+import { TeamService } from 'src/app/services/team/team.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,70 +12,68 @@ import { environment } from 'src/environments/environment';
 export class DefaultModalComponent implements OnInit {
 
   teams: Team[] = [];
-  selectedTeams: selectedTeams[] = [];
+  selectedTeams: any[] = [];
+
+  allTeams: boolean = false;
 
   baseUrl = environment.storage_url;
 
   constructor(
     public dialog: MatDialog,
+    private teamService: TeamService,
     private dialogRef: MatDialogRef<DefaultModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
     console.log('THIS DATA TEAMS', this.data);
+
+    if (this.data.component == 'add_teams_league') {
+      this.data.teams.forEach((item: any) => {
+        if (item.check == '1') {
+          this.selectedTeams.push(item);
+        }
+      });
+      this.teams = this.data.teams;
+    }
   }
 
   selectAll(evt: any) {
+    this.teams.forEach((item: any) => {
+      if (item.check == '0') {
+        item.check = '1';
+        this.selectedTeams.push(item);
+      }
+    });
+    this.allTeams = true;
+  }
 
-    console.log('select all:', this.teams);
-    let teams = this.teams;
-
-    if (evt.checked) {
-      teams.forEach((t: any) => {
-        console.log('FOREACH:', t.id);
-        t["is_league"] = true;
-        this.arrTeam(t.id, t.name);
-      });
+  teamSelected(idx: number, check: string, id: number) {
+    if (check == '1') {
+      this.teams[idx].check = '0';
+      this.selectedTeams.splice(this.selectedTeams.findIndex((item: any) => item.id == id), 1);
+      this.allTeams = false;
     } else {
-      teams.forEach((t: any) => {
-        t["is_league"] = false;
-        this.revTeam(t.id);
-      });
-    }
-    console.log('select all 2:', this.teams);
-  }
-
-  addTeams(evt: any, id_team: number, name: string) {
-    if (evt.checked) {
-      this.arrTeam(id_team, name);
-    }
-    else {
-      this.revTeam(id_team);
+      this.teams[idx].check = '1';
+      this.selectedTeams.push((this.teams[idx]));
+      this.verifySlecetedAllTeams();
     }
   }
 
-  arrTeam(id_team: number, name: string) {
-    this.selectedTeams.push({ id: id_team, name: name });
-    console.log('ADD TEAM:', this.selectedTeams);
+  verifySlecetedAllTeams() {
+    let totalTeams = this.teams.length;
+    let totalSelectedTeams = this.selectedTeams.length;
+
+    if (totalSelectedTeams === totalTeams) {
+      this.allTeams = true;
+    }
   }
 
-  revTeam(id_team: number) {
-    console.log('REMOVE TEAM:', id_team, this.selectedTeams.findIndex((item: any) => { item.id == id_team }));
-    this.selectedTeams.splice(this.selectedTeams.findIndex((item: any) => { item.id == id_team }), 1);
-    console.log('REMOVE TEAM:', this.selectedTeams);
-  }
-
-  selectTeams(id: any) {
-    let teams: any = [];
-    teams.push(id);
+  finishSelected() {
+    this.dialogRef.close(this.selectedTeams);
   }
 
   closeModal(): void {
     this.dialogRef.close();
   }
-}
-interface selectedTeams {
-  id: number,
-  name: string
 }

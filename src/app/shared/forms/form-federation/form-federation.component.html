@@ -30,7 +30,7 @@
                         <div class="col-12" *ngIf="validationForm">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>Status</mat-label>
-                                <mat-select formControlName="status">
+                                <mat-select formControlName="status reccos-input">
                                     <mat-option class="text-uppercase" *ngFor="let status of list_status"
                                         [value]="status.name"> {{ status.name }} </mat-option>
                                 </mat-select>
