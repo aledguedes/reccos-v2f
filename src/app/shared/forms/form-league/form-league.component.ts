@@ -6,7 +6,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { League } from 'src/app/models/LeagueModel';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { LeagueService } from 'src/app/services/league/league.service';
-import { leagueMode, leagueSystem, leaguesStatus } from 'src/app/utils/system-league';
+import { leagueMode, leagueSystem, generalStatus, statusLeague } from 'src/app/utils/system-league';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { TeamService } from 'src/app/services/team/team.service';
 import { environment } from 'src/environments/environment';
@@ -39,7 +39,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
 
   league_mode = leagueMode;
   league_system = leagueMenu;
-  league_status = leaguesStatus;
+  league_status = statusLeague;
 
   changePhoto: boolean = true;
   allSelected: boolean = false;
@@ -95,7 +95,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
       league_system: ['', Validators.required],
       league_mode: ['', Validators.required],
       qt_group: ['1', Validators.required],
-      status: !this.validationForm ? ['Ativo'] : ['']
+      status: !this.validationForm ? ['Em preparação'] : ['']
     });
 
     if (!this.validationForm) {

@@ -14,9 +14,14 @@ export const leagueMode = [
     { name: 'Futebol de campo' },
 ];
 
-export const leaguesStatus = [
+export const generalStatus = [
     { id: 1, name: 'ATIVO' },
     { id: 2, name: 'INATIVO' },
     { id: 3, name: 'SUSPENSO' },
     { id: 4, name: 'AGUARDANDO VALIDAÇÕES' },
+]
+export const statusLeague = [
+    { id: 1, name: 'Em preparação' },
+    { id: 2, name: 'Em progresso' },
+    { id: 3, name: 'Finalizado' }
 ]

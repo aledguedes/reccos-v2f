@@ -47,7 +47,7 @@
             </mat-form-field>
         </div>
 
-        <div class="col-12 col-md-auto">
+        <div class="col-12 col-md">
             <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Telefone</mat-label>
                 <input type="text" matInput formControlName="phone" placeholder="Ex.: (00) 12345-6789">
@@ -56,8 +56,8 @@
             </mat-form-field>
         </div>
 
-        <div class="col-12 col-md-auto">
-            <mat-form-field appearance="outline" class="w-100">
+        <div class="col-12 col-md">
+            <mat-form-field appearance="outline" class="reccos-input w-100">
                 <mat-label>Nível de Permissão</mat-label>
                 <mat-select formControlName="role" class="text-uppercase">
                     <mat-option class="text-uppercase" *ngFor="let role of roles"
@@ -66,8 +66,8 @@
             </mat-form-field>
         </div>
 
-        <div class="col-12 col-md-auto" *ngIf="!validationForm">
-            <mat-form-field appearance="outline" class="w-100">
+        <div class="col-12 col-md" *ngIf="!validationForm">
+            <mat-form-field appearance="outline" class="reccos-input w-100">
                 <mat-label>Status</mat-label>
                 <mat-select formControlName="status" class="text-uppercase">
                     <mat-option class="text-uppercase" *ngFor="let stts of statusUser" [value]="stts.value">{{ stts.name

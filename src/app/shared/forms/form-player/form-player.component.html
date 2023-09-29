@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="col-12 col-xl-6 col-lg-6 col-md-6">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="outline" class="reccos-input w-100">
                             <mat-label>Posição</mat-label>
                             <mat-select formControlName="position">
                                 <mat-option class="text-uppercase" *ngFor="let position of player_positions"
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="col-12 col-xl-12 col-lg-12 col-md-12" *ngIf="validationForm">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="outline" class="reccos-input w-100">
                             <mat-label>Status</mat-label>
                             <mat-select formControlName="status">
                                 <mat-option class="text-uppercase" *ngFor="let status of league_status"

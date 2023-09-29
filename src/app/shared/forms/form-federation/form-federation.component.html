@@ -28,7 +28,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-12" *ngIf="validationForm">
-                            <mat-form-field appearance="outline" class="w-100">
+                            <mat-form-field appearance="outline" class="reccos-input w-100">
                                 <mat-label>Status</mat-label>
                                 <mat-select formControlName="status reccos-input">
                                     <mat-option class="text-uppercase" *ngFor="let status of list_status"
@@ -39,7 +39,7 @@
                     </form>
                     <div class="col-12">
                         <form [formGroup]="reccosFormFederationUser">
-                            <mat-form-field appearance="outline" class="w-100">
+                            <mat-form-field appearance="outline" class="reccos-input w-100">
                                 <mat-label>Usuários</mat-label>
                                 <mat-select formControlName="user" class="text-uppercase">
                                     <mat-option class="text-uppercase" *ngFor="let user of users"

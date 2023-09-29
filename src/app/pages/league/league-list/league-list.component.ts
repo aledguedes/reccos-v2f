@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { League } from 'src/app/models/LeagueModel';
 import { FederationService } from 'src/app/services/federation/federation.service';
 import { LeagueService } from 'src/app/services/league/league.service';
-import { leaguesStatus } from 'src/app/utils/system-league';
+import { generalStatus } from 'src/app/utils/system-league';
 import { environment } from 'src/environments/environment';
 import { LeagueUpdateComponent } from '../league-update/league-update.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,7 +18,7 @@ export class LeagueListComponent implements OnInit {
 
   id_federation: number = 1;
 
-  statusCode: any = leaguesStatus;
+  statusCode: any = generalStatus;
 
   baseUrl = environment.storage_url;
 
