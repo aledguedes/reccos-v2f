@@ -54,18 +54,18 @@
                     <div class="col-6">
                         <h4 class="mt-2 mb-3 text-reccos-4 text-uppercase">Tabela do campeonato</h4>
                         <div class="border px-1 reccos-bg-white mat-elevation-z2">
-                            <div class="p-2 my-2" *ngFor="let group of groups, let idx = index">
+                            <div class="p-2 my-2" *ngFor="let group of league?.groups, let idx = index">
                                 <p class="m-0 text-reccos-4 text-uppercase box-group" *ngIf="!group.check">
                                     <span class="me-4">{{ group.name }}</span>
                                     <mat-icon (click)="editGroup(idx)">edit</mat-icon>
                                 </p>
                                 <form [formGroup]="formEditGroup"
                                     class="d-flex align-items-center reccos-bg-white px-3 pt-2" *ngIf="group.check">
-                                    <mat-form-field class="example-full-width reccos-input w-100 form reccos-input"
-                                        appearance="outline">
+                                    <mat-form-field class="example-full-width reccos-input w-100 form reccos-input me-4"
+                                        appearance="outline" style="margin-bottom: -1.25em">
                                         <mat-label>Nome completo</mat-label>
                                         <input matInput formControlName="group_name"
-                                            placeholder="Ex.: Assossiação de Amigos da BemAgro">
+                                            placeholder="Ex.: Liga A">
                                         <mat-error
                                             *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Este
                                             campo é obrigatório!</mat-error>
@@ -73,9 +73,8 @@
                                     <mat-icon
                                         (click)="updateGroup(idx, formEditGroup.value.group_name)">check_circle_outline</mat-icon>
                                 </form>
-                                <small class="ms-3" *ngIf="group.teams.length == 0; else groupSelected">O grupo ainda
-                                    não possui times
-                                    cadastrados!</small>
+                                <small class="ms-3 text-reccos-2" *ngIf="group.teams.length == 0; else groupSelected">O grupo ainda
+                                    não possui times cadastrados!</small>
 
                                 <ng-template #groupSelected>
                                     <div class="row my-2">

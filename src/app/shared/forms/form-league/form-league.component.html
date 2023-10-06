@@ -1,55 +1,11 @@
-<!-- <mat-hint>Selecione o <strong class="text-reccos-1">formato</strong> da sua liga.</mat-hint>
-
-<div class="grid grid-template-columns-4 justify-content-center mt-1">
-    <div class="p-4 box-leagues" *ngFor="let menu of league_system">
-        <div class="d-flex flex-column justify-content-center align-items-center" (click)="showSeccondBox(menu.name)">
-            <mat-icon> {{ menu.icon }} </mat-icon>
-            <p class="m-0 text-center"> {{ menu.name }} </p>
-        </div>
-    </div>
-</div>
-
-<div class="w-100 mt-3 p-3 second-box" *ngIf="hideShowBox">
-    <h6 class="text-reccos-6"> {{ flag_name }} </h6>
-    <form class="padding-form" [formGroup]="leagueForm">
-        <div class="row">
-            <div class="col-md-4">
-                <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                    <mat-label>Nome da liga</mat-label>
-                    <input formControlName="name" matInput placeholder="Ex.: Liga Master" />
-                </mat-form-field>
-
-                <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Modalidade</mat-label>
-                        <mat-select formControlName="league_mode">
-                            <mat-option *ngFor="let mode of league_mode" [value]="mode.name"> {{ mode.name }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="col-12" *ngIf="!validationForm">
-                    <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                        <mat-label>Quantidade de grupos</mat-label>
-                        <input type="number" formControlName="qt_group" matInput placeholder="Ex.: 4"
-                            (blur)="nextStep()" />
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-md-4">3</div>
-        </div>
-    </form>
-</div> -->
-
-<form [formGroup]="leagueForm">
-    <div class="box-container-reccos p-2">
-        <mat-stepper orientation="vertical" class="padding-box mat-elevation-z4 mb-4 h-500" #stepper>
-            <mat-step [completed]="leagueForm.valid" (change)="nextStep()">
-                <ng-template matStepLabel>Dados da Liga</ng-template>
-                <ng-template matStepContent>
-                    <div class="row g-2">
+<div class="box-container-reccos p-2">
+    <mat-stepper linear orientation="vertical" class="padding-box mat-elevation-z4 mb-4 h-500" #stepper
+        style="height: 500px; overflow-y: auto;">
+        <mat-step [completed]="leagueForm.valid">
+            <ng-template matStepLabel>Dados da Liga</ng-template>
+            <ng-template matStepContent>
+                <form [formGroup]="leagueForm">
+                    <div class="row g-2 mt-1">
                         <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                             <mat-label>Nome completo</mat-label>
                             <input formControlName="name" matInput placeholder="Ex.: Liga Master A" />
@@ -67,7 +23,8 @@
                         <div class="col-12 col-xl-6 col-lg-6 col-md-6">
                             <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                                 <mat-label>Cidade</mat-label>
-                                <input matInput aria-label="State" [matAutocomplete]="auto" formControlName="city">
+                                <input matInput aria-label="State" [matAutocomplete]="auto" formControlName="city"
+                                    (blur)="nextStep()">
                                 <mat-autocomplete #auto="matAutocomplete">
                                     <mat-option *ngFor="let state of filteredStates | async" [value]="state.nome">
                                         <span>{{state.nome}}</span>
@@ -76,37 +33,29 @@
                             </mat-form-field>
                         </div>
                     </div>
-                </ng-template>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Configuração</ng-template>
-                <ng-template matStepContent>
-                    <div class="row mt-3">
-
-                        <div class="grid grid-template-columns-4 justify-content-center mt-1">
-                            <div class="p-4 box-leagues" *ngFor="let menu of league_system">
-                                <div class="d-flex flex-column justify-content-center align-items-center"
-                                    (click)="showSeccondBox(menu.name)">
-                                    <mat-icon> {{ menu.icon }} </mat-icon>
-                                    <p class="m-0 text-center"> {{ menu.name }} </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
+                </form>
+            </ng-template>
+        </mat-step>
+        <mat-step [completed]="leagueConfig.valid">
+            <ng-template matStepLabel>Configuração</ng-template>
+            <ng-template matStepContent>
+                <form [formGroup]="leagueConfig">
+                    <div class="row row-gap-2 mt-3">
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-12">
                             <mat-form-field appearance="outline" class="reccos-input w-100">
                                 <mat-label>Data do início</mat-label>
                                 <input matInput [matDatepicker]="picker" formControlName="dt_start" />
-                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
                         </div>
-                        <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
+
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-12">
                             <mat-form-field appearance="outline" class="reccos-input w-100">
                                 <mat-label>Data do fim</mat-label>
                                 <input matInput #dateStart [matDatepicker]="picker_one" formControlName="dt_end" />
-                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
                                 <mat-datepicker-toggle matSuffix [for]="picker_one"></mat-datepicker-toggle>
                                 <mat-datepicker #picker_one></mat-datepicker>
                             </mat-form-field>
@@ -122,7 +71,8 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <!-- <div class="col-12 col-xl-6 col-lg-6 col-md-12">
+
+                        <div class="col-12 col-xl-6 col-lg-6 col-md-12">
                             <mat-form-field appearance="outline" class="reccos-input w-100">
                                 <mat-label>Sistema de disputa</mat-label>
                                 <mat-select formControlName="league_system" #system
@@ -132,14 +82,32 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                        </div> -->
+                        </div>
+
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-12">
+                            <mat-slide-toggle color="primary" formControlName="turn" class="mt-2">Jogos de ida e
+                                volta?</mat-slide-toggle>
+                        </div>
+
                         <div class="col-12 col-xl-4 col-lg-4 col-md-12" *ngIf="!validationForm">
+                            
                             <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                                <mat-label>Quantidade de grupos</mat-label>
-                                <input type="number" formControlName="qt_group" matInput placeholder="Ex.: 6" />
+                                <mat-label>Total de times</mat-label>
+                                <input matInput type="number" value="1" #numTeamsLeague (input)="numberOfTeamsLeague(numTeamsLeague.value)" min="0">
+                                <button matSuffix mat-icon-button aria-label="Clear" (click)="openInfo()" color="primary">
+                                    <mat-icon>help_outline</mat-icon>
+                                </button>
                             </mat-form-field>
                         </div>
+
                         <div class="col-12 col-xl-4 col-lg-4 col-md-12" *ngIf="!validationForm">
+                            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                                <mat-label>Total de grupos</mat-label>
+                                <input matInput type="number" value="1" #numGroup [disabled]="hideShowInput" (input)="numberOfGroups(numGroup.value)" min="0">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-xl-8 col-lg-8 col-md-12" *ngIf="validationForm">
                             <mat-form-field appearance="outline" class="reccos-input w-100">
                                 <mat-label>Status</mat-label>
                                 <mat-select formControlName="status">
@@ -149,47 +117,43 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="col-12 col-xl-4 col-lg-4 col-md-12" *ngIf="!validationForm">
-                            <mat-slide-toggle color="primary" class="mt-2">Jogos de ida e volta?</mat-slide-toggle>
+                        <div class="col">
+                            <button mat-raised-button class="w-100" color="primary" matStepperNext>Avançar</button>
                         </div>
                     </div>
-                </ng-template>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Upload</ng-template>
-                <ng-template matStepContent>
-                    <div class="my-5 d-flex flex-column">
-                        <div>
-                            <section class="example-section" *ngIf="validationForm">
-                                <mat-checkbox class="example-margin" [(ngModel)]="changePhoto" color="primary">Deseja
-                                    alterar a
-                                    imagem?</mat-checkbox>
-                            </section>
-                            <app-form-upload *ngIf="changePhoto"></app-form-upload>
-                        </div>
+                </form>
+            </ng-template>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Upload</ng-template>
+            <ng-template matStepContent>
+                <div class="my-5 d-flex flex-column">
+                    <div>
+                        <section class="example-section" *ngIf="validationForm">
+                            <mat-checkbox class="example-margin" [(ngModel)]="changePhoto" color="primary">Deseja
+                                alterar a
+                                imagem?</mat-checkbox>
+                        </section>
+                        <app-form-upload *ngIf="changePhoto"></app-form-upload>
                     </div>
-                </ng-template>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Concluir Cadastro</ng-template>
-                <div *ngIf="teams.length > 0; else noTeams">
-                    <small class="text-center">times</small>
                 </div>
-                <ng-template #noTeams>
-                    <div class="alert alert-success mt-5" role="alert" style="font-size: 13px;" *ngIf="!validationForm">
-                        Não existem times cadastrados na federação! Clique em <a
-                            [routerLink]="['/team/create']">cadastrar</a>
-                        para adicionar!
-                    </div>
-                </ng-template>
-                <div class="d-flex justify-content-end mt-3">
-                    <button class="me-2" mat-stroked-button color="warn" [routerLink]="['/league']"> Cancelar </button>
-                    <button mat-raised-button color="primary" [disabled]="leagueForm.invalid" (click)="createLeague()"
-                        *ngIf="!validationForm">Concluir</button>
-                    <button mat-raised-button color="primary" [disabled]="leagueForm.invalid" (click)="updateLeague()"
-                        *ngIf="validationForm">Atualizar</button>
+            </ng-template>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Concluir Cadastro</ng-template>
+            <div class="alert alert-primary d-flex align-items-center w-100 mt-3" role="alert" style="font-size: 13px;">
+                <mat-icon class="me-3">info_outline</mat-icon>
+                <div>
+                    <p class="m-0"> Etapa de preenchimento está completa!!</p>
+                    <p class="m-0">Clique em <strong class="text-uppercase">concluir</strong> para finalizar a operação!
+                    </p>
                 </div>
-            </mat-step>
-        </mat-stepper>
-    </div>
-</form>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+                <button class="me-2" mat-stroked-button color="warn" [routerLink]="['/league']"> Cancelar </button>
+                <button mat-raised-button color="primary" [disabled]="leagueForm.invalid"
+                    (click)="createObjToAPI()">Concluir</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</div>

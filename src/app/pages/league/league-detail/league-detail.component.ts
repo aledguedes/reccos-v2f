@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Group } from 'src/app/models/GroupTeam';
 import { League } from 'src/app/models/LeagueModel';
 import { Team } from 'src/app/models/TeamModel';
 import { LeagueService } from 'src/app/services/league/league.service';
@@ -35,29 +36,7 @@ export class LeagueDetailComponent implements OnInit {
 
   rounds: any[] = [];
 
-  groups = [
-    {
-      id: 1,
-      name: 'BemAgro A',
-      check: false,
-      teams: this.teamForGroup,
-      round: []
-    },
-    {
-      id: 2,
-      name: 'BemAgro B',
-      check: false,
-      teams: this.teamForGroup,
-      round: []
-    },
-    {
-      id: 3,
-      name: 'BemAgro C',
-      check: false,
-      teams: this.teamForGroup,
-      round: []
-    }
-  ]
+  groups: Group[] = []
 
   constructor(
     private fb: FormBuilder,
@@ -113,7 +92,11 @@ export class LeagueDetailComponent implements OnInit {
         data["cod_status"] = this.plotStatus(data?.status.toLowerCase());
         this.urlLogo = this.baseUrl + data?.img_logo;
         this.league = data;
-        this.numberTeamsLeague(14);
+        data.groups.forEach((item: Group) => {
+          item.check = false;
+        });
+        this.groups = data.groups;
+        this.numberTeamsLeague(data.num_teams);
         console.log('LEAGUE BY ID', data);
       },
       error: (err) => {
@@ -195,7 +178,7 @@ export class LeagueDetailComponent implements OnInit {
     const tamanhoGrupo = Math.ceil(teams.length / qtdGroups);
 
     this.groups.forEach((group: any, idx: number) => {
-      const grupo = teams.slice(idx * tamanhoGrupo, (idx + 1) * tamanhoGrupo);
+      const grupo = aleatorio.slice(idx * tamanhoGrupo, (idx + 1) * tamanhoGrupo);
       group.teams = grupo;
     });
     console.log('DADOS GRUPOS:', this.groups);
@@ -221,6 +204,20 @@ export class LeagueDetailComponent implements OnInit {
     this.formEditGroup.patchValue({
       group_name: ['']
     });
+
+    this.dataToSaveApi('name_group', this.groups[idx]);
+  }
+
+  dataToSaveApi(value: string, data: any) {
+    let groupsInfos: any[] = [];
+
+    if( value == 'name_group') {
+      groupsInfos.push({
+        name: String(data.id + '?' + data.name)
+      });
+      console.log('groupsInfos', groupsInfos);
+    }
+
   }
 
   get r() {
@@ -311,7 +308,7 @@ export class LeagueDetailComponent implements OnInit {
       };
       round.push(obj);
     }
-    this.groups[idx].round = round;
+    // this.groups[idx].round = round;
   }
 
   systemTwo(times: any, tamArrTimes: any, id_group: number, idx: number) {
@@ -376,7 +373,7 @@ export class LeagueDetailComponent implements OnInit {
       round.push(obj);
       // this.createRounds(obj);
     }
-    this.groups[idx].round = round;
+    // this.groups[idx].round = round;
   }
 
   listGroups() {

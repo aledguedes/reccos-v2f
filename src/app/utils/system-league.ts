@@ -23,5 +23,6 @@ export const generalStatus = [
 export const statusLeague = [
     { id: 1, name: 'Em preparação' },
     { id: 2, name: 'Em progresso' },
-    { id: 3, name: 'Finalizado' }
+    { id: 3, name: 'Cancelado' },
+    { id: 4, name: 'Finalizado' }
 ]

@@ -58,6 +58,7 @@ import { FormPlayerComponent } from '../forms/form-player/form-player.component'
 import { FormRefreeComponent } from '../forms/form-refree/form-refree.component';
 import { FormContractComponent } from '../forms/form-contract/form-contract.component';
 import { DefaultModalComponent } from '../components/default-modal/default-modal.component';
+import { GeneralInfosComponent } from '../components/general-infos/general-infos.component';
 
 const modules = [
   A11yModule,
@@ -123,6 +124,7 @@ const modules = [
     FormRefreeComponent,
     FormContractComponent,
     DefaultModalComponent,
+    GeneralInfosComponent,
   ],
   imports: [
     CommonModule,
@@ -146,6 +148,7 @@ const modules = [
     FormRefreeComponent,
     FormContractComponent,
     DefaultModalComponent,
+    GeneralInfosComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
