@@ -1,10 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/UserModel';
 import { UserService } from 'src/app/services/user/user.service';
 import { rolesEnuns } from 'src/app/utils/roles';
 import { generalStatus } from 'src/app/utils/system-league';
+import { environment } from 'src/environments/environment';
+import { FormUploadComponent } from '../form-upload/form-upload.component';
+import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
+import { Federation } from 'src/app/models/FederationModel';
 
 interface Roles {
   id: number;
@@ -18,9 +23,14 @@ interface Roles {
 })
 export class FormUsersComponent implements OnInit {
 
-  reccosFormUser!: FormGroup;
+  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
 
   user: User;
+
+  reccosFormUser!: FormGroup;
+  baseUrl = environment.storage_url;
+
+  file_name: string = 'users/default.jpg';
 
   @Input() public id_user: string = '0';
   @Input() public validationForm: Boolean = false;
@@ -29,14 +39,16 @@ export class FormUsersComponent implements OnInit {
   repeat_pass: boolean = true;
   controlButtonSave: boolean = true;
   enableUpdateUser: boolean = false;
-  activetedUpdateImage: boolean = false;
 
   roles: Roles[] = rolesEnuns;
   statusUser = generalStatus;
+
+  imgPerfilDefault: string = 'https://bootdey.com/img/Content/avatar/avatar7.png';
   constructor(
+    private router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private userService: UserService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +89,10 @@ export class FormUsersComponent implements OnInit {
       next: (data) => {
         console.log('USER UPDATE ID', data);
         this.user = data;
+        if (data.img_perfil != null) {
+          this.imgPerfilDefault = this.baseUrl + data.img_perfil;
+        }
+        console.log(this.imgPerfilDefault);
         this.updateFormGroupUser(data);
       },
       error: (err) => {
@@ -100,25 +116,32 @@ export class FormUsersComponent implements OnInit {
       createdAt: values.createdAt,
       updatedAt: values.updatedAt
     });
-    
+
     this.reccosFormUser.controls['email'].disable();
-    console.log('UPDATE FORM USER:', this.reccosFormUser.value);
+    this.reccosFormUser.controls['birth_date'].disable();
   }
 
-  createUser() {
-    // let form = { ...this.reccosFormUser.value, status: true, img_perfil: 'users/perfil_A.jpg'}
-    let form: any = {
+  createObjToAPI() {
+
+    let obj = {
+      status: this.reccosFormUser.value.status,
+      img_perfil: this.file_name,
+      federation: +this.federation.id,
       name: this.reccosFormUser.value.name,
-      surname: this.reccosFormUser.value.surname,
       phone: this.reccosFormUser.value.phone,
       email: this.reccosFormUser.value.email,
-      img_perfil: "users/perfil_b.png",
-      status: true,
-      federation: 0,
-      birth_date: "2023-07-29T08:22:43",
+      surname: this.reccosFormUser.value.surname,
       password: this.reccosFormUser.value.password,
-      role: this.reccosFormUser.value.role.toLowerCase()
+      role: this.reccosFormUser.value.role.toLowerCase(),
+      birth_date: this.formatDate(this.reccosFormUser.value.birth_date),
     }
+
+    console.log('CREATE OBJECT:', obj);
+    // this.validationForm ? this.updateLeague(obj) : this.createLeague(obj);
+    this.validationForm ? this.createUser(obj) : this.updateUser(obj);
+  }
+
+  createUser(form: any) {
 
     this.userService.createUser(form).subscribe({
       next: (data) => {
@@ -131,8 +154,8 @@ export class FormUsersComponent implements OnInit {
     });
   }
 
-  updateUser() {
-    this.userService.updateUser(+this.id_user, this.reccosFormUser.value).subscribe({
+  updateUser(form: any) {
+    this.userService.updateUser(+this.id_user, form).subscribe({
       next: (data) => {
         console.log('SUCESSO UPDATE USER', data);
         this.router.navigate(['/user']);
@@ -141,6 +164,34 @@ export class FormUsersComponent implements OnInit {
         console.log('ERRO AO ATUALIZAR USUÁRIO', err);
       }
     });
+  }
+
+  openUpload() {
+    const dialogRef = this.dialog.open(DefaultModalComponent, {
+      disableClose: true,
+      width: '500px',
+      data: {
+        component: 2
+      }
+    }).afterClosed().subscribe((data: any) => {
+      console.log('USER FORMS', data);
+      this.file_name = data.result;
+    });
+  }
+
+  compareDates(datestring1: string, datestring2: string) {
+    const date1 = new Date(datestring1);
+    const date2 = new Date(datestring2);
+
+    if (date1.getTime() === date2.getTime()) {
+      return false;
+    }
+    return true;
+  }
+
+  formatDate(date: Date) {
+    var formattedTimestamp = date.toISOString().slice(0, 16);
+    return formattedTimestamp;
   }
 
 }

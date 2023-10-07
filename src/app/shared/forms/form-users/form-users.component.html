@@ -5,7 +5,7 @@
                 <div class="account-settings">
                     <div class="user-profile">
                         <div class="user-avatar">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+                            <img [src]="imgPerfilDefault" alt="Maxwell Admin">
                         </div>
                         <h5 class="user-name"> {{ reccosFormUser.value.name == '' ? "Nome" : reccosFormUser.value.name }} </h5>
                         <h6 class="user-email mb-2"> {{ reccosFormUser.value.surname == '' ? "@Username" : '@'+reccosFormUser.value.surname }} </h6>
@@ -16,11 +16,7 @@
                     </div>
                     <div class="about my-3">
                         <button mat-stroked-button color="primary"
-                            (click)="activetedUpdateImage = !activetedUpdateImage">Alterar imagem</button>
-                    </div>
-
-                    <div *ngIf="activetedUpdateImage">
-                        <app-form-upload></app-form-upload>
+                            (click)="openUpload()">Imagem perfil</button>
                     </div>
                 </div>
             </div>
@@ -83,7 +79,7 @@
                     <div class="col-12 col-md">
                         <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                             <mat-label>Telefone</mat-label>
-                            <input type="text" matInput formControlName="phone" placeholder="Ex.: (00) 12345-6789">
+                            <input type="text" matInput formControlName="phone" mask="(00) 00000-0000" placeholder="Ex.: (00) 12345-6789">
                             <mat-error
                                 *ngIf="(r['phome']?.touched || r['phome']?.dirty) && r['phome']?.errors?.['required']">Campo
                                 Obrigatório</mat-error>
@@ -158,8 +154,7 @@
                     Voltar <mat-icon>keyboard_backspace</mat-icon>
                 </button>
                 <button mat-raised-button color="primary" class="example-icon ms-3"
-                    (click)="validationForm? createUser() : updateUser()" [disabled]="reccosFormUser.invalid"
-                    matTooltip="Criar usuário" aria-label="Novo usuário">
+                    (click)="createObjToAPI" matTooltip="Criar usuário" aria-label="Novo usuário">
                     Salvar <mat-icon>send</mat-icon>
                 </button>
             </div>

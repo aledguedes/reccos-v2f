@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Team } from 'src/app/models/TeamModel';
-import { TeamService } from 'src/app/services/team/team.service';
-import { environment } from 'src/environments/environment';
+import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 
 @Component({
   selector: 'app-default-modal',
@@ -11,66 +10,47 @@ import { environment } from 'src/environments/environment';
 })
 export class DefaultModalComponent implements OnInit {
 
-  teams: Team[] = [];
   selectedTeams: any[] = [];
 
-  allTeams: boolean = false;
-
-  baseUrl = environment.storage_url;
+  teams: Team[] = [];
+  file_upload_name: String = '';
 
   constructor(
     public dialog: MatDialog,
-    private teamService: TeamService,
+    private rxjs: DataRxjsService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DefaultModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
     console.log('THIS DATA TEAMS', this.data);
 
-    if (this.data.component == 'add_teams_league') {
-      this.data.teams.forEach((item: any) => {
-        if (item.check == '1') {
-          this.selectedTeams.push(item);
-        }
-      });
+    if (this.data.component == 1) {
       this.teams = this.data.teams;
     }
-  }
-
-  selectAll(evt: any) {
-    this.teams.forEach((item: any) => {
-      if (item.check == '0') {
-        item.check = '1';
-        this.selectedTeams.push(item);
+    
+    this.rxjs.uploadFileName$.subscribe(fileName => {
+      if (fileName) {
+        this.file_upload_name = 'league/' + fileName;
       }
     });
-    this.allTeams = true;
   }
 
-  teamSelected(idx: number, check: string, id: number) {
-    if (check == '1') {
-      this.teams[idx].check = '0';
-      this.selectedTeams.splice(this.selectedTeams.findIndex((item: any) => item.id == id), 1);
-      this.allTeams = false;
-    } else {
-      this.teams[idx].check = '1';
-      this.selectedTeams.push((this.teams[idx]));
-      this.verifySlecetedAllTeams();
-    }
-  }
-
-  verifySlecetedAllTeams() {
-    let totalTeams = this.teams.length;
-    let totalSelectedTeams = this.selectedTeams.length;
-
-    if (totalSelectedTeams === totalTeams) {
-      this.allTeams = true;
-    }
+  receivedTeams(event: any) {
+    this.selectedTeams = event;
   }
 
   finishSelected() {
-    this.dialogRef.close(this.selectedTeams);
+    let obj = {};
+
+    if (this.data.component == 1) {
+      obj = { result: this.selectedTeams, component: 1 };
+    } else if (this.data.component == 2) {
+      obj = { result: this.file_upload_name, component: 2 };
+    }
+
+    this.dialogRef.close(obj);
+
   }
 
   closeModal(): void {

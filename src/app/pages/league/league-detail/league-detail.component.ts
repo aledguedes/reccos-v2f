@@ -119,21 +119,25 @@ export class LeagueDetailComponent implements OnInit {
   }
 
   addTeamsLeague() {
-    const dialogRef = this.dialog.open(DefaultModalComponent, {
+    this.dialog.open(DefaultModalComponent, {
       disableClose: true,
       width: '650px',
       data: {
-        component: 'add_teams_league',
+        component: 1,
         id_federation: +this.id_federation,
         teams: this.teams
       }
     }).afterClosed().subscribe((data: any) => {
-      let difference = 14 - data.length;
-      if (difference > 0) {
-        this.diffSelectedTeams(data);
-        return;
+      if (data) {
+        let numTeamsLeague = this.league.num_teams;
+
+        let difference = numTeamsLeague - data.result.length;
+        if (difference > 0) {
+          this.diffSelectedTeams(data.result);
+          return;
+        }
+        this.teamsSelectedsLeague = data.result;
       }
-      this.teamsSelectedsLeague = data;
     });
   }
 
@@ -211,7 +215,7 @@ export class LeagueDetailComponent implements OnInit {
   dataToSaveApi(value: string, data: any) {
     let groupsInfos: any[] = [];
 
-    if( value == 'name_group') {
+    if (value == 'name_group') {
       groupsInfos.push({
         name: String(data.id + '?' + data.name)
       });
@@ -380,7 +384,7 @@ export class LeagueDetailComponent implements OnInit {
     let myRounds: any[] = [];
     this.groups.forEach((g: any, vl: number) => {
       g.round.forEach((r: any, idx: number) => {
-          myRounds.push(r);
+        myRounds.push(r);
       });
     });
 
