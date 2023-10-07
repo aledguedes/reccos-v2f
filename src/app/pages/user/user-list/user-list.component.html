@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row justify-content-between align-items-center">
         <div class="col-md-8">
-            <mat-form-field appearance="fill" class="w-100 mt-4">
-                <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+            <mat-form-field appearance="outline" class="reccos-input w-100 mt-4">
+                <mat-label>Pesquisa</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John Doe" #input>
             </mat-form-field>
         </div>
         <div class="col-md-auto">
@@ -12,7 +12,7 @@
             </button>
         </div>
     </div>
-    <div class="mat-elevation-z8 my-3" *ngIf="users.length > 0; else noUsers">
+    <div class="mat-elevation-z4 my-3" *ngIf="users.length > 0; else noUsers">
         <table mat-table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="id">
@@ -71,11 +71,11 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <div class="my-3">
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users">
-            </mat-paginator>
-        </div>
     </div>
+    <div class="my-3 mat-elevation-z4">
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users">
+        </mat-paginator>
+    </div>  
 
     <ng-template #noUsers>
         <div class="alert alert-warning mt-4" role="alert">

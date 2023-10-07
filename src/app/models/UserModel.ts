@@ -1,13 +1,14 @@
 export interface User {
-    id: number;
-    name?: string;
-    surname?: string;
-    email?: string;
-    img_perfil?: string;
-    status?: string;
-    role?: string;
-    birth_date?: Date;
-    federation?: number;
-    password?: string;
-    password_confirmation?: string
+    id?: number;
+	name: string;
+	surname: string;
+	email: string;
+	status: string;
+	img_perfil: string;
+	role: string;
+	phone: string;
+	federation: number;
+	birth_date: Date;
+	createdAt: Date;
+	updatedAt: Date;
 }

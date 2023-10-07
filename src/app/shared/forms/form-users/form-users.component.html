@@ -1,143 +1,168 @@
-<p class="mb-3 text-start text-reccos-3">
-    * Campos obrigatórios
-</p>
+<div class="row px-4 mx-md-0 mt-5 gap-4">
+    <div class="col-md-3">
+        <div class="card h-100 mat-elevation-z2">
+            <div class="card-body my-3">
+                <div class="account-settings">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+                        </div>
+                        <h5 class="user-name"> {{ reccosFormUser.value.name == '' ? "Nome" : reccosFormUser.value.name }} </h5>
+                        <h6 class="user-email mb-2"> {{ reccosFormUser.value.surname == '' ? "@Username" : '@'+reccosFormUser.value.surname }} </h6>
+                        <h6 class="user-email" *ngIf="reccosFormUser.value.email == ''; else nameUser"> Email </h6>
+                        <ng-template #nameUser>
+                            <h6 class="user-email"> {{ validationForm ? user?.email : reccosFormUser.value.email == '' ? 'E-mail' : reccosFormUser.value.email }} </h6>
+                        </ng-template>
+                    </div>
+                    <div class="about my-3">
+                        <button mat-stroked-button color="primary"
+                            (click)="activetedUpdateImage = !activetedUpdateImage">Alterar imagem</button>
+                    </div>
 
-<form [formGroup]="reccosFormUser">
-    <div class="row my-3">
-        <div class="col-12 col-md-8">
-            <mat-form-field  class="example-full-width reccos-input w-100" appearance="outline">
-                <mat-label>Nome do representante</mat-label>
-                <input matInput formControlName="name" placeholder="Ex.: Fulado de Tal">
-                <mat-error *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Campo
-                    Obrigatório</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div class="col-12 col-md-4">
-            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                <mat-label>Username</mat-label>
-                <input type="text" matInput formControlName="surname" placeholder="Ex.: Beltrano">
-                <mat-error
-                    *ngIf="(r['surname']?.touched || r['surname']?.dirty) && r['surname']?.errors?.['required']">Campo
-                    Obrigatório</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div class="col-12 col-md-4">
-            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                <mat-label>Data de nascimento</mat-label>
-                <input matInput formControlName="birth_date" [matDatepicker]="picker">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error
-                    *ngIf="(r['birth_date']?.touched || r['birth_date']?.dirty) && r['birth_date']?.errors?.['required']">Campo
-                    Obrigatório</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div class="col-12 col-md-8">
-            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                <mat-label>Email</mat-label>
-                <input type="email" matInput formControlName="email" placeholder="Ex.: fulano@detal.com">
-                <mat-error *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['required']">Campo
-                    Obrigatório</mat-error>
-                <mat-error *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['email']">Formato
-                    e-mail inválido.</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div class="col-12 col-md">
-            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                <mat-label>Telefone</mat-label>
-                <input type="text" matInput formControlName="phone" placeholder="Ex.: (00) 12345-6789">
-                <mat-error *ngIf="(r['phome']?.touched || r['phome']?.dirty) && r['phome']?.errors?.['required']">Campo
-                    Obrigatório</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div class="col-12 col-md">
-            <mat-form-field appearance="outline" class="reccos-input w-100">
-                <mat-label>Nível de Permissão</mat-label>
-                <mat-select formControlName="role" class="text-uppercase">
-                    <mat-option class="text-uppercase" *ngFor="let role of roles"
-                        [value]="role.name">{{role.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <div class="col-12 col-md" *ngIf="!validationForm">
-            <mat-form-field appearance="outline" class="reccos-input w-100">
-                <mat-label>Status</mat-label>
-                <mat-select formControlName="status" class="text-uppercase">
-                    <mat-option class="text-uppercase" *ngFor="let stts of statusUser" [value]="stts.value">{{ stts.name
-                        }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <div class="col-12 col-md-6" *ngIf="validationForm">
-            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-
-                <mat-label>Senha</mat-label>
-                <input matInput [type]="pass ? 'password' : 'text'" formControlName="password">
-                <mat-error
-                    *ngIf="(r['password']?.touched || r['password']?.dirty) && r['password']?.errors?.['required']">>Campo
-                    Obrigatório</mat-error>
-                <mat-error
-                    *ngIf="(r['password']?.touched || r['password']?.dirty) && r['password']?.errors?.['minlength']">A
-                    senha precisa ter no minímo 3 digitos</mat-error>
-                <mat-error
-                    *ngIf="(r['password']?.touched || r['password']?.dirty) && r['password']?.errors?.['maxlength']">A
-                    senha possui 8 digitos no máximo</mat-error>
-                <button mat-icon-button class="btn-green" matSuffix (click)="pass = !pass"
-                    [attr.aria-label]="'Mostrar senha'" [attr.aria-pressed]="pass">
-                    <mat-icon>{{pass ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-        </div>
-
-        <div class="col-12 col-md-6" *ngIf="validationForm">
-            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                <mat-label>Confirmação de senha</mat-label>
-                <input matInput [type]="repeat_pass ? 'password' : 'text'" formControlName="password_confirmation">
-                <mat-error
-                    *ngIf="(r['password_confirmation']?.touched || r['password_confirmation']?.dirty) && r['password_confirmation']?.errors?.['required']">Campo
-                    Obrigatório</mat-error>
-                <mat-error
-                    *ngIf="(r['password_confirmation']?.touched || r['password_confirmation']?.dirty) && r['password_confirmation']?.errors?.['incorrect']">As
-                    senhas não são iguais</mat-error>
-                <button mat-icon-button class="btn-green" matSuffix (click)="repeat_pass = !repeat_pass"
-                    [attr.aria-label]="'Mostrar senha'" [attr.aria-pressed]="repeat_pass">
-                    <mat-icon>{{repeat_pass ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-        </div>
-    </div>
-</form>
-<div class="container">
-
-    <div class="col-12 mt-4 text-md-end text-center">
-        <button mat-stroked-button color="accent" class="example-icon me-3" [routerLink]="['/user']" matTooltip="Voltar"
-            aria-label="voltar usuários">
-            Voltar <mat-icon>keyboard_backspace</mat-icon>
-        </button>
-        <button mat-raised-button color="primary" class="example-icon ms-3"
-            (click)="validationForm? createUser() : updateUser()" [disabled]="reccosFormUser.invalid"
-            matTooltip="Criar usuário" aria-label="Novo usuário">
-            Salvar <mat-icon>send</mat-icon>
-        </button>
-    </div>
-</div>
-
-<!-- 
-    <div class="col-12 col-md-6">
-            <div class="input-data">
-                <input type="text" required formControlName="name">
-                <div class="underline"></div>
-                <label for="">Nome</label>
-                <mat-error style="font-size: 12px;" *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Campo
-                    Obrigatório</mat-error>
+                    <div *ngIf="activetedUpdateImage">
+                        <app-form-upload></app-form-upload>
+                    </div>
+                </div>
             </div>
         </div>
- -->
+    </div>
+
+    <div class="col-md-8">
+        <div class="card h-100 mat-elevation-z2 card-body px-5 mb-3">
+            <p class="my-2 text-start text-reccos-3">
+                * Campos obrigatórios
+            </p>
+            <form [formGroup]="reccosFormUser">
+                <div class="row my-3">
+                    <div class="col-12 col-md-8">
+                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                            <mat-label>Nome do representante</mat-label>
+                            <input matInput formControlName="name" placeholder="Ex.: Fulado de Tal">
+                            <mat-error
+                                *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Campo
+                                Obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                            <mat-label>Username</mat-label>
+                            <input type="text" matInput formControlName="surname" placeholder="Ex.: Beltrano">
+                            <mat-error
+                                *ngIf="(r['surname']?.touched || r['surname']?.dirty) && r['surname']?.errors?.['required']">Campo
+                                Obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                            <mat-label>Data de nascimento</mat-label>
+                            <input matInput formControlName="birth_date" [matDatepicker]="picker">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error
+                                *ngIf="(r['birth_date']?.touched || r['birth_date']?.dirty) && r['birth_date']?.errors?.['required']">Campo
+                                Obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-8">
+                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input type="email" matInput formControlName="email" placeholder="Ex.: fulano@detal.com">
+                            <mat-error
+                                *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['required']">Campo
+                                Obrigatório</mat-error>
+                            <mat-error
+                                *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['email']">Formato
+                                e-mail inválido.</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md">
+                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                            <mat-label>Telefone</mat-label>
+                            <input type="text" matInput formControlName="phone" placeholder="Ex.: (00) 12345-6789">
+                            <mat-error
+                                *ngIf="(r['phome']?.touched || r['phome']?.dirty) && r['phome']?.errors?.['required']">Campo
+                                Obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md">
+                        <mat-form-field appearance="outline" class="reccos-input w-100">
+                            <mat-label>Nível de Permissão</mat-label>
+                            <mat-select formControlName="role" class="text-uppercase">
+                                <mat-option class="text-uppercase" *ngFor="let role of roles"
+                                    [value]="role.name">{{role.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md" *ngIf="validationForm">
+                        <mat-form-field appearance="outline" class="reccos-input w-100">
+                            <mat-label>Status</mat-label>
+                            <mat-select formControlName="status">
+                                <mat-option class="text-uppercase" *ngFor="let status of statusUser"
+                                    [value]="status.name">
+                                    {{ status.name }} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-6" *ngIf="!validationForm">
+                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+
+                            <mat-label>Senha</mat-label>
+                            <input matInput [type]="pass ? 'password' : 'text'" formControlName="password">
+                            <mat-error
+                                *ngIf="(r['password']?.touched || r['password']?.dirty) && r['password']?.errors?.['required']">>Campo
+                                Obrigatório</mat-error>
+                            <mat-error
+                                *ngIf="(r['password']?.touched || r['password']?.dirty) && r['password']?.errors?.['minlength']">A
+                                senha precisa ter no minímo 3 digitos</mat-error>
+                            <mat-error
+                                *ngIf="(r['password']?.touched || r['password']?.dirty) && r['password']?.errors?.['maxlength']">A
+                                senha possui 8 digitos no máximo</mat-error>
+                            <button mat-icon-button class="btn-green" matSuffix (click)="pass = !pass"
+                                [attr.aria-label]="'Mostrar senha'" [attr.aria-pressed]="pass">
+                                <mat-icon>{{pass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12 col-md-6" *ngIf="!validationForm">
+                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                            <mat-label>Confirmação de senha</mat-label>
+                            <input matInput [type]="repeat_pass ? 'password' : 'text'"
+                                formControlName="password_confirmation">
+                            <mat-error
+                                *ngIf="(r['password_confirmation']?.touched || r['password_confirmation']?.dirty) && r['password_confirmation']?.errors?.['required']">Campo
+                                Obrigatório</mat-error>
+                            <mat-error
+                                *ngIf="(r['password_confirmation']?.touched || r['password_confirmation']?.dirty) && r['password_confirmation']?.errors?.['incorrect']">As
+                                senhas não são iguais</mat-error>
+                            <button mat-icon-button class="btn-green" matSuffix (click)="repeat_pass = !repeat_pass"
+                                [attr.aria-label]="'Mostrar senha'" [attr.aria-pressed]="repeat_pass">
+                                <mat-icon>{{repeat_pass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-12 text-md-end text-center">
+                <button mat-stroked-button color="accent" class="example-icon me-3" [routerLink]="['/user']"
+                    matTooltip="Voltar" aria-label="voltar usuários">
+                    Voltar <mat-icon>keyboard_backspace</mat-icon>
+                </button>
+                <button mat-raised-button color="primary" class="example-icon ms-3"
+                    (click)="validationForm? createUser() : updateUser()" [disabled]="reccosFormUser.invalid"
+                    matTooltip="Criar usuário" aria-label="Novo usuário">
+                    Salvar <mat-icon>send</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

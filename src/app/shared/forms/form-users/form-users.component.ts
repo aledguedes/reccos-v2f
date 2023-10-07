@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/UserModel';
-import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { rolesEnuns } from 'src/app/utils/roles';
+import { generalStatus } from 'src/app/utils/system-league';
 
 interface Roles {
   id: number;
@@ -18,35 +18,33 @@ interface Roles {
 })
 export class FormUsersComponent implements OnInit {
 
-  @Input() public validationForm: Boolean = true;
-  @Input() public id_user: string = '0';
   reccosFormUser!: FormGroup;
+
+  user: User;
+
+  @Input() public id_user: string = '0';
+  @Input() public validationForm: Boolean = false;
 
   pass: boolean = true;
   repeat_pass: boolean = true;
   controlButtonSave: boolean = true;
+  enableUpdateUser: boolean = false;
+  activetedUpdateImage: boolean = false;
 
   roles: Roles[] = rolesEnuns;
-  statusUser = [
-    { value: true, name: 'Ativo' }, { value: false, name: 'Inativo' }
-  ]
+  statusUser = generalStatus;
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router,
-    private rxjs: DataRxjsService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.initFormGroupUser();
-    console.log('validationForm', this.validationForm)
 
-    this.rxjs.users$.subscribe((data: User) => {
-      if (data) {
-        console.log('UPDATE FORM USER RXJS:', data);
-        this.updateFormGroupUser(data);
-      }
-    });
+    if (this.validationForm) {
+      this.userById(+this.id_user);
+    }
 
     this.reccosFormUser.get("password_confirmation")?.valueChanges.subscribe((repeat_pass: string) => {
       if (repeat_pass != this.reccosFormUser.value.password) {
@@ -70,19 +68,40 @@ export class FormUsersComponent implements OnInit {
       password_confirmation: this.validationForm ? ['', Validators.required] : [''],
       role: ['', Validators.required],
       img_perfil: [''],
-      status: this.validationForm ? ['true'] : ['']
+      status: this.validationForm ? ['ATIVO'] : ['']
     });
   }
 
-  updateFormGroupUser(userId: User) {
-    this.initFormGroupUser();
-    const updateInfos = {
-      ...userId,
-      password: '12345678',
-      password_confirmation: '12345678',
-      img_perfil: userId.img_perfil
-    }
-    this.reccosFormUser.patchValue(updateInfos);
+  userById(id_user: number) {
+    this.userService.userById(id_user).subscribe({
+      next: (data) => {
+        console.log('USER UPDATE ID', data);
+        this.user = data;
+        this.updateFormGroupUser(data);
+      },
+      error: (err) => {
+        console.log('ERRO USER UPDATE ID', err);
+      }
+    });
+  }
+
+  updateFormGroupUser(values: User) {
+
+    this.reccosFormUser.patchValue({
+      email: values.email,
+      name: values.name,
+      surname: values.surname,
+      phone: values.phone,
+      birth_date: values.birth_date,
+      role: values.role,
+      img_perfil: values.img_perfil,
+      status: values.status,
+      federation: values.federation,
+      createdAt: values.createdAt,
+      updatedAt: values.updatedAt
+    });
+    
+    this.reccosFormUser.controls['email'].disable();
     console.log('UPDATE FORM USER:', this.reccosFormUser.value);
   }
 
