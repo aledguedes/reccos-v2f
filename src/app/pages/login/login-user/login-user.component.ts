@@ -19,7 +19,7 @@ export class LoginUserComponent {
     this.federationService.federationById(1).subscribe({
       next: (data) => {
         console.log('FEDERATION BY ID', data);
-        localStorage.setItem('reccos-fedration', JSON.stringify(data));
+        localStorage.setItem('reccos-federation', JSON.stringify(data));
 
         this.router.navigate(['/dashboard']);
       },

@@ -1,3 +1,4 @@
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -59,6 +60,8 @@ import { FormRefreeComponent } from '../forms/form-refree/form-refree.component'
 import { FormContractComponent } from '../forms/form-contract/form-contract.component';
 import { DefaultModalComponent } from '../components/default-modal/default-modal.component';
 import { GeneralInfosComponent } from '../components/general-infos/general-infos.component';
+import { ChangeTeamsComponent } from '../components/change-teams/change-teams.component';
+import { ChangeUserImageComponent } from '../components/change-user-image/change-user-image.component';
 
 const modules = [
   A11yModule,
@@ -125,6 +128,8 @@ const modules = [
     FormContractComponent,
     DefaultModalComponent,
     GeneralInfosComponent,
+    ChangeTeamsComponent,
+    ChangeUserImageComponent,
   ],
   imports: [
     CommonModule,
@@ -132,6 +137,8 @@ const modules = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     ...modules
   ],
   exports: [
@@ -149,8 +156,13 @@ const modules = [
     FormContractComponent,
     DefaultModalComponent,
     GeneralInfosComponent,
+    ChangeTeamsComponent,
+    ChangeUserImageComponent,
     ...modules
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    provideNgxMask()
+  ]
 })
 export class MaterialModule { }

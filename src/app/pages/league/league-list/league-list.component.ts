@@ -15,7 +15,8 @@ export class LeagueListComponent implements OnInit {
 
   leagues: League[] = [];
 
-  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-fedration') || []}`);
+  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
+  id_federation: String = '1';
 
   statusCode: any = statusLeague;
 
@@ -31,7 +32,7 @@ export class LeagueListComponent implements OnInit {
   }
 
   listFederationById() {
-    this.federationService.federationById(this.federation.id).subscribe({
+    this.federationService.federationById(+this.federation.id).subscribe({
       next: (data) => {
 
         data.leagues.forEach((l: League) => {

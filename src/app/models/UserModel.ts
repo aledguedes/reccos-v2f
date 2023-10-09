@@ -7,6 +7,7 @@ export interface User {
 	img_perfil: string;
 	role: string;
 	phone: string;
+	password: string;
 	federation: number;
 	birth_date: Date;
 	createdAt: Date;
