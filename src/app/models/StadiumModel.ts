@@ -1,5 +1,5 @@
 export interface Stadium {
-    id: Number;
+    id: number;
     name?: string;
     status?: string;
     surname?: string;

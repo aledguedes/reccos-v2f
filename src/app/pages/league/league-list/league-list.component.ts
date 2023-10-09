@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Federation } from 'src/app/models/FederationModel';
 import { League } from 'src/app/models/LeagueModel';
 import { FederationService } from 'src/app/services/federation/federation.service';
 import { LeagueService } from 'src/app/services/league/league.service';
-import { leaguesStatus } from 'src/app/utils/system-league';
+import { statusLeague } from 'src/app/utils/system-league';
 import { environment } from 'src/environments/environment';
-import { LeagueUpdateComponent } from '../league-update/league-update.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-league-list',
@@ -16,14 +15,14 @@ export class LeagueListComponent implements OnInit {
 
   leagues: League[] = [];
 
-  id_federation: number = 1;
+  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
+  id_federation: String = '1';
 
-  statusCode: any = leaguesStatus;
+  statusCode: any = statusLeague;
 
   baseUrl = environment.storage_url;
 
   constructor(
-    private dialog: MatDialog,
     private leagueService: LeagueService,
     private federationService: FederationService
   ) { }
@@ -33,13 +32,15 @@ export class LeagueListComponent implements OnInit {
   }
 
   listFederationById() {
-    this.federationService.federationById(this.id_federation).subscribe({
+    this.federationService.federationById(+this.federation.id).subscribe({
       next: (data) => {
+
         data.leagues.forEach((l: League) => {
           l["cod_status"] = this.plotStatus(l.status.toLowerCase());
+          l["slug"] = this.slug(l.name);
         });
         this.leagues = data.leagues;
-        // console.log('FEDERAÇÃO POR ID:', this.leagues);
+        console.log('FEDERAÇÃO POR ID:', this.leagues);
       },
       error: (err) => {
         console.log('FEDERAÇÃO POR ID ERROR:', err);
@@ -58,27 +59,20 @@ export class LeagueListComponent implements OnInit {
     });
   }
 
+  slug(input: string) {
+    return input.toString().toLowerCase().replace(/[^\w\s]|_/g, "").replace(/\s+/g, "_");
+  }
+
   plotStatus(value: string) {
     switch (value) {
-      case 'ativo':
+      case 'em preparação':
         return '1';
-      case 'inativo':
+      case 'em progresso':
         return '2';
-      case 'suspenso':
+      case 'cancelado':
         return '3';
       default:
         return '4';
     }
   }
-
-  openUpdateLeague() {
-    const dialogRef = this.dialog.open(LeagueUpdateComponent, {
-      disableClose: false,
-      width: '800px',
-      data: {}
-    }).afterClosed().subscribe({
-
-    });
-  }
-
 }

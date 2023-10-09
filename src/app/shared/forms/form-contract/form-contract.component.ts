@@ -7,7 +7,7 @@ import { Team } from 'src/app/models/TeamModel';
 import { ContractService } from 'src/app/services/contract/contract.service';
 import { PlayerService } from 'src/app/services/player/player.service';
 import { TeamService } from 'src/app/services/team/team.service';
-import { leaguesStatus } from 'src/app/utils/system-league';
+import { generalStatus } from 'src/app/utils/system-league';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { Router } from '@angular/router';
@@ -34,7 +34,7 @@ export class FormContractComponent implements OnInit {
   listTeams: Team[] = [];
   listPlayers: Player[] = [];
 
-  league_status = leaguesStatus;
+  league_status = generalStatus;
   junpInitial: boolean = false;
 
   constructor(

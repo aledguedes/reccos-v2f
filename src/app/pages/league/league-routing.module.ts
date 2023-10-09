@@ -12,7 +12,7 @@ const routes: Routes = [
       { path: '', component: LeagueListComponent },
       { path: 'create', component: LeagueCreateComponent },
       { path: 'update/:id_league', component: LeagueUpdateComponent },
-      { path: 'detail/:id_league', component: LeagueDetailComponent },
+      { path: ':slug/:id_league', component: LeagueDetailComponent },
     ]
   }
 ];

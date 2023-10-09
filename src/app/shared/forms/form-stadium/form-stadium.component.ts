@@ -4,7 +4,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { Team } from 'src/app/models/TeamModel';
 import { TeamService } from 'src/app/services/team/team.service';
-import { leaguesStatus } from 'src/app/utils/system-league';
+import { generalStatus } from 'src/app/utils/system-league';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { StadiumService } from 'src/app/services/stadium/stadium.service';
@@ -26,7 +26,7 @@ export class FormStadiumComponent implements OnInit {
   baseUrl = environment.storage_url;
 
   reccosFormStadium!: FormGroup;
-  stadium_status = leaguesStatus;
+  stadium_status = generalStatus;
   changePhoto: boolean = true;
   listTemas: boolean = false;
 

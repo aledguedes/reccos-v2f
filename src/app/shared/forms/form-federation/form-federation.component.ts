@@ -6,7 +6,7 @@ import { User } from 'src/app/models/UserModel';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { FederationService } from 'src/app/services/federation/federation.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { leaguesStatus } from 'src/app/utils/system-league';
+import { generalStatus } from 'src/app/utils/system-league';
 
 @Component({
   selector: 'app-form-federation',
@@ -24,7 +24,7 @@ export class FormFederationComponent implements OnInit {
   reccosFormFederationUser!: FormGroup;
 
   users: User[] = [];
-  list_status = leaguesStatus;
+  list_status = generalStatus;
 
   id_federation: number = 0;
 

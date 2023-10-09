@@ -13,8 +13,7 @@ export class UserUpdateComponent implements OnInit {
 
   user_data!: User;
 
-  enableUpdateUser: boolean = false;
-  activetedUpdateImage: boolean = false;
+  enableUpdateUser: boolean = true;
 
   id_user: string = '';
 
@@ -26,19 +25,6 @@ export class UserUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.id_user = this.activatedRoute.snapshot.params['id_user'];
-    this.userById();
-  }
-
-  userById() {
-    this.userService.userById(+this.id_user).subscribe({
-      next: (data) => {
-        console.log('USER UPDATE ID', data);
-        this.rxjs.updateUser(data);
-      },
-      error: (err) => {
-        console.log('ERRO USER UPDATE ID', err);
-      }
-    });
   }
 
 }

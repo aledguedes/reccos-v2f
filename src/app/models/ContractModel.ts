@@ -2,7 +2,7 @@ import { Player } from "./PlayerModel";
 import { Team } from "./TeamModel";
 
 export interface Contract {
-  id: Number;
+  id: number;
   teams?: Team;
   players?: Player;
   status: string;

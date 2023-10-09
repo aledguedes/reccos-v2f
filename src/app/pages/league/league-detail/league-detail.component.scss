@@ -1,155 +1,148 @@
+@import '../../../../assets/styles/variables';
+
 .profile-photo {
-  width: 80px;
-  height: 80px;
+  width: 30px;
+  height: 30px;
   background-color: #E6E6E6;
   border-radius: 50%;
   margin: 0 10px;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
 }
 
-::ng-deep .mat-mdc-table .mdc-data-table__row {
-  height: 70px;
+.spacer {
+  flex: 1 1 auto;
 }
 
-.card-box {
-  padding: 20px 0;
-  border-radius: 3px;
-  background-color: #fff;
+mat-toolbar {
+  background-color: #132584;
+  color: #FFF;
 }
 
-.social-links li a {
-  border-radius: 50%;
-  // color: rgba(121, 121, 121, .8);
-  display: inline-block;
-  height: 30px;
-  line-height: 27px;
-  // border: 2px solid rgba(121, 121, 121, .5);
-  text-align: center;
-  width: 30px
+.reccos-ft-13 {
+  font-size: 13px;
 }
 
-.social-links li a:hover {
-  color: #797979;
+.box-details {
+  height: calc(100vh - 80px);
+
+  .column-details {
+    padding: 0 16px;
+  }
 }
 
-.thumb-lg {
-  height: 88px;
-  width: 88px;
+.detail-table {
+  overflow-y: scroll;
+  height: calc(100vh - 200px);
+
+  .detail-table-games {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  div mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
 }
 
-.img-thumbnail {
-  padding: .25rem;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: .25rem;
-  max-width: 100%;
-  height: auto;
-}
-
-.text-pink {
-  color: #ff679b !important;
-}
-
-.btn-rounded {
-  border-radius: 2em;
-}
-
-.text-muted {
-  color: #98a6ad !important;
-}
-
-h4 {
-  line-height: 22px;
-  font-size: 18px;
-}
-
-.example-card {
-  max-width: 400px;
-}
-
-.example-header-image {
-  background-size: cover;
-}
-
-.mat-mdc-card-avatar {
-  border-radius: 0;
-}
-
-section {
-  display: table;
-}
-
-.example-label {
-  display: table-cell;
-  font-size: 14px;
-  margin-left: 8px;
-  min-width: 120px;
-}
-
-.example-button-row {
-  display: table-cell;
-  max-width: 600px;
-}
-
-.example-button-row .mat-mdc-button-base {
-  margin: 8px 8px 8px 0;
-}
-
-.example-flex-container {
+.box-group {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  align-items: center;
+
+  mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
 }
 
-.example-button-container {
+.box-card-teams {
+  position: relative;
+  background-color: #3f51b5;
+  height: calc(100vh - 80px);
+  color: #FFF;
+  overflow-y: scroll;
+
+  .box-team {
+    background-color: #3f51b5;
+    width: 85%;
+  }
+
+  div mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+}
+
+.toolbar-sticy {
+  position: sticky;
+  bottom: calc(100vh - 80px);
+  left: 0;
+  z-index: 1000;
+}
+
+.box-buttom {
+  background-color: #FFF;
+  padding: .5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 5px;
+}
+
+.box-add {
+  overflow-y: auto;
+  height: 420px;
+}
+
+.grid-template-columns-4 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-template-columns {
+  grid-template-columns: repeat(auto-fit, 100px);
+}
+
+.box-teams-league {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-.infos-league {
-  span {
-    font-size: 14px;
-  }
+.box-card-teams .box-card-teams-title mat-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
 }
 
-$statusColors: (
-  "1": #1DB954,
-  "2": #f50808,
-  "3": #fa841a,
-  '4': #8D8D8D
-);
-
-.box {
-  background-color: #1DB954;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
+.box-card-teams div mat-icon {
+  width: 36px;
+  height: 36px;
+  font-size: 36px;
 }
 
-@each $name,
-$color in $statusColors {
-
-  .league-status-#{$name} {
-    position: relative;
-    border-style: solid;
-    border-color: #{$color};
-    border-width: 2px 2px 2px 5px;
-  }
-
-  .league-title-#{$name} {
-    color: #{$color};
-    font-weight: 600;
-  }
+.box-card-teams div .add-teams-league {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
 }
 
-@media screen and (max-width: 992px) {
-  .form {
-    background-color: #1DB954;
-    .responsive-card {
-      width: 100%;
-      padding: 0;
-    }
-  }
+.box-1 {
+  background-color: #132584;
+  height: 80px;
 }

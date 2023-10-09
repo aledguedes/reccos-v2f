@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode, MatProgressBarModule } from '@angular/material/progress-bar';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
@@ -9,10 +9,12 @@ import { environment } from 'src/environments/environment';
   templateUrl: './form-upload.component.html',
   styleUrls: ['./form-upload.component.scss']
 })
-export class FormUploadComponent {
+export class FormUploadComponent implements OnInit {
+
+  @Input() validationRXJS: boolean = false;
 
   file_name: string = 'file_name';
-  
+
   hideAndShowProgressBar: boolean = false;
 
   color: ThemePalette = 'primary';
@@ -26,9 +28,12 @@ export class FormUploadComponent {
     private rxjs: DataRxjsService
   ) { }
 
+  ngOnInit(): void {
+    console.log('name file', this.validationRXJS);
+  }
+
   picturesUpload(event: any) {
     let objFile = { file: event.target.files[0] }
-    console.log('name file', objFile);
     this.file_name = event.target.files[0].name;
     this.rxjs.fileNameUpload(this.file_name);
   }
