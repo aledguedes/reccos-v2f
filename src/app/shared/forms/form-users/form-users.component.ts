@@ -76,7 +76,7 @@ export class FormUsersComponent implements OnInit {
       surname: ['', Validators.required],
       phone: ['', Validators.required],
       birth_date: ['', Validators.required],
-      password: this.validationForm ? ['', [Validators.required, Validators.minLength(3)], Validators.maxLength(8)] : [''],
+      password: this.validationForm ? ['', [Validators.required, Validators.minLength(6)]] : [''],
       password_confirmation: this.validationForm ? ['', Validators.required] : [''],
       role: ['', Validators.required],
       img_perfil: [''],

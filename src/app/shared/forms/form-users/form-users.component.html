@@ -117,10 +117,7 @@
                                 Obrigatório</mat-error>
                             <mat-error
                                 *ngIf="(r['password']?.touched || r['password']?.dirty) && r['password']?.errors?.['minlength']">A
-                                senha precisa ter no minímo 3 digitos</mat-error>
-                            <mat-error
-                                *ngIf="(r['password']?.touched || r['password']?.dirty) && r['password']?.errors?.['maxlength']">A
-                                senha possui 8 digitos no máximo</mat-error>
+                                senha precisa ter no minímo 6 digitos</mat-error>
                             <button mat-icon-button class="btn-green" matSuffix (click)="pass = !pass"
                                 [attr.aria-label]="'Mostrar senha'" [attr.aria-pressed]="pass">
                                 <mat-icon>{{pass ? 'visibility_off' : 'visibility'}}</mat-icon>
