@@ -6,8 +6,12 @@ import { Observable, map, startWith } from 'rxjs';
 import { League } from 'src/app/models/LeagueModel';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { LeagueService } from 'src/app/services/league/league.service';
-import { leagueMode, leagueSystem, leaguesStatus } from 'src/app/utils/system-league';
+import { leagueMode, statusLeague } from 'src/app/utils/system-league';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
+import { environment } from 'src/environments/environment';
+import { leagueMenu } from 'src/app/utils/leagueMenu';
+import { MatDialog } from '@angular/material/dialog';
+import { GeneralInfosComponent } from '../../components/general-infos/general-infos.component';
 
 @Component({
   selector: 'app-form-league',
@@ -23,7 +27,12 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
 
   filteredStates!: Observable<any[]>;
 
+  baseUrl = environment.storage_url;
+
   leagueForm!: FormGroup;
+  leagueConfig!: FormGroup;
+
+  flag_name: string = '';
   dt_end_DB: string = '';
   dt_start_DB: string = '';
   id_federation: string = '1';
@@ -31,18 +40,26 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   file_upload_name: string = 'league/default.png';
 
   league_mode = leagueMode;
-  league_system = leagueSystem;
-  league_status = leaguesStatus;
+  league_system = leagueMenu;
+  league_status = statusLeague;
 
   changePhoto: boolean = true;
+  allSelected: boolean = false;
+  hideShowBox: boolean = true;
+  hideShowInput: boolean = true;
 
   listCitys: any = [];
   teams: any = [];
   listStates: States[] = [];
+  selectdTeams: any[] = [];
+
+  numberGroups: number = 1;
+  numberTeamsLeague: number = 0;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private rxjs: DataRxjsService,
     private snack: SnackbarService,
     private leagueService: LeagueService,
@@ -54,6 +71,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
     this.rxjs.uploadFileName$.subscribe(fileName => {
       if (fileName) {
         this.file_upload_name = 'league/' + fileName;
+        this.nextStep();
       }
     });
 
@@ -66,22 +84,41 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
+  systemSelected(flag: string, idx: number) {
+    this.resetActived();
+    this.league_system[idx].actv = 1;
+    this.leagueConfig.patchValue({
+      league_system: flag
+    });
+    this.enableDisableQtGroup(flag);
+  }
+
+  resetActived() {
+    this.league_system.forEach((item: any) => {
+      item.actv = 0;
+    });
+  }
+
   initForms() {
     this.leagueForm = this.fb.group({
       name: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required]
+    });
+
+    this.leagueConfig = this.fb.group({
       dt_start: ['', Validators.required],
       dt_end: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
       league_system: ['', Validators.required],
       league_mode: ['', Validators.required],
-      qt_group: ['1', Validators.required],
-      status: !this.validationForm ? ['Ativo'] : ['']
+      enrollment_end: [null],
+      enrollment_start: [null],
+      turn: !this.validationForm ? [false] : [''],
+      status: !this.validationForm ? ['Em preparação'] : ['']
     });
 
     if (!this.validationForm) {
       this.leagueForm.controls['city'].disable();
-      this.leagueForm.controls['qt_group'].disable();
     }
 
     this.filteredStates = this.leagueForm.controls['city'].valueChanges.pipe(
@@ -101,14 +138,18 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
 
   updateInfosLeagueId(league: League) {
     this.leagueForm.patchValue({
-      name: league.name,
+      name: league.name
+    });
+    this.filterState(league.location);
+
+    this.leagueConfig.patchValue({
       status: league.status,
       dt_end: league.dt_end,
       dt_start: league.dt_start,
       league_mode: league.league_mode,
-      league_system: league.league_system
+      league_system: league.league_system,
+      turn: league.turn
     });
-    this.filterState(league.location);
   }
 
   leagueById(id_league: number) {
@@ -117,7 +158,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
         this.dt_end_DB = String(data.dt_end);
         this.file_upload_name = data.img_logo;
         this.dt_start_DB = String(data.dt_start);
-        // console.log('LEAGUE BY ID SUCESS', data);
+        console.log('LEAGUE BY ID SUCESS', data);
         this.updateInfosLeagueId(data);
       },
       error: (err) => {
@@ -126,7 +167,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
     });
   }
 
-  updateLeague() {
+  createObjToAPI() {
 
     let idState = this.leagueForm.value.state;
     let nameCity = this.leagueForm.value.city;
@@ -136,27 +177,29 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
       idd_fed: +this.id_federation,
       img_logo: this.file_upload_name,
       name: this.leagueForm.value.name,
-      dt_end: this.leagueForm.value.dt_end,
-      status: this.leagueForm.value.status,
-      dt_start: this.leagueForm.value.dt_start,
-      qt_group: +this.leagueForm.value.qt_group,
       location: nameCity + '/' + stateAbbreviation,
-      league_mode: this.leagueForm.value.league_mode,
-      league_system: this.leagueForm.value.league_system,
+      qt_group: +this.numberGroups,
+      ...this.leagueConfig.value,
     }
 
-    let changeDateEnd = this.compareDates(this.dt_end_DB, obj.dt_end);
-    let changeDateStart = this.compareDates(this.dt_start_DB, obj.dt_start);
+    obj.dt_end = this.formatDate(obj.dt_end);
+    obj.dt_start = this.formatDate(obj.dt_start);
 
-    if (changeDateStart) {
-      obj.dt_start = this.formatDate(obj.dt_start);
+    if (this.validationForm) {
+      let changeDateEnd = this.compareDates(this.dt_end_DB, obj.dt_end);
+      let changeDateStart = this.compareDates(this.dt_start_DB, obj.dt_start);
+
+      if (changeDateStart) {
+        obj.dt_start = this.formatDate(obj.dt_start);
+      }
+
+      if (changeDateEnd) {
+        obj.dt_end = this.formatDate(obj.dt_end);
+      }
     }
 
-    if (changeDateEnd) {
-      obj.dt_end = this.formatDate(obj.dt_end);
-    }
-
-    this.updateToApi(obj);
+    console.log('CREATE OBJECT:', obj);
+    this.validationForm ? this.updateLeague(obj) : this.createLeague(obj);
   }
 
   compareDates(datestring1: string, datestring2: string) {
@@ -169,7 +212,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
     return true;
   }
 
-  updateToApi(form: any) {
+  updateLeague(form: any) {
     this.leagueService.updateLeague(+this.id_league, form).subscribe({
       next: (data) => {
         console.log('UPDATE LEAGUE SUCESS', data);
@@ -183,21 +226,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
     });
   }
 
-  createLeague() {
-    let location = this.leagueForm.value.city + '/' + this.stateAbbreviation;
-
-    let form: any = {
-      name: this.leagueForm.value.name,
-      dt_start: this.formatDate(this.leagueForm.value.dt_start),
-      dt_end: this.formatDate(this.leagueForm.value.dt_end),
-      league_system: this.leagueForm.value.league_system,
-      league_mode: this.leagueForm.value.league_mode,
-      qt_group: +this.leagueForm.value.qt_group,
-      status: this.leagueForm.value.status,
-      img_logo: this.file_upload_name,
-      idd_fed: +this.id_federation,
-      location: location
-    }
+  createLeague(form: League) {
 
     this.leagueService.createLeague(form).subscribe({
       next: (data) => {
@@ -213,9 +242,7 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   }
 
   nextStep() {
-    setTimeout(() => {
-      this.stepper.next();
-    }, 0);
+    this.stepper.next();
   }
 
   formatDate(date: Date) {
@@ -269,15 +296,68 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   }
 
   enableDisableQtGroup(evt: any) {
-    if (evt === 'Pontos Corridos') {
-      this.leagueForm.patchValue({
-        qt_group: 1
-      });
-      this.leagueForm.controls['qt_group'].disable();
-      // return;
+    if (evt == 'Pontos Corridos' || evt == 'Mata-Mata') {
+      this.numberGroups = 1;
+      return;
     }
-    this.leagueForm.controls['qt_group'].enable();
+    this.hideShowInput = false;
   }
+
+  numberOfGroups(value: string) {
+    this.numberGroups = +value;
+  }
+
+  numberOfTeamsLeague(value: string) {
+    this.numberTeamsLeague = +value;
+  }
+
+  openInfo() {
+    this.dialog.open(GeneralInfosComponent, {
+      disableClose: false,
+      width: '400px',
+      data: 1
+    });
+  }
+
+  selectAll(evt: any) {
+
+    let teams = this.teams;
+
+    if (evt.checked) {
+      teams.forEach((t: any) => {
+        t["is_league"] = true;
+        this.allSelected = true;
+        this.arrTeam(t.id);
+      });
+    } else {
+      teams.forEach((t: any) => {
+        t["is_league"] = false;
+        this.allSelected = false;
+        this.revTeam(t.id);
+      });
+    }
+  }
+
+  addTeams(evt: any, id_team: number) {
+    if (evt.checked) {
+      this.arrTeam(id_team);
+    }
+    else {
+      this.revTeam(id_team);
+      if (this.allSelected) {
+        this.allSelected = false;
+      }
+    }
+  }
+
+  arrTeam(id_team: number) {
+    this.selectdTeams.push({ id: id_team });
+  }
+
+  revTeam(id_team: number) {
+    this.selectdTeams.splice(this.selectdTeams.indexOf('id_team'), 1);
+  }
+
 }
 
 export interface States {

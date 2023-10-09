@@ -1,0 +1,145 @@
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-sm-3">
+            <div class="box-card-teams p-2 ">
+                <mat-toolbar class="toolbar-sticy  mat-elevation-z4">
+                    <span>TIMES</span>
+                    <span class="spacer"></span>
+                    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                        <mat-icon>sort_by_alpha</mat-icon>
+                    </button>
+                </mat-toolbar>
+
+                <div *ngIf="teamsSelectedsLeague.length > 0; else noTeamsLeague">
+                    <div class="box-card-teams-title py-2 d-flex justify-content-between align-items-center">
+                        <p class="reccos-ft-13 text-uppercase m-0"><strong>Vincular equipes</strong></p>
+                        <mat-icon (click)="clearTeam()" style="cursor: pointer;">clear</mat-icon>
+                    </div>
+                    <div class="box-add grid grid-template-columns-4 justify-content-center">
+                        <div class="p-2 box-1" *ngFor="let team of teamsSelectedsLeague, let idx = index">
+                            <div class="box-teams-league">
+                                <mat-icon *ngIf="team.check == '0'"> sports_soccer </mat-icon>
+                                <!-- <mat-icon class="add-teams-league" *ngIf="team.check == '0'"> {{ team.icon }}</mat-icon> -->
+                                <img [src]="baseUrl + team.picture_profile" alt="" class="profile-photo"
+                                    *ngIf="team.check == '1'">
+                                <p class="m-0 text-center reccos-ft-13" *ngIf="team.check == '1'"> {{ team.surname }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button mat-stroked-button class="example-icon text-uppercase w-100" (click)="addTeamsLeague()"
+                            aria-label="Salvar informações" style="color: #FFF; border: 1px solid #FFF;">
+                            <mat-icon>add</mat-icon> Adicionar
+                        </button>
+                    </div>
+                </div>
+                <ng-template #noTeamsLeague>
+                    <div class="mt-3 alert alert-dark" role="alert">
+                        A simple dark alert—check it out!
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="box-details">
+                <mat-toolbar class=" mat-elevation-z4">
+                    <span> <img [src]="urlLogo" width="45px"> {{ league?.name }} </span>
+                    <span class="spacer"></span>
+                    <button mat-button class="example-icon" aria-label="Salvar informações">
+                        <mat-icon>save</mat-icon> SALVAR
+                    </button>
+                </mat-toolbar>
+                <div class="row column-details mt-2 reccos-ft-13">
+                    <div class="col-6">
+                        <h4 class="mt-2 mb-3 text-reccos-4 text-uppercase">Tabela do campeonato</h4>
+                        <div class="border px-1 reccos-bg-white mat-elevation-z2">
+                            <div class="p-2 my-2" *ngFor="let group of league?.groups, let idx = index">
+                                <p class="m-0 text-reccos-4 text-uppercase box-group" *ngIf="!group.check">
+                                    <span class="me-4">{{ group.name }}</span>
+                                    <mat-icon (click)="editGroup(idx)">edit</mat-icon>
+                                </p>
+                                <form [formGroup]="formEditGroup"
+                                    class="d-flex align-items-center reccos-bg-white px-3 pt-2" *ngIf="group.check">
+                                    <mat-form-field class="example-full-width reccos-input w-100 form reccos-input me-4"
+                                        appearance="outline" style="margin-bottom: -1.25em">
+                                        <mat-label>Nome completo</mat-label>
+                                        <input matInput formControlName="group_name"
+                                            placeholder="Ex.: Liga A">
+                                        <mat-error
+                                            *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                    </mat-form-field>
+                                    <mat-icon
+                                        (click)="updateGroup(idx, formEditGroup.value.group_name)">check_circle_outline</mat-icon>
+                                </form>
+                                <small class="ms-3 text-reccos-2" *ngIf="group.teams.length == 0; else groupSelected">O grupo ainda
+                                    não possui times cadastrados!</small>
+
+                                <ng-template #groupSelected>
+                                    <div class="row my-2">
+                                        <div class="col-3 align-items-center justify-content-center p-2 text-center"
+                                            *ngFor="let teams of group.teams; let idx = index">
+                                            <img [src]="baseUrl  + teams?.picture_profile" width="30px">
+                                            <!-- <div mat-card-avatar class="profile-photo"
+                                                [style.background-image]=" 'url(' + baseUrl  + '/' + teams?.picture_profile +')'">
+                                            </div> -->
+                                            <p class="m-0" style="font-size: 12px">{{ teams?.surname }}</p>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                            <div class="p-2 mb-1">
+                                <button mat-stroked-button color="primary" class="example-icon text-uppercase w-100"
+                                    (click)="chooseGroups()" aria-label="Salvar informações">
+                                    <mat-icon>loop</mat-icon> Sortear
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 detail-table">
+                        <mat-toolbar class="reccos-ft-13  mat-elevation-z2">
+                            <div>
+                                <button mat-button class="example-icon" aria-label="Rodada anterior">
+                                    <mat-icon>arrow_back_ios_new</mat-icon>
+                                </button>
+                            </div>
+                            <span>RODADA 1</span>
+                            <div>
+                                <button mat-button class="example-icon" aria-label="Próxima rodada">
+                                    <mat-icon>arrow_forward_ios</mat-icon>
+                                </button>
+                            </div>
+                        </mat-toolbar>
+
+                        <!-- <div class="mt-2 p-2 detail-table-games" *ngFor="let games of [1,2,3,4,5,6]">
+                            <div>
+                                <img src="https://cdn-icons-png.flaticon.com/512/451/451783.png" alt="" width="30px">
+                                <small class="text-reccos-2 ms-3">Mandante</small>
+                            </div>
+                            <small class="text-reccos-2" style="font-size: 30px;"> X </small>
+                            <div>
+                                <small class="text-reccos-2 me-3">Visitante</small>
+                                <img src="https://cdn-icons-png.flaticon.com/512/451/451783.png" alt="" width="30px">
+                            </div>
+                        </div> -->
+
+                        <div class="mt-2">
+                            <button mat-stroked-button color="primary" class="example-icon text-uppercase w-100"
+                                aria-label="Salvar informações" (click)="generateSchedule()">
+                                <mat-icon>loop</mat-icon> Sortear rodadas
+                            </button>
+                        </div>
+
+                        <div class="mt-2">
+                            <button mat-stroked-button color="primary" class="example-icon text-uppercase w-100"
+                                aria-label="Salvar informações" (click)="listGroups()">
+                                <mat-icon>loop</mat-icon> Listar rodadas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

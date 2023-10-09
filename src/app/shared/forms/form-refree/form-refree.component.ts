@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
-import { leaguesStatus } from 'src/app/utils/system-league';
+import { generalStatus } from 'src/app/utils/system-league';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { RefreeService } from 'src/app/services/refree/refree.service';
 import { Refree } from 'src/app/models/RefreeModel';
@@ -24,7 +24,7 @@ export class FormRefreeComponent implements OnInit {
   dateSaveBD: string = '';
   file_upload_name: string = 'refree/default.png';
 
-  league_status = leaguesStatus;
+  league_status = generalStatus;
 
   changePhoto: boolean = true;
 

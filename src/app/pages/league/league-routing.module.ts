@@ -4,6 +4,7 @@ import { LeagueInitComponent } from './league-init/league-init.component';
 import { LeagueListComponent } from './league-list/league-list.component';
 import { LeagueCreateComponent } from './league-create/league-create.component';
 import { LeagueUpdateComponent } from './league-update/league-update.component';
+import { LeagueDetailComponent } from './league-detail/league-detail.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
       { path: '', component: LeagueListComponent },
       { path: 'create', component: LeagueCreateComponent },
       { path: 'update/:id_league', component: LeagueUpdateComponent },
+      { path: ':slug/:id_league', component: LeagueDetailComponent },
     ]
   }
 ];

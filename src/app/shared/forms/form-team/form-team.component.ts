@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { MatStepper } from '@angular/material/stepper';
-import { leaguesStatus } from 'src/app/utils/system-league';
+import { generalStatus } from 'src/app/utils/system-league';
 import { TeamService } from 'src/app/services/team/team.service';
 import { Team } from 'src/app/models/TeamModel';
 import { Stadium } from 'src/app/models/StadiumModel';
@@ -44,7 +44,7 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   formStadium!: FormGroup;
   formCommission!: FormGroup;
 
-  league_status = leaguesStatus;
+  league_status = generalStatus;
   stadium: Stadium[] = [];
 
   changePhoto: boolean = true;

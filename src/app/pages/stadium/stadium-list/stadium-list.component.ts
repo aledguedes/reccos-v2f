@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Stadium } from 'src/app/models/StadiumModel';
 import { Team } from 'src/app/models/TeamModel';
 import { StadiumService } from 'src/app/services/stadium/stadium.service';
-import { leaguesStatus } from 'src/app/utils/system-league';
+import { generalStatus } from 'src/app/utils/system-league';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -16,7 +16,7 @@ export class StadiumListComponent implements OnInit {
 
   baseUrl = environment.storage_url;
 
-  statusCode: any = leaguesStatus;
+  statusCode: any = generalStatus;
 
   teams: Team[] = [];
 

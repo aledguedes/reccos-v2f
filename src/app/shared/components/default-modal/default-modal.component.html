@@ -1,0 +1,12 @@
+<div class="p-4">
+    <ng-container [ngSwitch]="data.component">
+        <app-change-teams *ngSwitchCase="1" [teams]="teams"
+            (selectedTeamsOutput)="receivedTeams($event)"></app-change-teams>
+        <app-change-user-image *ngSwitchCase="2"></app-change-user-image>
+    </ng-container>
+</div>
+
+<div mat-dialog-actions align="end" class="p-3">
+    <button mat-button (click)="closeModal()">Fechar</button>
+    <button mat-button (click)="finishSelected()" color="primary" cdkFocusInitial>Ok</button>
+</div>

@@ -9,7 +9,7 @@
                 <div class="row">
                     <form [formGroup]="reccosFormFederation">
                         <div class="col-12">
-                            <mat-form-field class="example-full-width w-100 form" appearance="outline">
+                            <mat-form-field class="example-full-width reccos-input w-100 form" appearance="outline">
                                 <mat-label>Nome completo</mat-label>
                                 <input matInput formControlName="name"
                                     placeholder="Ex.: Assossiação de Amigos da BemAgro">
@@ -19,7 +19,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-12">
-                            <mat-form-field class="example-full-width w-100" appearance="outline">
+                            <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                                 <mat-label>Sigla/Abreviação</mat-label>
                                 <input matInput formControlName="surname" placeholder="Ex.: Liga BemAgro">
                                 <mat-error
@@ -28,9 +28,9 @@
                             </mat-form-field>
                         </div>
                         <div class="col-12" *ngIf="validationForm">
-                            <mat-form-field appearance="outline" class="w-100">
+                            <mat-form-field appearance="outline" class="reccos-input w-100">
                                 <mat-label>Status</mat-label>
-                                <mat-select formControlName="status">
+                                <mat-select formControlName="status reccos-input">
                                     <mat-option class="text-uppercase" *ngFor="let status of list_status"
                                         [value]="status.name"> {{ status.name }} </mat-option>
                                 </mat-select>
@@ -39,7 +39,7 @@
                     </form>
                     <div class="col-12">
                         <form [formGroup]="reccosFormFederationUser">
-                            <mat-form-field appearance="outline" class="w-100">
+                            <mat-form-field appearance="outline" class="reccos-input w-100">
                                 <mat-label>Usuários</mat-label>
                                 <mat-select formControlName="user" class="text-uppercase">
                                     <mat-option class="text-uppercase" *ngFor="let user of users"

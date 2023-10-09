@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Player } from 'src/app/models/PlayerModel';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { PlayerService } from 'src/app/services/player/player.service';
-import { leaguesStatus } from 'src/app/utils/system-league';
+import { generalStatus } from 'src/app/utils/system-league';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
@@ -25,7 +25,7 @@ export class FormPlayerComponent implements OnInit {
   dateSaveBD: string = '';
   file_upload_name: string = 'player/default.png';
 
-  league_status = leaguesStatus;
+  league_status = generalStatus;
   player_positions = positions;
 
   changePhoto: boolean = true;

@@ -6,19 +6,19 @@
         <form class="px-4 py-3" [formGroup]="formTeam">
           <div class="row">
             <div class="col-12">
-              <mat-form-field class="example-full-width w-100" appearance="outline">
+              <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Nome completo</mat-label>
                 <input formControlName="name" matInput placeholder="Ex.: Sport Club Team A" />
               </mat-form-field>
             </div>
             <div class="col-12">
-              <mat-form-field class="example-full-width w-100" appearance="outline">
+              <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Nome simples</mat-label>
                 <input formControlName="surname" matInput placeholder="Ex.: Team A" />
               </mat-form-field>
             </div>
             <div class="col-12 col-xl-12 col-lg-12 col-md-12" *ngIf="validationForm">
-              <mat-form-field appearance="outline" class="w-100">
+              <mat-form-field appearance="outline" class="reccos-input w-100">
                 <mat-label>Status</mat-label>
                 <mat-select formControlName="status">
                   <mat-option class="text-uppercase" *ngFor="let status of league_status" [value]="status.name"> {{
@@ -27,7 +27,7 @@
               </mat-form-field>
             </div>
             <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
-              <mat-form-field appearance="outline" class="w-100">
+              <mat-form-field appearance="outline" class="reccos-input w-100">
                 <mat-label>Data de fundação</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="birth_date" />
                 <mat-hint>DD/MM/YYYY</mat-hint>
@@ -36,7 +36,7 @@
               </mat-form-field>
             </div>
             <div class="col-12 col-xl-6 col-lg-6 col-md-6">
-              <mat-form-field class="example-full-width w-100" appearance="outline">
+              <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                 <mat-label>Iniciais</mat-label>
                 <input formControlName="acronym" matInput placeholder="Ex.: SCTA" (blur)="nextStep()" />
               </mat-form-field>
@@ -55,7 +55,7 @@
             <mat-checkbox class="example-margin" (change)="noLinkStadium($event)" [checked]="linkStadium" color="primary">Não desejo vincular a
               nenhum estádio.</mat-checkbox>
           </section>
-          <mat-form-field appearance="outline" class="w-100" *ngIf="!linkStadium">
+          <mat-form-field appearance="outline" class="reccos-input w-100" *ngIf="!linkStadium">
             <mat-label>Estádios</mat-label>
             <form [formGroup]="formStadium">
               <mat-select formControlName="id_stadium">
@@ -66,7 +66,7 @@
           </mat-form-field>
         </div>
         <div class="mt-3">
-          <button class="w-100" mat-stroked-button matStepperNext color="primary">Avançar</button>
+          <button class="reccos-input w-100" mat-stroked-button matStepperNext color="primary">Avançar</button>
         </div>
       </div>
     </ng-template>

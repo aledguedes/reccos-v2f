@@ -1,3 +1,71 @@
+@import '../../../../assets/styles/variables';
+
+.profile-photo {
+    width: 50px;
+    height: 50px;
+    // background-color: $grey;
+    // border-radius: 50%;
+    margin: 0 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.mat-form-field{
+    padding-left: 1vw;
+    padding-right: 1vw;
+    background-color: purple;
+  }
+
+.reccos-settings-button {
+    height: 150px;
+    width: 250px;
+}
+
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.grid-template-columns {
+    grid-template-columns: repeat(auto-fit, 150px);
+}
+
+.grid-template-columns-4 {
+    grid-template-columns: repeat(5, 90px);
+}
+
+.second-box {
+    background-color: $grey;
+}
+
+.box-leagues {
+    border: 1px solid $blue;
+    color: $blue;
+    background-color: $grey;
+    height: 90px;
+    cursor: pointer;
+    font-weight: 500;
+
+    &:hover {
+        border: 1px solid $light;
+        color: $light;
+        font-weight: 600;
+        background-color: $blue;
+    }
+
+    p {
+        font-size: 13px;
+    }
+}
+
+.actived {
+    border: 1px solid $light;
+    color: $light;
+    background-color: $blue;
+    font-weight: 500;
+}
+
 .padding-box {
     padding: 2rem;
 }
@@ -34,4 +102,26 @@
     .padding-form {
         padding: .5rem;
     }
+}
+
+/* low-list-row is a class created to reduce a mat-grid-list form density:
+/* Pay attention: it removes the mat-hint*/
+::ng-deep ._low-list-row .mat-form-field-subscript-wrapper {
+    visibility: hidden !important;
+}
+
+::ng-deep ._low-list-row .mat-form-field-wrapper {
+    padding-bottom: 0px !important;
+}
+
+::ng-deep ._low-list-row .mat-form-field-underline {
+    bottom: 0.25em !important;
+}
+
+::ng-deep ._low-list-row .mat-grid-tile {
+    height: 50px !important;
+}
+
+::ng-deep ._low-list-row {
+    height: 50px !important;
 }
