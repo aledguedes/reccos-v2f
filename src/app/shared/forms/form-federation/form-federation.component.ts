@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Federation } from 'src/app/models/FederationModel';
 import { User } from 'src/app/models/UserModel';
@@ -7,6 +8,8 @@ import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { FederationService } from 'src/app/services/federation/federation.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { generalStatus } from 'src/app/utils/system-league';
+import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-form-federation',
@@ -23,6 +26,10 @@ export class FormFederationComponent implements OnInit {
   reccosFormFederation!: FormGroup;
   reccosFormFederationUser!: FormGroup;
 
+  baseUrl = environment.storage_url;
+
+  file_upload_name: string = 'federation/default.png';
+
   users: User[] = [];
   list_status = generalStatus;
 
@@ -31,6 +38,7 @@ export class FormFederationComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private rxjs: DataRxjsService,
     private userService: UserService,
     private federationService: FederationService,
@@ -68,7 +76,7 @@ export class FormFederationComponent implements OnInit {
   listUser() {
     this.userService.listAllUser().subscribe({
       next: (data: User[]) => {
-        this.users = data.filter((user: User) => user.role != "manager");
+        this.users = data.filter((user: User) => user.role == "admin");
         // console.log('USUÁRIOS LISTA', this.users);
       },
       error: (err) => {
@@ -123,6 +131,19 @@ export class FormFederationComponent implements OnInit {
 
     this.reccosFormFederationUser.patchValue({
       user: dataFederation.owner.id,
+    });
+  }
+
+  openUpload() {
+    const dialogRef = this.dialog.open(DefaultModalComponent, {
+      disableClose: true,
+      width: '500px',
+      data: {
+        component: 2
+      }
+    }).afterClosed().subscribe((data: any) => {
+      console.log('USER FORMS', data);
+      this.file_upload_name = data.result;
     });
   }
 

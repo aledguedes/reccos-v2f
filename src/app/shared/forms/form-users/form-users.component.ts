@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 import { FormUploadComponent } from '../form-upload/form-upload.component';
 import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
 import { Federation } from 'src/app/models/FederationModel';
+import { SnackbarService } from '../../service/snackbar/snackbar.service';
+import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 
 interface Roles {
   id: number;
@@ -30,7 +32,7 @@ export class FormUsersComponent implements OnInit {
   reccosFormUser!: FormGroup;
   baseUrl = environment.storage_url;
 
-  file_name: string = 'users/default.jpg';
+  file_upload_name: string = 'users/default.jpg';
 
   @Input() public id_user: string = '0';
   @Input() public validationForm: Boolean = false;
@@ -43,16 +45,25 @@ export class FormUsersComponent implements OnInit {
   roles: Roles[] = rolesEnuns;
   statusUser = generalStatus;
 
+  dt_birth_date: string = '';
   imgPerfilDefault: string = 'https://bootdey.com/img/Content/avatar/avatar7.png';
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private dialog: MatDialog,
+    private rxjs: DataRxjsService,
+    private snack: SnackbarService,
     private userService: UserService,
   ) { }
 
   ngOnInit(): void {
     this.initFormGroupUser();
+
+    this.rxjs.uploadFileName$.subscribe(fileName => {
+      if (fileName) {
+        this.file_upload_name = 'users/' + fileName;
+      }
+    });
 
     if (this.validationForm) {
       this.userById(+this.id_user);
@@ -76,11 +87,10 @@ export class FormUsersComponent implements OnInit {
       surname: ['', Validators.required],
       phone: ['', Validators.required],
       birth_date: ['', Validators.required],
-      password: this.validationForm ? ['', [Validators.required, Validators.minLength(6)]] : [''],
-      password_confirmation: this.validationForm ? ['', Validators.required] : [''],
+      password: !this.validationForm ? ['', [Validators.required, Validators.minLength(6)]] : [''],
+      password_confirmation: !this.validationForm ? ['', Validators.required] : [''],
       role: ['', Validators.required],
-      img_perfil: [''],
-      status: this.validationForm ? ['ATIVO'] : ['']
+      status: !this.validationForm ? ['ATIVO'] : ['']
     });
   }
 
@@ -89,10 +99,10 @@ export class FormUsersComponent implements OnInit {
       next: (data) => {
         console.log('USER UPDATE ID', data);
         this.user = data;
+        this.dt_birth_date = String(data.birth_date);
         if (data.img_perfil != null) {
           this.imgPerfilDefault = this.baseUrl + data.img_perfil;
         }
-        console.log(this.imgPerfilDefault);
         this.updateFormGroupUser(data);
       },
       error: (err) => {
@@ -103,42 +113,28 @@ export class FormUsersComponent implements OnInit {
 
   updateFormGroupUser(values: User) {
 
-    this.reccosFormUser.patchValue({
-      email: values.email,
-      name: values.name,
-      surname: values.surname,
-      phone: values.phone,
-      birth_date: values.birth_date,
-      role: values.role,
-      img_perfil: values.img_perfil,
-      status: values.status,
-      federation: values.federation,
-      createdAt: values.createdAt,
-      updatedAt: values.updatedAt
-    });
+    console.log('CREATE OBJECT:', this.reccosFormUser.value);
 
+    this.reccosFormUser.patchValue({ ...values, federation: values.federation });
     this.reccosFormUser.controls['email'].disable();
-    this.reccosFormUser.controls['birth_date'].disable();
   }
 
   createObjToAPI() {
 
-    let obj = {
-      status: this.reccosFormUser.value.status,
-      img_perfil: this.file_name,
-      federation: +this.federation.id,
-      name: this.reccosFormUser.value.name,
-      phone: this.reccosFormUser.value.phone,
-      email: this.reccosFormUser.value.email,
-      surname: this.reccosFormUser.value.surname,
-      password: this.reccosFormUser.value.password,
-      role: this.reccosFormUser.value.role.toLowerCase(),
-      birth_date: this.formatDate(this.reccosFormUser.value.birth_date),
+    let obj = { ...this.reccosFormUser.value, img_perfil: this.file_upload_name, federation: +this.federation.id }
+
+    if (this.validationForm) {
+      obj.password = '123456';
+      obj.email = this.user.email;
+      let changeDate = this.compareDates(this.dt_birth_date, obj.birth_date);
+
+      if (changeDate) {
+        obj.birth_date = this.formatDate(obj.birth_date);
+      }
     }
 
     console.log('CREATE OBJECT:', obj);
-    // this.validationForm ? this.updateLeague(obj) : this.createLeague(obj);
-    this.validationForm ? this.createUser(obj) : this.updateUser(obj);
+    this.validationForm ? this.updateUser(obj) : this.createUser(obj);
   }
 
   createUser(form: any) {
@@ -146,10 +142,12 @@ export class FormUsersComponent implements OnInit {
     this.userService.createUser(form).subscribe({
       next: (data) => {
         console.log('SUCESSO CREATE USER', data);
+        this.snack.snack(`Usuário ${form.surname} criado com sucesso!`, 'snack-success');
         this.router.navigate(['/user']);
       },
       error: (err) => {
         console.log('ERRO AO CADASTRAR USUÁRIO', err);
+        this.snack.snack(`Erro ao tentar atualizar usuário!`, 'snack-error');
       }
     });
   }
@@ -158,10 +156,12 @@ export class FormUsersComponent implements OnInit {
     this.userService.updateUser(+this.id_user, form).subscribe({
       next: (data) => {
         console.log('SUCESSO UPDATE USER', data);
+        this.snack.snack(`Usuário ${form.surname} atualizado com sucesso!`, 'snack-success');
         this.router.navigate(['/user']);
       },
       error: (err) => {
         console.log('ERRO AO ATUALIZAR USUÁRIO', err);
+        this.snack.snack(`Erro ao tentar atualizar usuário!`, 'snack-error');
       }
     });
   }
@@ -175,7 +175,7 @@ export class FormUsersComponent implements OnInit {
       }
     }).afterClosed().subscribe((data: any) => {
       console.log('USER FORMS', data);
-      this.file_name = data.result;
+      this.file_upload_name = data.result;
     });
   }
 

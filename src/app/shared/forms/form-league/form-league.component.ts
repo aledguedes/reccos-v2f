@@ -12,6 +12,8 @@ import { environment } from 'src/environments/environment';
 import { leagueMenu } from 'src/app/utils/leagueMenu';
 import { MatDialog } from '@angular/material/dialog';
 import { GeneralInfosComponent } from '../../components/general-infos/general-infos.component';
+import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
+import { Federation } from 'src/app/models/FederationModel';
 
 @Component({
   selector: 'app-form-league',
@@ -19,6 +21,8 @@ import { GeneralInfosComponent } from '../../components/general-infos/general-in
   styleUrls: ['./form-league.component.scss']
 })
 export class FormLeagueComponent implements OnInit, AfterViewInit {
+
+  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
 
   @Input() id_league: string = '';
   @Input() validationForm: boolean = false;
@@ -32,12 +36,11 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   leagueForm!: FormGroup;
   leagueConfig!: FormGroup;
 
-  flag_name: string = '';
+  file_upload_name: string = 'league/default.png';
   dt_end_DB: string = '';
   dt_start_DB: string = '';
   id_federation: string = '1';
   stateAbbreviation: string = '';
-  file_upload_name: string = 'league/default.png';
 
   league_mode = leagueMode;
   league_system = leagueMenu;
@@ -174,11 +177,12 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
     let stateAbbreviation = this.listStates.filter((estados: States) => estados.id == idState)[0].sigla;
 
     let obj = {
-      idd_fed: +this.id_federation,
+      idd_fed: +this.federation.id,
       img_logo: this.file_upload_name,
       name: this.leagueForm.value.name,
       location: nameCity + '/' + stateAbbreviation,
       qt_group: +this.numberGroups,
+      num_teams: this.numberTeamsLeague,
       ...this.leagueConfig.value,
     }
 
@@ -356,6 +360,19 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
 
   revTeam(id_team: number) {
     this.selectdTeams.splice(this.selectdTeams.indexOf('id_team'), 1);
+  }
+
+  openUpload() {
+    this.dialog.open(DefaultModalComponent, {
+      disableClose: true,
+      width: '500px',
+      data: {
+        component: 2
+      }
+    }).afterClosed().subscribe((data: any) => {
+      console.log('USER FORMS', data);
+      this.file_upload_name = data.result;
+    });
   }
 
 }

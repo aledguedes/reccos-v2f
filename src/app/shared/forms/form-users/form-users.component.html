@@ -150,8 +150,8 @@
                     matTooltip="Voltar" aria-label="voltar usuários">
                     Voltar <mat-icon>keyboard_backspace</mat-icon>
                 </button>
-                <button mat-raised-button color="primary" class="example-icon ms-3"
-                    (click)="createObjToAPI" matTooltip="Criar usuário" aria-label="Novo usuário">
+                <button mat-raised-button color="primary" class="example-icon ms-3" [disabled]="reccosFormUser.invalid"
+                    (click)="createObjToAPI()" matTooltip="Criar usuário" aria-label="Novo usuário">
                     Salvar <mat-icon>send</mat-icon>
                 </button>
             </div>

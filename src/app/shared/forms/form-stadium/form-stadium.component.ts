@@ -10,6 +10,8 @@ import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { StadiumService } from 'src/app/services/stadium/stadium.service';
 import { Stadium } from 'src/app/models/StadiumModel';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
+import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form-stadium',
@@ -38,6 +40,7 @@ export class FormStadiumComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private rxjs: DataRxjsService,
     private snack: SnackbarService,
     private stadiumService: StadiumService,
@@ -95,8 +98,16 @@ export class FormStadiumComponent implements OnInit {
     });
   }
 
-  updateStadium() {
-    let obj = { ...this.reccosFormStadium.value, picture_profile: this.file_upload_name };
+  createObjToAPI() {
+    let obj = {
+      ...this.reccosFormStadium.value,
+      picture_profile: this.file_upload_name,
+      idd_fed: +this.id_federation
+    };
+  }
+
+  updateStadium(obj: Stadium) {
+
     this.stadiumService.updateStadium(+this.id_stadium, obj).subscribe({
       next: (data) => {
         console.log('CREATE STADIUM:', data);
@@ -110,13 +121,8 @@ export class FormStadiumComponent implements OnInit {
     });
   }
 
-  createStadium() {
+  createStadium(obj: Stadium) {
 
-    let obj = {
-      ...this.reccosFormStadium.value,
-      picture_profile: this.file_upload_name,
-      idd_fed: +this.id_federation
-    };
     this.stadiumService.createStadium(obj).subscribe({
       next: (data) => {
         console.log('CREATE STADIUM:', data);
@@ -127,6 +133,19 @@ export class FormStadiumComponent implements OnInit {
         console.log('CREATE STADIUM ERR:', err);
         this.snack.snack(`Erro ao tentar criar o estádio/liga!`, 'snack-error');
       }
+    });
+  }
+
+  openUpload() {
+    this.dialog.open(DefaultModalComponent, {
+      disableClose: true,
+      width: '500px',
+      data: {
+        component: 2
+      }
+    }).afterClosed().subscribe((data: any) => {
+      console.log('USER FORMS', data);
+      this.file_upload_name = data.result;
     });
   }
 }

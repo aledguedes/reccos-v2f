@@ -8,6 +8,9 @@ import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 import { positions } from 'src/app/utils/playerPositions';
+import { environment } from 'src/environments/environment';
+import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form-player',
@@ -21,6 +24,10 @@ export class FormPlayerComponent implements OnInit {
 
   @ViewChild('stepper') stepper!: MatStepper;
 
+  player_email: string = '';
+
+  baseUrl = environment.storage_url;
+
   playerForm!: FormGroup;
   dateSaveBD: string = '';
   file_upload_name: string = 'player/default.png';
@@ -33,6 +40,7 @@ export class FormPlayerComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private rxjs: DataRxjsService,
     private snack: SnackbarService,
     private playerService: PlayerService,
@@ -75,7 +83,7 @@ export class FormPlayerComponent implements OnInit {
   playerById(id_player: number) {
     this.playerService.playerById(id_player).subscribe({
       next: (data) => {
-        // console.log('TEAM BY ID TEAM:', data);
+        this.player_email = data.email
         this.dateSaveBD = String(data.birth_date);
         this.updateInfosPlayerId(data);
       },
@@ -154,6 +162,20 @@ export class FormPlayerComponent implements OnInit {
     }
     return true;
   }
+
+  openUpload() {
+    this.dialog.open(DefaultModalComponent, {
+      disableClose: true,
+      width: '500px',
+      data: {
+        component: 2
+      }
+    }).afterClosed().subscribe((data: any) => {
+      console.log('USER FORMS', data);
+      this.file_upload_name = data.result;
+    });
+  }
+
 
   formatDate(date: Date) {
     var formattedTimestamp = date.toISOString().slice(0, 16);
