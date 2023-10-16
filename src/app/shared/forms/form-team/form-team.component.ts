@@ -9,6 +9,9 @@ import { TeamService } from 'src/app/services/team/team.service';
 import { Team } from 'src/app/models/TeamModel';
 import { Stadium } from 'src/app/models/StadiumModel';
 import { StadiumService } from 'src/app/services/stadium/stadium.service';
+import { environment } from 'src/environments/environment';
+import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form-team',
@@ -52,8 +55,9 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
 
   dateSaveBD: string = '';
   id_federation: string = '1';
-  label_button: string = 'Voltar';
   file_upload_name: string = 'team/default.png';
+
+  baseUrl = environment.storage_url;
 
   stadium_by_federaion: Stadium[] = [];
 
@@ -63,6 +67,7 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private rxjs: DataRxjsService,
     private snack: SnackbarService,
     private teamService: TeamService,
@@ -120,7 +125,6 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.label_button = this.validationForm ? 'Cancelar' : 'Voltar';
   }
 
   teamById(id_team: number) {
@@ -157,10 +161,17 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
       status: team.status.toUpperCase(),
       birth_date: team.birth_date
     });
-    if (team.stadium == null) {
+    if (team.stadium == null || team.stadium == undefined) {
       this.linkStadium = true;
       this.updateValidatorsForms(true);
+      return;
     }
+    let stadiumTeam = this.filterStadiumByTeam(+team.stadium.id);
+    this.formStadium.patchValue({ id_stadium: stadiumTeam.id });
+  }
+
+  filterStadiumByTeam(stadiumTeamId: number) {
+    return this.stadium_by_federaion.filter((stadium: Stadium) => stadium.id == stadiumTeamId)[0];
   }
 
   nextStep() {
@@ -241,5 +252,18 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   formatDate(date: Date) {
     var formattedTimestamp = date.toISOString().slice(0, 16);
     return formattedTimestamp;
+  }
+
+  openUpload() {
+    this.dialog.open(DefaultModalComponent, {
+      disableClose: true,
+      width: '500px',
+      data: {
+        component: 2
+      }
+    }).afterClosed().subscribe((data: any) => {
+      console.log('USER FORMS', data);
+      this.file_upload_name = data.result;
+    });
   }
 }

@@ -1,140 +1,185 @@
-<mat-stepper orientation="vertical" class="padding-box mat-elevation-z4 mb-4" #stepper>
-    <mat-step [completed]="playerForm.valid">
-        <ng-template matStepLabel>Dados do Atleta</ng-template>
-        <ng-template matStepContent>
-            <form class="padding-form" [formGroup]="playerForm">
-                <div class="row">
-                    <div class="col-12 col-xl-7 col-lg-7 col-md-7 mb-2">
-                        <mat-form-field class="example-full-width reccos-input w-100 form" appearance="outline">
-                            <mat-label>Nome completo</mat-label>
-                            <input matInput formControlName="name" placeholder="Ex.: Assossiação de Amigos da BemAgro">
-                            <mat-error
-                                *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Este
-                                campo é obrigatório!</mat-error>
-                        </mat-form-field>
+<div class="row px-4 mx-md-0 mt-5 gap-4">
+    <div class="col-md-3">
+        <div class="card mat-elevation-z2">
+            <div class="card-body my-3">
+                <div class="account-settings">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img [src]="baseUrl + file_upload_name" alt="Player profile">
+                        </div>
+                        <h5 class="user-name"> {{ playerForm.value.name == '' ? "Nome" : playerForm.value.name }} </h5>
+                        <h6 class="user-email mb-2"> {{ playerForm.value.surname == '' ? "@Username" :
+                            '@'+playerForm.value.surname }} </h6>
+                        <h6 class="user-email" *ngIf="validationForm; else createUser"> {{ player_email }} </h6>
+                        <ng-template #createUser>
+                            <h6 class="user-email"> {{ playerForm.value.email == '' ? 'E-mail' : playerForm.value.email }} </h6>
+                        </ng-template>
                     </div>
-
-                    <div class="col-12 col-xl-5 col-lg-5 col-md-5 mb-2">
-                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                            <mat-label>Apelido</mat-label>
-                            <input formControlName="surname" matInput placeholder="Ex.: Leônidas" />
-                            <mat-error
-                                *ngIf="(r['surname']?.touched || r['surname']?.dirty) && r['surname']?.errors?.['required']">Este
-                                campo é obrigatório!</mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12 col-xl-6 col-lg-6 col-md-6">
-                        <mat-form-field appearance="outline" class="reccos-input w-100">
-                            <mat-label>Posição</mat-label>
-                            <mat-select formControlName="position">
-                                <mat-option class="text-uppercase" *ngFor="let position of player_positions"
-                                    [value]="position.name"> {{ position.name }} </mat-option>
-                            </mat-select>
-                            <mat-error
-                                *ngIf="(r['position']?.touched || r['position']?.dirty) && r['position']?.errors?.['required']">Este
-                                campo é obrigatório!</mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
-                        <mat-form-field appearance="outline" class="example-full-width reccos-input w-100">
-                            <mat-label>Data de nascimento</mat-label>
-                            <input matInput #dateStart [matDatepicker]="picker_one" formControlName="birth_date" />
-                            <mat-hint>DD/MM/YYYY</mat-hint>
-                            <mat-datepicker-toggle matSuffix [for]="picker_one"></mat-datepicker-toggle>
-                            <mat-datepicker #picker_one></mat-datepicker>
-                            <mat-error
-                                *ngIf="(r['birth_date']?.touched || r['birth_date']?.dirty) && r['birth_date']?.errors?.['required']">Este
-                                campo é obrigatório!</mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12 col-xl-12 col-lg-12 col-md-12 mb-2">
-                        <mat-form-field class="example-full-width reccos-input w-100 form" appearance="outline">
-                            <mat-label>E-mail</mat-label>
-                            <input matInput formControlName="email" placeholder="Ex.: Assossiação de Amigos da BemAgro">
-                            <mat-error
-                                *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['required']">Este
-                                campo é obrigatório!</mat-error>
-                            <mat-error
-                                *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['email']">Formato
-                                e-mail inválido.</mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12 col-xl-12 col-lg-12 col-md-12" *ngIf="validationForm">
-                        <mat-form-field appearance="outline" class="reccos-input w-100">
-                            <mat-label>Status</mat-label>
-                            <mat-select formControlName="status">
-                                <mat-option class="text-uppercase" *ngFor="let status of league_status"
-                                    [value]="status.name"> {{ status.name }} </mat-option>
-                            </mat-select>
-                            <mat-error
-                                *ngIf="(r['status']?.touched || r['status']?.dirty) && r['status']?.errors?.['required']">Este
-                                campo é obrigatório!</mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2" *ngIf="!validationForm">
-                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                            <mat-label>RG</mat-label>
-                            <input formControlName="rg" matInput placeholder="Ex.: 00.000.000-2" />
-                            <mat-error
-                                *ngIf="(r['rg']?.touched || r['rg']?.dirty) && r['rg']?.errors?.['required']">Este
-                                campo é obrigatório!</mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2" *ngIf="!validationForm">
-                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
-                            <mat-label>CPF</mat-label>
-                            <input formControlName="cpf" matInput placeholder="000.000.000-00" (blur)="nextStep()" />
-                            <mat-error
-                                *ngIf="(r['cpf']?.touched || r['cpf']?.dirty) && r['cpf']?.errors?.['required']">Este
-                                campo é obrigatório!</mat-error>
-                        </mat-form-field>
+                    <div class="about my-3">
+                        <button mat-stroked-button color="primary" (click)="openUpload()">Imagem perfil</button>
                     </div>
                 </div>
-            </form>
-        </ng-template>
-    </mat-step>
-    <!-- <mat-step>
-        <ng-template matStepLabel>Redes Sociais</ng-template>
-        <ng-template matStepContent>
-            <p>Redes sociais</p>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-        </ng-template>
-    </mat-step> -->
-    <mat-step>
-        <ng-template matStepLabel>Upload</ng-template>
-        <ng-template matStepContent>
-            <div class="my-5 d-flex flex-column">
-                <div>
-                    <section class="example-section" *ngIf="validationForm">
-                        <mat-checkbox class="example-margin" [(ngModel)]="changePhoto" color="primary">Deseja alterar a
-                            imagem?</mat-checkbox>
-                    </section>
-                    <app-form-upload *ngIf="changePhoto"></app-form-upload>
-                </div>
-            </div>
-        </ng-template>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Concluir Cadastro</ng-template>
-        <div class="alert alert-primary d-flex align-items-center w-100 mt-3" role="alert" style="font-size: 13px;">
-            <mat-icon class="me-3">info_outline</mat-icon>
-            <div>
-                <p class="m-0"> Etapa de preenchimento está completa!!</p>
-                <p class="m-0">Clique em <strong class="text-uppercase">concluir</strong> para finalizar a operação!
-                </p>
             </div>
         </div>
+    </div>
 
-        <div class="d-flex justify-content-end mt-3">
-            <button class="me-2" mat-stroked-button color="warn" [routerLink]="['/league']"> Cancelar </button>
-            <button mat-raised-button color="primary" [disabled]="playerForm.invalid" (click)="createObjToAPI()">Concluir</button>
+    <div class="col-md-8">
+        <div class="card h-100 mat-elevation-z2 card-body px-5 mb-3">
+            <p class="my-2 text-start text-reccos-3">
+                * Campos obrigatórios
+            </p>
+
+            <mat-stepper linear #stepper>
+                <mat-step [completed]="playerForm.valid">
+                    <ng-template matStepLabel>Dados do Atleta</ng-template>
+                    <ng-template matStepContent>
+                        <form class="padding-form" [formGroup]="playerForm">
+                            <div class="row">
+                                <div class="col-12 col-xl-7 col-lg-7 col-md-7 mb-2">
+                                    <mat-form-field class="example-full-width reccos-input w-100 form"
+                                        appearance="outline">
+                                        <mat-label>Nome completo</mat-label>
+                                        <input matInput formControlName="name"
+                                            placeholder="Ex.: Assossiação de Amigos da BemAgro">
+                                        <mat-error
+                                            *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12 col-xl-5 col-lg-5 col-md-5 mb-2">
+                                    <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                                        <mat-label>Apelido</mat-label>
+                                        <input formControlName="surname" matInput placeholder="Ex.: Leônidas" />
+                                        <mat-error
+                                            *ngIf="(r['surname']?.touched || r['surname']?.dirty) && r['surname']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12 col-xl-6 col-lg-6 col-md-6">
+                                    <mat-form-field appearance="outline" class="reccos-input w-100">
+                                        <mat-label>Posição</mat-label>
+                                        <mat-select formControlName="position">
+                                            <mat-option class="text-uppercase" *ngFor="let position of player_positions"
+                                                [value]="position.name"> {{ position.name }} </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="(r['position']?.touched || r['position']?.dirty) && r['position']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
+                                    <mat-form-field appearance="outline" class="example-full-width reccos-input w-100">
+                                        <mat-label>Data de nascimento</mat-label>
+                                        <input matInput #dateStart [matDatepicker]="picker_one"
+                                            formControlName="birth_date" />
+                                        <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
+                                        <mat-datepicker-toggle matSuffix [for]="picker_one"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker_one></mat-datepicker>
+                                        <mat-error
+                                            *ngIf="(r['birth_date']?.touched || r['birth_date']?.dirty) && r['birth_date']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12 col-xl col-lg col-md mb-2">
+                                    <mat-form-field class="example-full-width reccos-input w-100 form"
+                                        appearance="outline">
+                                        <mat-label>E-mail</mat-label>
+                                        <input matInput formControlName="email"
+                                            placeholder="Ex.: Assossiação de Amigos da BemAgro">
+                                        <mat-error
+                                            *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                        <mat-error
+                                            *ngIf="(r['email']?.touched || r['email']?.dirty) && r['email']?.errors?.['email']">Formato
+                                            e-mail inválido.</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12 col-xl col-lg col-md" *ngIf="validationForm">
+                                    <mat-form-field appearance="outline" class="reccos-input w-100">
+                                        <mat-label>Status</mat-label>
+                                        <mat-select formControlName="status">
+                                            <mat-option class="text-uppercase" *ngFor="let status of league_status"
+                                                [value]="status.name"> {{ status.name }} </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="(r['status']?.touched || r['status']?.dirty) && r['status']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12 col-xl col-lg col-md mb-2" *ngIf="!validationForm">
+                                    <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                                        <mat-label>RG</mat-label>
+                                        <input formControlName="rg" matInput mask="000.000.000-00" placeholder="Ex.: 00.000.000-2" />
+                                        <mat-error
+                                            *ngIf="(r['rg']?.touched || r['rg']?.dirty) && r['rg']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12 col-xl col-lg col-md mb-2" *ngIf="!validationForm">
+                                    <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                                        <mat-label>CPF</mat-label>
+                                        <input formControlName="cpf" matInput placeholder="000.000.000-00" mask="000.000.000-00"
+                                            (blur)="nextStep()" />
+                                        <mat-error
+                                            *ngIf="(r['cpf']?.touched || r['cpf']?.dirty) && r['cpf']?.errors?.['required']">Este
+                                            campo é obrigatório!</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </ng-template>
+                </mat-step>
+                <!-- <mat-step>
+                    <ng-template matStepLabel>Redes Sociais</ng-template>
+                    <ng-template matStepContent>
+                        <p>Redes sociais</p>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </ng-template>
+                </mat-step> -->
+                <mat-step>
+                    <ng-template matStepLabel>Upload</ng-template>
+                    <ng-template matStepContent>
+                        <div class="my-5 d-flex flex-column">
+                            <div>
+                                <section class="example-section" *ngIf="validationForm">
+                                    <mat-checkbox class="example-margin" [(ngModel)]="changePhoto"
+                                        color="primary">Deseja alterar a
+                                        imagem?</mat-checkbox>
+                                </section>
+                                <app-form-upload *ngIf="changePhoto"></app-form-upload>
+                            </div>
+                        </div>
+                    </ng-template>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Concluir Cadastro</ng-template>
+                    <div class="alert alert-primary d-flex align-items-center w-100 mt-3" role="alert"
+                        style="font-size: 13px;">
+                        <mat-icon class="me-3">info_outline</mat-icon>
+                        <div>
+                            <p class="m-0"> Etapa de preenchimento está completa!!</p>
+                            <p class="m-0">Clique em <strong class="text-uppercase">concluir</strong> para finalizar a
+                                operação!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <button class="me-2" mat-stroked-button color="warn" [routerLink]="['/player']"> Cancelar
+                        </button>
+                        <button mat-raised-button color="primary" [disabled]="playerForm.invalid"
+                            (click)="createObjToAPI()">Concluir</button>
+                    </div>
+                </mat-step>
+            </mat-stepper>
         </div>
-    </mat-step>
-</mat-stepper>
+    </div>
+</div>

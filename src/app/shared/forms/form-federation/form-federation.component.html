@@ -1,4 +1,4 @@
-<div class="box-container p-3">
+<!-- <div class="box-container p-3">
     <div class="title">Nova federação</div>
     <div class="content">
         <div class="row mt-4">
@@ -68,5 +68,98 @@
             matTooltip="Criar usuário" aria-label="Novo usuário">
             Salvar <mat-icon>send</mat-icon>
         </button>
+    </div>
+</div> -->
+
+<div class="row px-4 mx-md-0 mt-5 gap-4">
+    <div class="col-md-3">
+        <div class="card h-100 mat-elevation-z2">
+            <div class="card-body my-3">
+                <div class="account-settings">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img [src]="baseUrl + file_upload_name" alt="Federação">
+                        </div>
+                        <h5 class="user-name"> {{ reccosFormFederation.value.name == '' ? "Nome" :
+                            reccosFormFederation.value.name }} </h5>
+                        <h6 class="user-email" *ngIf="reccosFormFederation.value.email == ''; else nameUser"> Email
+                        </h6>
+                        <ng-template #nameUser>
+                            <h6 class="user-email"> {{ reccosFormFederation.value.surname == '' ? "Iniciais" :
+                                reccosFormFederation.value.surname }} </h6>
+                        </ng-template>
+                    </div>
+                    <div class="about my-3">
+                        <button mat-stroked-button color="primary" (click)="openUpload()">Imagem perfil</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card h-100 mat-elevation-z2 card-body px-5 mb-3">
+
+            <form [formGroup]="reccosFormFederation">
+                <div class="row">
+                    <p class="mb-4 mt-2 text-start text-reccos-3">
+                        * Campos obrigatórios
+                    </p>
+                    <div class="col-12">
+                        <mat-form-field class="example-full-width reccos-input w-100 form" appearance="outline">
+                            <mat-label>Nome completo</mat-label>
+                            <input matInput formControlName="name" placeholder="Ex.: Assossiação de Amigos da BemAgro">
+                            <mat-error
+                                *ngIf="(r['name']?.touched || r['name']?.dirty) && r['name']?.errors?.['required']">Este
+                                campo é obrigatório!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md">
+                        <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
+                            <mat-label>Sigla/Abreviação</mat-label>
+                            <input matInput formControlName="surname" placeholder="Ex.: Liga BemAgro">
+                            <mat-error
+                                *ngIf="(r['surname']?.touched || r['surname']?.dirty) && r['surname']?.errors?.['required']">Este
+                                campo é obrigatório!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md" *ngIf="validationForm">
+                        <mat-form-field appearance="outline" class="reccos-input w-100">
+                            <mat-label>Status</mat-label>
+                            <mat-select formControlName="status reccos-input">
+                                <mat-option class="text-uppercase" *ngFor="let status of list_status"
+                                    [value]="status.name">
+                                    {{
+                                    status.name }} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-12">
+                <form [formGroup]="reccosFormFederationUser">
+                    <mat-form-field appearance="outline" class="reccos-input w-100">
+                        <mat-label>Usuários</mat-label>
+                        <mat-select formControlName="user" class="text-uppercase">
+                            <mat-option class="text-uppercase" *ngFor="let user of users"
+                                [value]="user.id">{{user.surname}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+
+                <div class="col-12 mt-4 text-md-end text-center">
+                    <button mat-stroked-button color="accent" class="example-icon me-3" [routerLink]="['/federation']"
+                        matTooltip="Voltar" aria-label="voltar usuários">
+                        Voltar <mat-icon>keyboard_backspace</mat-icon>
+                    </button>
+                    <button mat-raised-button color="primary" class="example-icon ms-3"
+                        (click)="validationForm ? federationUpdate() : createFederation()"
+                        [disabled]="reccosFormFederation.invalid" matTooltip="Criar usuário" aria-label="Novo usuário">
+                        Salvar <mat-icon>send</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

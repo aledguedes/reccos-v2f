@@ -13,7 +13,7 @@ export class FormUploadComponent implements OnInit {
 
   @Input() validationRXJS: boolean = false;
 
-  file_name: string = 'file_name';
+  file_upload_name: string = 'file_upload_name';
 
   hideAndShowProgressBar: boolean = false;
 
@@ -34,7 +34,7 @@ export class FormUploadComponent implements OnInit {
 
   picturesUpload(event: any) {
     let objFile = { file: event.target.files[0] }
-    this.file_name = event.target.files[0].name;
-    this.rxjs.fileNameUpload(this.file_name);
+    this.file_upload_name = event.target.files[0].name;
+    this.rxjs.fileNameUpload(this.file_upload_name);
   }
 }

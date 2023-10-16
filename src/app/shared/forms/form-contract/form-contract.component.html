@@ -30,7 +30,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Início do contrato</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="dt_start" />
-                    <mat-hint>DD/MM/YYYY</mat-hint>
+                    <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -39,7 +39,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Fim do contrato</mat-label>
                     <input matInput #dateStart [matDatepicker]="picker_one" formControlName="dt_end" />
-                    <mat-hint>DD/MM/YYYY</mat-hint>
+                    <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
                     <mat-datepicker-toggle matSuffix [for]="picker_one"></mat-datepicker-toggle>
                     <mat-datepicker #picker_one></mat-datepicker>
                 </mat-form-field>
