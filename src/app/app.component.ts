@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { menus } from './utils/dashboad-menu';
 import { DataRxjsService } from './services/data-rxjs.service';
-import { FederationService } from './services/federation/federation.service';
 
 @Component({
   selector: 'app-root',
@@ -15,21 +14,11 @@ export class AppComponent implements OnInit {
 
   constructor(
     private rxjs: DataRxjsService,
-    private federationService: FederationService
   ) { }
   
   ngOnInit(): void {
     this.rxjs.toggleSidenav$.subscribe(evt => {
       this.sidenavOpen = evt;
-    });
-
-    this.federationService.federationById(1).subscribe({
-      next: (data) => {
-        localStorage.setItem('reccos-federation', JSON.stringify(data));
-      },
-      error: (err) => {
-        console.log('USER BY ID ERR', err);
-      }
     });
   }
 }

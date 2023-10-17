@@ -14,7 +14,7 @@
   </div>
   <div class="row" *ngIf="leagues.length > 0; else noLeagues">
     <div class="col-md-3" *ngFor="let league of leagues">
-      <mat-card class="p-3" [ngClass]="['status-' + league.cod_status]">
+      <mat-card class="p-3 mb-3" [ngClass]="['status-' + league.cod_status]">
         <div class="d-flex justify-content-between">
           <div mat-card-avatar class="profile-photo"
             [style.background-image]=" 'url(' + baseUrl  + '/' + league?.img_logo +')'"></div>
@@ -26,7 +26,7 @@
               </p>
             </ng-container>
             <ng-container>
-              <button mat-icon-button color="warn">
+              <button mat-icon-button color="warn" (click)="removeLeague(league.id)">
                 <mat-icon>delete_outline</mat-icon>
               </button>
               <button mat-icon-button color="primary" [routerLink]="[league.slug, league.id]">

@@ -59,6 +59,11 @@ export class FederationListComponent implements OnInit {
     });
   }
 
+  saveLocalStorage(data: Federation) {
+    localStorage.removeItem('reccos-federation');
+    localStorage.setItem('reccos-federation', JSON.stringify(data));
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

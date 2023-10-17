@@ -25,7 +25,7 @@ interface Roles {
 })
 export class FormUsersComponent implements OnInit {
 
-  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
+  // federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
 
   user: User;
 
@@ -121,7 +121,9 @@ export class FormUsersComponent implements OnInit {
 
   createObjToAPI() {
 
-    let obj = { ...this.reccosFormUser.value, img_perfil: this.file_upload_name, federation: +this.federation.id }
+    let id_federation = null;
+
+    let obj = { ...this.reccosFormUser.value, img_perfil: this.file_upload_name, federation: id_federation }
 
     if (this.validationForm) {
       obj.password = '123456';

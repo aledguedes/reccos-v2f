@@ -184,10 +184,11 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
       qt_group: +this.numberGroups,
       num_teams: this.numberTeamsLeague,
       ...this.leagueConfig.value,
+      scoreName: 'W3D1L0'
     }
 
-    obj.dt_end = this.formatDate(obj.dt_end);
-    obj.dt_start = this.formatDate(obj.dt_start);
+    // obj.dt_end = this.formatDate(obj.dt_end);
+    // obj.dt_start = this.formatDate(obj.dt_start);
 
     if (this.validationForm) {
       let changeDateEnd = this.compareDates(this.dt_end_DB, obj.dt_end);

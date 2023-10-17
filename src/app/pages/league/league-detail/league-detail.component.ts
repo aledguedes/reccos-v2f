@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Federation } from 'src/app/models/FederationModel';
 import { Group } from 'src/app/models/GroupTeam';
 import { League } from 'src/app/models/LeagueModel';
 import { Team } from 'src/app/models/TeamModel';
@@ -17,18 +18,20 @@ import { environment } from 'src/environments/environment';
 })
 export class LeagueDetailComponent implements OnInit {
 
-  league: League;
-  teamsSelectedsLeague: any[] = [];
+  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
+
   teams: Team[] = [];
+  teamForGroup: Team[] = [];
+  teamsSelectedsLeague: any[] = [];
+
+  league: League;
 
   formEditGroup!: FormGroup;
 
   urlLogo: string = '';
   id_league: string = '';
-  id_federation: string = '1';
 
   editGrouEnable: boolean = false;
-  teamForGroup: Team[] = [];
 
   baseUrl = environment.storage_url;
 
@@ -50,7 +53,7 @@ export class LeagueDetailComponent implements OnInit {
     this.id_league = this.actvRouter.snapshot.params['id_league'];
     this.initForms();
     this.leagueById(+this.id_league);
-    this.teamByFederation(+this.id_federation);
+    this.teamByFederation(+this.federation.id);
   }
 
   initForms() {
@@ -124,7 +127,7 @@ export class LeagueDetailComponent implements OnInit {
       width: '650px',
       data: {
         component: 1,
-        id_federation: +this.id_federation,
+        id_federation: +this.federation.id,
         teams: this.teams
       }
     }).afterClosed().subscribe((data: any) => {

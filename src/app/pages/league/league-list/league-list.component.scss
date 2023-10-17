@@ -77,3 +77,16 @@ $color in $statusColors {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
+
+.grid {
+  display: grid;
+  gap: 5px;
+}
+
+.grid-template-columns-4 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-template-columns {
+  grid-template-columns: repeat(auto-fit, 100px);
+}

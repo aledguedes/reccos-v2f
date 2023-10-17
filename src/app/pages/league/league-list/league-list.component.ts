@@ -40,7 +40,7 @@ export class LeagueListComponent implements OnInit {
           l["slug"] = this.slug(l.name);
         });
         this.leagues = data.leagues;
-        console.log('FEDERAÇÃO POR ID:', this.leagues);
+        console.log('FEDERAÇÃO POR ID:', data);
       },
       error: (err) => {
         console.log('FEDERAÇÃO POR ID ERROR:', err);
@@ -48,7 +48,7 @@ export class LeagueListComponent implements OnInit {
     });
   }
 
-  removeLeague(id_league: any) {
+  removeLeague(id_league: number) {
     this.leagueService.removeLeague(id_league).subscribe({
       next: (data) => {
         this.listFederationById();
