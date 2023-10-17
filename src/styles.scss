@@ -7,6 +7,10 @@
 @import 'assets/styles/forms';
 @import 'assets/styles/snackbar';
 
+body {
+  background-color: #fafafa;
+}
+
 @media screen and (max-width: 992px) {
     .padding-box {
         padding: 2rem;

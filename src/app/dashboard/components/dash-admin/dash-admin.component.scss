@@ -1,0 +1,77 @@
+a {
+    text-decoration: none;
+}
+
+
+.card-dash {
+    height: 150px;
+    padding: .5rem 1.5rem;
+    border-radius: .5rem;
+    transition: .3s;
+}
+
+.card-1 {
+    background-color: #004ca91e;
+    // opacity: .2;
+}
+
+.card-2 {
+    background-color: #FBEBE4;
+}
+
+.card-3 {
+    background-color: #f5f2fd;
+}
+
+.card-dash:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
+}
+
+// tables
+table {
+    padding: 10px;
+    width: 100%;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr {
+    text-align: center;
+}
+
+.title {
+    padding: 15px 10px;
+    border-bottom: 2px solid #999;
+}
+
+.card-progress small {
+    color: #777;
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.profile-photo {
+    width: 50px;
+    height: 50px;
+    // background-color: #E6E6E6;
+    // border-radius: 50%;
+    margin: 0 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.reccos-settings-button {
+    height: 150px;
+    width: 100%;
+}
+
+.reccos-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

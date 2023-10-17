@@ -62,6 +62,8 @@ import { DefaultModalComponent } from '../components/default-modal/default-modal
 import { GeneralInfosComponent } from '../components/general-infos/general-infos.component';
 import { ChangeTeamsComponent } from '../components/change-teams/change-teams.component';
 import { ChangeUserImageComponent } from '../components/change-user-image/change-user-image.component';
+import { SidenavComponent } from '../components/sidenav/sidenav.component';
+import { HeaderComponent } from '../components/header/header.component';
 
 const modules = [
   A11yModule,
@@ -116,6 +118,8 @@ const modules = [
 
 @NgModule({
   declarations: [
+    HeaderComponent,
+    SidenavComponent,
     MenuDirective,
     FormUsersComponent,
     FormFederationComponent,
@@ -158,6 +162,8 @@ const modules = [
     GeneralInfosComponent,
     ChangeTeamsComponent,
     ChangeUserImageComponent,
+    HeaderComponent,
+    SidenavComponent,
     ...modules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
