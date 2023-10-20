@@ -7,6 +7,9 @@ import { generalStatus } from 'src/app/utils/system-league';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { RefreeService } from 'src/app/services/refree/refree.service';
 import { Refree } from 'src/app/models/RefreeModel';
+import { environment } from 'src/environments/environment';
+import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form-refree',
@@ -20,8 +23,13 @@ export class FormRefreeComponent implements OnInit {
 
   @ViewChild('stepper') stepper!: MatStepper;
 
+  baseUrl = environment.storage_url;
+
   refreeForm!: FormGroup;
   dateSaveBD: string = '';
+
+  limitDate: Date;
+
   file_upload_name: string = 'refree/default.png';
 
   league_status = generalStatus;
@@ -31,6 +39,7 @@ export class FormRefreeComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private rxjs: DataRxjsService,
     private snack: SnackbarService,
     private refreeService: RefreeService,
@@ -50,6 +59,16 @@ export class FormRefreeComponent implements OnInit {
       this.refreeById(+this.id_refree);
       this.changePhoto = false;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.limitDate = this.limitDatePicker(new Date());
+  }
+
+  limitDatePicker(receivedDate: any, valueCount: number = 0) {
+    const tomorrow = new Date(receivedDate);
+    tomorrow.setDate(receivedDate.getDate() + valueCount);
+    return tomorrow;
   }
 
   initForm() {
@@ -160,6 +179,19 @@ export class FormRefreeComponent implements OnInit {
     setTimeout(() => {
       this.stepper.next();
     }, 0);
+  }
+
+  openUpload() {
+    this.dialog.open(DefaultModalComponent, {
+      disableClose: true,
+      width: '500px',
+      data: {
+        component: 2
+      }
+    }).afterClosed().subscribe((data: any) => {
+      console.log('USER FORMS', data);
+      this.file_upload_name = data.result;
+    });
   }
 
 }

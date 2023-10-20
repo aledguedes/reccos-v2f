@@ -47,6 +47,8 @@ export class FormUsersComponent implements OnInit {
 
   dt_birth_date: string = '';
   imgPerfilDefault: string = 'https://bootdey.com/img/Content/avatar/avatar7.png';
+
+  today: Date;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -58,6 +60,7 @@ export class FormUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.initFormGroupUser();
+    this.today = new Date();
 
     this.rxjs.uploadFileName$.subscribe(fileName => {
       if (fileName) {

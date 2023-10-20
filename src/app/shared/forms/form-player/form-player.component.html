@@ -12,7 +12,8 @@
                             '@'+playerForm.value.surname }} </h6>
                         <h6 class="user-email" *ngIf="validationForm; else createUser"> {{ player_email }} </h6>
                         <ng-template #createUser>
-                            <h6 class="user-email"> {{ playerForm.value.email == '' ? 'E-mail' : playerForm.value.email }} </h6>
+                            <h6 class="user-email"> {{ playerForm.value.email == '' ? 'E-mail' : playerForm.value.email
+                                }} </h6>
                         </ng-template>
                     </div>
                     <div class="about my-3">
@@ -73,17 +74,19 @@
                                 <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
                                     <mat-form-field appearance="outline" class="example-full-width reccos-input w-100">
                                         <mat-label>Data de nascimento</mat-label>
-                                        <input matInput #dateStart [matDatepicker]="picker_one"
+                                        <input formControlName="birth_date" matInput placeholder="Ex.: dd/MM/aaaa"
+                                            mask="d0/M0/0000" />
+                                        <!-- <input matInput #dateStart [matDatepicker]="picker_one" [max]="today" [max]="today"
                                             formControlName="birth_date" />
-                                        <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
                                         <mat-datepicker-toggle matSuffix [for]="picker_one"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker_one></mat-datepicker>
+                                        <mat-datepicker #picker_one></mat-datepicker> -->
                                         <mat-error
                                             *ngIf="(r['birth_date']?.touched || r['birth_date']?.dirty) && r['birth_date']?.errors?.['required']">Este
                                             campo é obrigatório!</mat-error>
+                                        <mat-error *ngIf="r['birth_date']?.hasError('futureDate')">A data
+                                            não pode ser futura</mat-error>
                                     </mat-form-field>
                                 </div>
-
                                 <div class="col-12 col-xl col-lg col-md mb-2">
                                     <mat-form-field class="example-full-width reccos-input w-100 form"
                                         appearance="outline">
@@ -115,7 +118,8 @@
                                 <div class="col-12 col-xl col-lg col-md mb-2" *ngIf="!validationForm">
                                     <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                                         <mat-label>RG</mat-label>
-                                        <input formControlName="rg" matInput mask="000.000.000-00" placeholder="Ex.: 00.000.000-2" />
+                                        <input formControlName="rg" matInput mask="00.000.000-0"
+                                            placeholder="Ex.: 00.000.000-2" />
                                         <mat-error
                                             *ngIf="(r['rg']?.touched || r['rg']?.dirty) && r['rg']?.errors?.['required']">Este
                                             campo é obrigatório!</mat-error>
@@ -125,8 +129,8 @@
                                 <div class="col-12 col-xl col-lg col-md mb-2" *ngIf="!validationForm">
                                     <mat-form-field class="example-full-width reccos-input w-100" appearance="outline">
                                         <mat-label>CPF</mat-label>
-                                        <input formControlName="cpf" matInput placeholder="000.000.000-00" mask="000.000.000-00"
-                                            (blur)="nextStep()" />
+                                        <input formControlName="cpf" matInput placeholder="000.000.000-00"
+                                            mask="000.000.000-00" (blur)="nextStep()" />
                                         <mat-error
                                             *ngIf="(r['cpf']?.touched || r['cpf']?.dirty) && r['cpf']?.errors?.['required']">Este
                                             campo é obrigatório!</mat-error>

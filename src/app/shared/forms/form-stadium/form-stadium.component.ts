@@ -12,6 +12,7 @@ import { Stadium } from 'src/app/models/StadiumModel';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Federation } from 'src/app/models/FederationModel';
 
 @Component({
   selector: 'app-form-stadium',
@@ -19,6 +20,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./form-stadium.component.scss']
 })
 export class FormStadiumComponent implements OnInit {
+
+  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
 
   @Input() public id_stadium: string = '';
   @Input() public validationForm: Boolean = false;
@@ -34,7 +37,6 @@ export class FormStadiumComponent implements OnInit {
 
   teams_by_federation: Team[] = [];
 
-  id_federation: string = '1';
   file_upload_name: string = 'stadium/default.jpg';
 
   constructor(
@@ -102,8 +104,10 @@ export class FormStadiumComponent implements OnInit {
     let obj = {
       ...this.reccosFormStadium.value,
       picture_profile: this.file_upload_name,
-      idd_fed: +this.id_federation
+      idd_fed: +this.federation.id
     };
+
+    this.validationForm ? this.updateStadium(obj) : this.createStadium(obj);
   }
 
   updateStadium(obj: Stadium) {
@@ -131,7 +135,7 @@ export class FormStadiumComponent implements OnInit {
       },
       error: (err) => {
         console.log('CREATE STADIUM ERR:', err);
-        this.snack.snack(`Erro ao tentar criar o estádio/liga!`, 'snack-error');
+        this.snack.snack(err.error.message, 'snack-error');
       }
     });
   }

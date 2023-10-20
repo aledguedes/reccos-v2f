@@ -21,8 +21,6 @@ export class FormFederationComponent implements OnInit {
   @Input() public idFederation: string = '';
   @Input() public validationForm: Boolean = false;
 
-  updateFederation: Boolean = false;
-
   reccosFormFederation!: FormGroup;
   reccosFormFederationUser!: FormGroup;
 
@@ -49,6 +47,12 @@ export class FormFederationComponent implements OnInit {
     this.listUser();
 
     /* RXJS */
+    this.rxjs.uploadFileName$.subscribe(fileName => {
+      if (fileName) {
+        this.file_upload_name = 'league/' + fileName;
+      }
+    });
+
     this.rxjs.federations$.subscribe(data => {
       if (data && this.validationForm) {
         this.updateDataFederation(data);
@@ -64,8 +68,7 @@ export class FormFederationComponent implements OnInit {
     this.reccosFormFederation = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
-      status: this.updateFederation ? ['', [Validators.required]] : [true],
-      img_logo: ['']
+      status: this.validationForm ? ['', [Validators.required]] : ['ATIVO']
     });
 
     this.reccosFormFederationUser = this.fb.group({
@@ -85,15 +88,16 @@ export class FormFederationComponent implements OnInit {
     });
   }
 
-  createFederation() {
-    let user_id = +this.reccosFormFederationUser.value.user;
-    this.reccosFormFederation.patchValue({
-      img_logo: 'federations/logo_01.png'
-    });
+  createObjToAPi() {
 
-    let obj = this.reccosFormFederation.value;
-    console.log('FEDERATION CREATE', obj);
-    // return;
+    let user_id = +this.reccosFormFederationUser.value.user;
+    let obj = { ...this.reccosFormFederation.value, img_logo: this.file_upload_name };
+
+    this.validationForm ? this.updateFederation(obj) : this.createFederation(user_id, obj);
+  }
+
+  createFederation(user_id: number, obj: Federation) {
+
     this.federationService.createFederation(user_id, obj).subscribe({
       next: (data) => {
         console.log(`Federação ${this.reccosFormFederation.value.surname}, criada com sucesso`);
@@ -105,11 +109,8 @@ export class FormFederationComponent implements OnInit {
     });
   }
 
-  federationUpdate() {
-    let obj = this.reccosFormFederation.value;
+  updateFederation(obj: Federation) {
 
-    console.log('UPDATE FEDERATION OBJ:', obj);
-    // return;
     this.federationService.updateFederation(+this.idFederation, obj).subscribe({
       next: (data) => {
         console.log(`Federação ${this.reccosFormFederation.value.surname}, atualizada com sucesso`);

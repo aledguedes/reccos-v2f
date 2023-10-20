@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GeneralInfosComponent } from '../../components/general-infos/general-infos.component';
 import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
 import { Federation } from 'src/app/models/FederationModel';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-form-league',
@@ -59,6 +60,9 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   numberGroups: number = 1;
   numberTeamsLeague: number = 0;
 
+  limitDate: Date;
+  limitDateByInit: Date;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -85,6 +89,13 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.limitDate = this.limitDatePicker(new Date(), 1);
+  }
+
+  limitDatePicker(receivedDate: any, valueCount: number = 0) {
+    const tomorrow = new Date(receivedDate);
+    tomorrow.setDate(receivedDate.getDate() + valueCount);
+    return tomorrow;
   }
 
   systemSelected(flag: string, idx: number) {
@@ -374,6 +385,10 @@ export class FormLeagueComponent implements OnInit, AfterViewInit {
       console.log('USER FORMS', data);
       this.file_upload_name = data.result;
     });
+  }
+
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    this.limitDateByInit = this.limitDatePicker(event);
   }
 
 }

@@ -27,25 +27,26 @@
                 </mat-form-field>
             </div>
             <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="reccos-input w-100">
                     <mat-label>Início do contrato</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dt_start" />
+                    <input matInput [matDatepicker]="picker" formControlName="dt_start" [min]="limitDate" 
+                    (dateChange)="addEvent($event.value)" />
                     <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
             <div class="col-12 col-xl-6 col-lg-6 col-md-6 mb-2">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="reccos-input w-100">
                     <mat-label>Fim do contrato</mat-label>
-                    <input matInput #dateStart [matDatepicker]="picker_one" formControlName="dt_end" />
+                    <input matInput #dateStart [matDatepicker]="picker_one" formControlName="dt_end"  [min]="limitDateByInit" />
                     <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
                     <mat-datepicker-toggle matSuffix [for]="picker_one"></mat-datepicker-toggle>
                     <mat-datepicker #picker_one></mat-datepicker>
                 </mat-form-field>
             </div>
             <div class="col-12 col-xl-12 col-lg-12 col-md-12" *ngIf="validationForm">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="reccos-input w-100">
                     <mat-label>Status</mat-label>
                     <mat-select formControlName="status">
                         <mat-option class="text-uppercase" *ngFor="let status of league_status" [value]="status.name">

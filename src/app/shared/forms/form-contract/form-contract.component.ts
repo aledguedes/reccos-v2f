@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { Contract } from 'src/app/models/ContractModel';
@@ -11,13 +11,14 @@ import { generalStatus } from 'src/app/utils/system-league';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../../service/snackbar/snackbar.service';
 import { Router } from '@angular/router';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-form-contract',
   templateUrl: './form-contract.component.html',
   styleUrls: ['./form-contract.component.scss']
 })
-export class FormContractComponent implements OnInit {
+export class FormContractComponent implements OnInit, AfterViewInit {
 
   @Input() public id_contract: string = '';
   @Input() public validationForm: Boolean = false;
@@ -37,6 +38,9 @@ export class FormContractComponent implements OnInit {
   league_status = generalStatus;
   junpInitial: boolean = false;
 
+  limitDate: Date;
+  limitDateByInit: Date;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -55,6 +59,10 @@ export class FormContractComponent implements OnInit {
     if (this.validationForm) {
       this.contractById(+this.id_contract);
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.limitDate = this.limitDatePicker(new Date);
   }
 
   initForm() {
@@ -209,6 +217,16 @@ export class FormContractComponent implements OnInit {
     console.log('Date', date);
     var formattedTimestamp = date.toISOString().slice(0, 16);
     return formattedTimestamp;
+  }
+
+  limitDatePicker(receivedDate: any, valueCount: number = 0) {
+    const tomorrow = new Date(receivedDate);
+    tomorrow.setDate(receivedDate.getDate() + valueCount);
+    return tomorrow;
+  }
+
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    this.limitDateByInit = this.limitDatePicker(event);
   }
 
 }

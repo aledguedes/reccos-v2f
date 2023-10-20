@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Player } from 'src/app/models/PlayerModel';
 import { DataRxjsService } from 'src/app/services/data-rxjs.service';
 import { PlayerService } from 'src/app/services/player/player.service';
@@ -11,13 +11,16 @@ import { positions } from 'src/app/utils/playerPositions';
 import { environment } from 'src/environments/environment';
 import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Federation } from 'src/app/models/FederationModel';
 
 @Component({
   selector: 'app-form-player',
   templateUrl: './form-player.component.html',
   styleUrls: ['./form-player.component.scss']
 })
-export class FormPlayerComponent implements OnInit {
+export class FormPlayerComponent implements OnInit, AfterViewInit {
+
+  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
 
   @Input() id_player: string = '';
   @Input() validationForm: boolean = false;
@@ -36,6 +39,9 @@ export class FormPlayerComponent implements OnInit {
   player_positions = positions;
 
   changePhoto: boolean = true;
+  dateInTheFuture: boolean = true;
+
+  today: Date;
 
   constructor(
     private router: Router,
@@ -62,6 +68,10 @@ export class FormPlayerComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    this.today = new Date();
+  }
+
   initForm() {
     this.playerForm = this.fb.group({
       name: ['', Validators.required],
@@ -69,8 +79,8 @@ export class FormPlayerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       rg: ['', Validators.required],
       cpf: ['', Validators.required],
-      birth_date: ['', Validators.required],
-      status: !this.validationForm ? ['Ativo'] : [''],
+      birth_date: ['', [Validators.required, this.valueValidator]],
+      status: !this.validationForm ? ['ATIVO'] : [''],
       suspended: !this.validationForm ? [false] : [''],
       position: ['', Validators.required],
     });
@@ -94,17 +104,21 @@ export class FormPlayerComponent implements OnInit {
   }
 
   updateInfosPlayerId(player: Player) {
+    console.log('UPDATE PLAYER', player);
     this.playerForm.patchValue({
       name: player.name,
       email: player.email,
-      rg: player.rg,
-      cpf: player.cpf,
+      rg: '000.000.000-00',
+      cpf: '00.000.000-0',
       surname: player.surname,
       position: player.position.toUpperCase(),
       status: player.status.toUpperCase(),
       birth_date: player.birth_date,
       suspended: player.suspended,
     });
+
+    console.log('UPDATE PLAYER', this.playerForm.value);
+
     if (this.validationForm) {
       this.playerForm.controls['rg'].setValidators([Validators.nullValidator]);
       this.playerForm.controls['cpf'].setValidators([Validators.nullValidator]);
@@ -117,13 +131,18 @@ export class FormPlayerComponent implements OnInit {
     let obj = {
       ...this.playerForm.value,
       picture_profile: this.file_upload_name,
+      idd_fed: +this.federation.id
     }
     if (this.validationForm) {
       let changeDate = this.compareDates(this.dateSaveBD, obj.birth_date);
       if (changeDate) {
         obj.birth_date = this.formatDate(obj.birth_date);
       }
+    } else {
+      obj.birth_date = this.formatDate(obj.birth_date);
     }
+    console.log('CREATE OBJ TO API', obj);
+    return;
     this.validationForm ? this.upldatePlayer(obj) : this.createPlayer(obj);
   }
 
@@ -177,9 +196,27 @@ export class FormPlayerComponent implements OnInit {
   }
 
 
-  formatDate(date: Date) {
-    var formattedTimestamp = date.toISOString().slice(0, 16);
-    return formattedTimestamp;
+  formatDate(date: string) {
+
+    let d = !this.validationForm ? this.ajustDate(date).split("/") : date;
+
+    var formattedTimestamp = new Date(d[2] + '/' + d[1] + '/' + d[0]);
+
+    console.log('CONVERT DATE:', formattedTimestamp, date);
+    var data = !this.validationForm ? new Date(formattedTimestamp).toISOString().slice(0, 16) : new Date(formattedTimestamp);
+    return data;
+  }
+
+  ajustDate(dataString: string) {
+    const dia = dataString.substring(0, 2);
+    const mes = dataString.substring(2, 4);
+    const ano = dataString.substring(4, 8);
+    return `${dia}/${mes}/${ano}`;
+  }
+
+  valueValidator(control: AbstractControl): ValidationErrors | null {
+    const valor = new Date(control.value);
+    return valor > new Date() ? { futureDate: true } : null;
   }
 
   nextStep() {

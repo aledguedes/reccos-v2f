@@ -12,6 +12,7 @@ import { StadiumService } from 'src/app/services/stadium/stadium.service';
 import { environment } from 'src/environments/environment';
 import { DefaultModalComponent } from '../../components/default-modal/default-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Federation } from 'src/app/models/FederationModel';
 
 @Component({
   selector: 'app-form-team',
@@ -35,6 +36,8 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   //   this.getScreenHeight = window.innerHeight;
   // }
 
+  federation: Federation = JSON.parse(`${localStorage.getItem('reccos-federation') || []}`);
+
   @Input() id_team: string = '';
   @Input() validationForm: boolean = false;
 
@@ -54,14 +57,14 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   linkStadium: boolean = false;
 
   dateSaveBD: string = '';
-  id_federation: string = '1';
   file_upload_name: string = 'team/default.png';
 
   baseUrl = environment.storage_url;
 
   stadium_by_federaion: Stadium[] = [];
 
-  orientationStepper: string = 'vertical';
+  today: Date;
+
   isVertical: boolean = false;
 
   constructor(
@@ -77,7 +80,7 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initForm();
     this.stadiumByFederation();
-    // this.VerticalOrHorizontalStepper();
+    this.today = new Date();
 
     this.getScreenWidth = window.innerWidth;
     this.getScreenHeight = window.innerHeight;
@@ -93,14 +96,6 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
       this.teamById(+this.id_team);
       this.changePhoto = false;
     }
-
-    // this.formStadium.statusChanges.subscribe(newStaus => {
-    //   console.log(newStaus);
-    // });
-
-    // this.formStadium.controls['id_stadium'].valueChanges.subscribe((data: string) => {
-    //   console.log('formStadium: ', data);
-    // });
   }
 
   initForm() {
@@ -141,7 +136,7 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
   }
 
   stadiumByFederation() {
-    this.stadiumService.stadiumByFederation(+this.id_federation).subscribe({
+    this.stadiumService.stadiumByFederation(+this.federation.id).subscribe({
       next: (data) => {
         console.log('STADIUM BY FEDERATION:', data);
         this.stadium_by_federaion = data;
@@ -195,7 +190,7 @@ export class FormTeamComponent implements OnInit, AfterViewInit {
       ...this.formTeam.value,
       stadium_id: +this.formStadium.value.id_stadium,
       picture_profile: this.file_upload_name,
-      registered_federation: +this.id_federation
+      registered_federation: +this.federation.id
     }
     if (this.validationForm) {
       let changeDate = this.compareDates(this.dateSaveBD, obj.birth_date);
