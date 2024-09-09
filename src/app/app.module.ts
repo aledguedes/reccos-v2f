@@ -5,16 +5,12 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material/material.module';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { SidenavComponent } from './shared/components/sidenav/sidenav.component';
 import { HighlightDirective } from './shared/directives/highlight.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    SidenavComponent,
     HighlightDirective,
   ],
   imports: [
